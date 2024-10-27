@@ -9,4 +9,4 @@ jobs:
         with:
           pixi-version: v0.33.0
           cache: true
-      - run: pixi run all
+      - run: ls && pixi run all
