@@ -5,14 +5,15 @@ jobs:
   Make-Leaderboard:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: make the leaderboard
         env:
           INVESTOPEDIA_EMAIL: ${{ secrets.INVESTOPEDIA_EMAIL }}
           INVESTOPEDIA_PASSWORD: ${{ secrets.INVESTOPEDIA_PASSWORD }}
           INVESTOPEDIA_NUM_LEADERBOARDS: ${{ secrets.INVESTOPEDIA_NUM_LEADERBOARDS }}
           INVESTOPEDIA_USER_ID: ${{ secrets.INVESTOPEDIA_USER_ID }}
-      - uses: actions/checkout@v4
       - run: ls -la && echo $PWD
+      
       - uses: prefix-dev/setup-pixi@v0.8.0
         with:
           pixi-version: v0.34.0
