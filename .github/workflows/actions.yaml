@@ -11,6 +11,7 @@ jobs:
         with:
           pixi-version: v0.34.0
           cache: true
+        env:
           INVESTOPEDIA_EMAIL: ${{ secrets.INVESTOPEDIA_EMAIL }}
           INVESTOPEDIA_PASSWORD: ${{ secrets.INVESTOPEDIA_PASSWORD }}
           INVESTOPEDIA_NUM_LEADERBOARDS: ${{ secrets.INVESTOPEDIA_NUM_LEADERBOARDS }}
