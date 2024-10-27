@@ -1,9 +1,13 @@
 from bs4 import BeautifulSoup
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 final_hrefs = []
-for i in range(1,4):
+for i in range(1, int(os.environ.get("INVESTOPEDIA_NUM_LEADERBOARDS")) + 1):
   # Replace "your_html_file.html" with the actual path to your file
-  with open(f"leaderboard{i}.html", "r") as f:
+  with open(f"./backend/profile-leaderboards/leaderboard{i}.html", "r") as f: # Assuming 
     html_content = f.read()
 
   soup = BeautifulSoup(html_content, "html.parser")
@@ -25,7 +29,7 @@ for i in range(1,4):
   final_hrefs.extend(desired_hrefs)
 
 #remove nonunique hrefs
-final_hrefs = list(set(final_hrefs))
+final_hrefs = list(dict.fromkeys(final_hrefs)) # sort but maintain order: https://stackoverflow.com/a/7961390
 
-with open("portfolios.txt", "w") as output:
+with open("./backend/portfolios/portfolios.txt", "w") as output:
   output.write("\n".join(final_hrefs))
