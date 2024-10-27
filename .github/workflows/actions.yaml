@@ -3,9 +3,10 @@ run-name: Leaderboard Update
 on: [push]
 jobs:
   Make-Leaderboard:
-  steps:
-    - uses: prefix-dev/setup-pixi@v0.8.1
-      with:
-        pixi-version: v0.33.0
-        cache: true
-    - run: pixi run all
+    runs-on: ubuntu-latest
+    steps:
+      - uses: prefix-dev/setup-pixi@v0.8.1
+        with:
+          pixi-version: v0.33.0
+          cache: true
+      - run: pixi run all
