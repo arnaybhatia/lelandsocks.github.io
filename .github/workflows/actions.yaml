@@ -6,8 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Step 1 - Show some basic logging information
-      - uses: actions/checkout@v4
-      - run: ls -la && echo $PWD
+        uses: actions/checkout@v4
+        run: ls -la && echo $PWD
 
       - name: Step 2 - Make the leaderboard
         env:
@@ -15,8 +15,8 @@ jobs:
           INVESTOPEDIA_PASSWORD: ${{ secrets.INVESTOPEDIA_PASSWORD }}
           INVESTOPEDIA_NUM_LEADERBOARDS: ${{ secrets.INVESTOPEDIA_NUM_LEADERBOARDS }}
           INVESTOPEDIA_USER_ID: ${{ secrets.INVESTOPEDIA_USER_ID }}
-      - uses: prefix-dev/setup-pixi@v0.8.0
+        uses: prefix-dev/setup-pixi@v0.8.0
         with:
           pixi-version: v0.34.0
           cache: true
-      - run: echo the email is $INVESTOPEDIA_EMAIL && INVESTOPEDIA_EMAIL=$INVESTOPEDIA_EMAIL INVESTOPEDIA_PASSWORD=$INVESTOPEDIA_PASSWORD INVESTOPEDIA_USER_ID=$INVESTOPEDIA_USER_ID pixi run all
+        run: echo the email is $INVESTOPEDIA_EMAIL && INVESTOPEDIA_EMAIL=$INVESTOPEDIA_EMAIL INVESTOPEDIA_PASSWORD=$INVESTOPEDIA_PASSWORD INVESTOPEDIA_USER_ID=$INVESTOPEDIA_USER_ID pixi run all
