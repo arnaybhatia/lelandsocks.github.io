@@ -5,4 +5,4 @@ jobs:
   Make-Leaderboard:
     runs-on: ubuntu-latest
     steps:
-      - run: ls && pixi run all
+      - run: ls && eco $PWD
