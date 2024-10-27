@@ -5,8 +5,4 @@ jobs:
   Make-Leaderboard:
     runs-on: ubuntu-latest
     steps:
-      # - uses: prefix-dev/setup-pixi@v0.8.1
-        with:
-          pixi-version: v0.33.0
-          cache: false
       - run: ls && pixi run all
