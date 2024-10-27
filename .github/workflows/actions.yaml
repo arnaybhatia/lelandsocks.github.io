@@ -5,11 +5,11 @@ jobs:
   Make-Leaderboard:
     runs-on: ubuntu-latest
     steps:
-      - name: Step 1: Show some basic logging information
+      - name: Step 1 - Show some basic logging information
       - uses: actions/checkout@v4
       - run: ls -la && echo $PWD
 
-      - name: Step 2: Make the leaderboard
+      - name: Step 2 - Make the leaderboard
         env:
           INVESTOPEDIA_EMAIL: ${{ secrets.INVESTOPEDIA_EMAIL }}
           INVESTOPEDIA_PASSWORD: ${{ secrets.INVESTOPEDIA_PASSWORD }}
