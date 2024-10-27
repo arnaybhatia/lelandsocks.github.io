@@ -5,4 +5,4 @@ jobs:
   Make-Leaderboard:
     runs-on: ubuntu-latest
     steps:
-      - run: ls && echo $PWD
+      - run: ls -la && echo $PWD
