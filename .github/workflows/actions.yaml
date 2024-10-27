@@ -5,5 +5,5 @@ jobs:
   Make-Leaderboard:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout
+      - uses: actions/checkout@v4
       - run: ls -la && echo $PWD
