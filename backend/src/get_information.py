@@ -42,6 +42,7 @@ def get_user_account_information():
     account_value = driver.find_element(By.XPATH, '//div[contains(text(), "Account Value")]/following-sibling::div').text
     account_value = float(account_value.replace("$", "").replace(",",""))
     account_name = driver.find_element(By.XPATH, '//*[@data-cy="account-value-text"]').text.replace(" Portfolio", "") # just getting the account name
+    print(f"https://www.investopedia.com/simulator/games/user-portfolio?portfolio={INVESTOPEDIA_USER_ID}", account_value, account_name)
     return account_name, account_value, f"https://www.investopedia.com/simulator/games/user-portfolio?portfolio={INVESTOPEDIA_USER_ID}"
 
 def get_account_information():
@@ -85,7 +86,7 @@ get_leaderboard_page()
 account_values = get_account_information() # List of the values of the users
 
 a,b,c = get_user_account_information() # Get the value of the person who is running this service (me) :)
-account_values[a] =[b, c] # add the information to the dictionary
+account_values |= {a: [b, c]} # add the information to the dictionary
 print(account_values[a], account_values)
 # Now sort the dictionary to make the leaderboard
 # account_values = dict(sorted(account_values.items()[0]))
