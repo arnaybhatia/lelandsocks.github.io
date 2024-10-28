@@ -18,9 +18,22 @@ if __name__ == "__main__":
         df["Ranking"] = range(1, 1 + len(df))
         df = df[["Ranking", "Account Name", "Money In Account", "Investopedia Link"]]
 
+        # Get Statistics of the data
+
+        average_money = df["Money In Account"].mean()
+        q1_money = df["Money In Account"].quantile(.25)
+        median_money = df["Money In Account"].median()
+        q3_money = df["Money In Account"].quantile(.75)
+        std_money = df["Money In Account"].std()
+
         # Render the html template as shown here: https://stackoverflow.com/a/56296451
         rendered = render_template(
             "index.html",
+            average_money = average_money,
+            q1_money = q1_money,
+            median_money = median_money,
+            q3_money = q3_money,
+            std_money = std_money,
             column_names=df.columns.values,
             row_data=list(df.values.tolist()),
             link_column="Investopedia Link",
