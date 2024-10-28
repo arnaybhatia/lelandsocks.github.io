@@ -50,3 +50,4 @@ if __name__ == "__main__":
             update_time= datetime.utcnow().astimezone(ZoneInfo('US/Pacific')).strftime("%H:%M:%S %m-%d-%Y"),
             zip=zip,
         )
+        print(rendered)

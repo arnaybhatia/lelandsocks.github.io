@@ -1,0 +1,3698 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>The Leaderboard of the Great Quicksilver Stock Exchange</title>
+    <link rel="stylesheet" href="https://unpkg.com/franken-ui@1.1.0/dist/css/core.min.css" />
+    <script src="https://unpkg.com/franken-ui@1.1.0/dist/js/core.iife.js" type="module"></script>
+    <script src="https://unpkg.com/franken-ui@1.1.0/dist/js/icon.iife.js" type="module"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script> <!-- Used for detecting dark mode or not-->
+        const htmlElement = document.documentElement;
+
+        if (
+            localStorage.getItem("mode") === "dark" ||
+            (!("mode" in localStorage) &&
+                window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+            htmlElement.classList.add("dark");
+        } else {
+            htmlElement.classList.remove("dark");
+        }
+
+        htmlElement.classList.add(localStorage.getItem("theme") || "uk-theme-zinc");
+    </script>
+    <script>
+        !function (t, e) { var o, n, p, r; e.__SV || (window.posthog = e, e._i = [], e.init = function (i, s, a) { function g(t, e) { var o = e.split("."); 2 == o.length && (t = t[o[0]], e = o[1]), t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } } (p = t.createElement("script")).type = "text/javascript", p.crossOrigin = "anonymous", p.async = !0, p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js", (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r); var u = e; for (void 0 !== a ? u = e[a] = [] : a = "posthog", u.people = u.people || [], u.toString = function (t) { var e = "posthog"; return "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e }, u.people.toString = function () { return u.toString(1) + ".people (stub)" }, o = "init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "), n = 0; n < o.length; n++)g(u, o[n]); e._i.push([i, s, a]) }, e.__SV = 1) }(document, window.posthog || []);
+        posthog.init('phc_tYlEG7Vn1ySCMoc1EgDwDYqidKJWtfRiiIe3WLPfLp5', {
+            api_host: 'https://us.i.posthog.com', person_profiles: 'identified_only' // or 'always' to create profiles for anonymous users as well
+        })
+    </script>
+</head>
+
+<body class="bg-background text-foreground">
+    <h1 class="text-center text-4xl">Imagine if Investopedia was good at making a leaderboard</h1>
+    <br>
+    <p class="text-center text-xl">Last updated 15:13:12 10-28-2024</p>
+    <table class="uk-table uk-table-striped uk-table-responsive">
+        <thead>
+            <tr>
+                <th>Average Money</th>
+                <th>Q1 Money</th>
+                <th>Median Money</th>
+                <th>Q3 Money</th>
+                <th>Standard Deviation Money</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>$103,079.47</td>
+                <td>$100,694.79</td>
+                <td>$102,582.74</td>
+                <td>$105,298.95</td>
+                <td>$7,539.95</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+
+    <div>
+        <canvas id="stockChart"></canvas>
+    </div>
+    </br>
+
+    <table class="uk-table uk-table-striped uk-table-responsive">
+        <tr>
+            
+            <th>Ranking</th>
+            
+            <th>Account Name</th>
+            
+            <th>Money In Account</th>
+            
+            <th>Z-Score</th>
+            
+            <th>Investopedia Link</th>
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>1</td>
+            
+            
+            
+            <td>2petergeorge</td>
+            
+            
+            
+            <td>$136,269.50</td>
+            
+            
+            
+            <td>4.419184187459191</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447833" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447833
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>2</td>
+            
+            
+            
+            <td>6ubrychfilip_</td>
+            
+            
+            
+            <td>$122,423.67</td>
+            
+            
+            
+            <td>2.575640414155132</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449073" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449073
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>3</td>
+            
+            
+            
+            <td>miatarabichi</td>
+            
+            
+            
+            <td>$116,912.49</td>
+            
+            
+            
+            <td>1.8418381377616</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445334" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445334
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>4</td>
+            
+            
+            
+            <td>3bergantaro</td>
+            
+            
+            
+            <td>$116,624.22</td>
+            
+            
+            
+            <td>1.8034555804479273</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445355" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445355
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>5</td>
+            
+            
+            
+            <td>5nguyenethan</td>
+            
+            
+            
+            <td>$115,079.05</td>
+            
+            
+            
+            <td>1.5977193745147165</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445735" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445735
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>6</td>
+            
+            
+            
+            <td>1paliwalpinak</td>
+            
+            
+            
+            <td>$113,230.70</td>
+            
+            
+            
+            <td>1.3516153754488196</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444530" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444530
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>7</td>
+            
+            
+            
+            <td>3awyonglinus</td>
+            
+            
+            
+            <td>$112,714.42</td>
+            
+            
+            
+            <td>1.2828737558217247</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445349" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445349
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>8</td>
+            
+            
+            
+            <td>1enriquezmario</td>
+            
+            
+            
+            <td>$111,831.05</td>
+            
+            
+            
+            <td>1.1652548580724675</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445928" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445928
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>9</td>
+            
+            
+            
+            <td>3jubertcolin</td>
+            
+            
+            
+            <td>$111,457.20</td>
+            
+            
+            
+            <td>1.1154774998606642</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445350" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445350
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>10</td>
+            
+            
+            
+            <td>2laumei</td>
+            
+            
+            
+            <td>$111,246.69</td>
+            
+            
+            
+            <td>1.0874485265366938</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447810" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447810
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>11</td>
+            
+            
+            
+            <td>brandens</td>
+            
+            
+            
+            <td>$111,200.88</td>
+            
+            
+            
+            <td>1.0813490193020208</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447831" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447831
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>12</td>
+            
+            
+            
+            <td>3tomaszewskiadrian</td>
+            
+            
+            
+            <td>$111,182.23</td>
+            
+            
+            
+            <td>1.0788658101789752</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445328" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445328
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>13</td>
+            
+            
+            
+            <td>6hernandezbrady</td>
+            
+            
+            
+            <td>$110,663.83</td>
+            
+            
+            
+            <td>1.0098419169143018</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449080" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449080
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>14</td>
+            
+            
+            
+            <td>unknovus</td>
+            
+            
+            
+            <td>$110,277.13</td>
+            
+            
+            
+            <td>0.9583536076445307</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10450904" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10450904
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>15</td>
+            
+            
+            
+            <td>5wangkyan</td>
+            
+            
+            
+            <td>$110,185.79</td>
+            
+            
+            
+            <td>0.9461918745990135</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445739" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445739
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>16</td>
+            
+            
+            
+            <td>6xusophie</td>
+            
+            
+            
+            <td>$109,506.91</td>
+            
+            
+            
+            <td>0.8558003995613567</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449079" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449079
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>17</td>
+            
+            
+            
+            <td>2gibsonjacob</td>
+            
+            
+            
+            <td>$108,904.29</td>
+            
+            
+            
+            <td>0.7755627866000167</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447829" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447829
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>18</td>
+            
+            
+            
+            <td>5bisharajeries</td>
+            
+            
+            
+            <td>$108,392.92</td>
+            
+            
+            
+            <td>0.7074749233693913</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445748" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445748
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>19</td>
+            
+            
+            
+            <td>5sheaffermalia</td>
+            
+            
+            
+            <td>$107,379.63</td>
+            
+            
+            
+            <td>0.5725574449624444</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445743" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445743
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>20</td>
+            
+            
+            
+            <td>5jianglin</td>
+            
+            
+            
+            <td>$106,869.91</td>
+            
+            
+            
+            <td>0.5046892758365381</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445749" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445749
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>21</td>
+            
+            
+            
+            <td>2mirilily</td>
+            
+            
+            
+            <td>$106,841.82</td>
+            
+            
+            
+            <td>0.5009491501386129</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447818" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447818
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>22</td>
+            
+            
+            
+            <td>6saishyamrugoobur</td>
+            
+            
+            
+            <td>$106,827.31</td>
+            
+            
+            
+            <td>0.4990171734965005</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449081" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449081
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>23</td>
+            
+            
+            
+            <td>5garciaocran</td>
+            
+            
+            
+            <td>$106,775.01</td>
+            
+            
+            
+            <td>0.49205353611659564</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445746" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445746
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>24</td>
+            
+            
+            
+            <td>3baradlaydaniel</td>
+            
+            
+            
+            <td>$106,774.93</td>
+            
+            
+            
+            <td>0.49204288428121506</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445341" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445341
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>25</td>
+            
+            
+            
+            <td>2dersecamren</td>
+            
+            
+            
+            <td>$106,621.52</td>
+            
+            
+            
+            <td>0.471616658459971</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447825" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447825
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>26</td>
+            
+            
+            
+            <td>helllloo11</td>
+            
+            
+            
+            <td>$106,405.23</td>
+            
+            
+            
+            <td>0.4428180900297686</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445754" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445754
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>27</td>
+            
+            
+            
+            <td>3patilrohi</td>
+            
+            
+            
+            <td>$106,377.22</td>
+            
+            
+            
+            <td>0.4390886161672239</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445348" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445348
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>28</td>
+            
+            
+            
+            <td>5tingjanele</td>
+            
+            
+            
+            <td>$106,257.60</td>
+            
+            
+            
+            <td>0.42316145931475474</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445733" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445733
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>29</td>
+            
+            
+            
+            <td>2wuchristopher</td>
+            
+            
+            
+            <td>$106,074.13</td>
+            
+            
+            
+            <td>0.3987328063493422</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447839" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447839
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>30</td>
+            
+            
+            
+            <td>5xieanthony</td>
+            
+            
+            
+            <td>$105,567.85</td>
+            
+            
+            
+            <td>0.33132266614479133</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445737" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445737
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>31</td>
+            
+            
+            
+            <td>3shihmercury</td>
+            
+            
+            
+            <td>$105,560.79</td>
+            
+            
+            
+            <td>0.3303826416724737</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445333" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445333
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>32</td>
+            
+            
+            
+            <td>3lustephanie</td>
+            
+            
+            
+            <td>$105,428.87</td>
+            
+            
+            
+            <td>0.3128177651302752</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445340" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445340
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>33</td>
+            
+            
+            
+            <td>5gollamudinikhil</td>
+            
+            
+            
+            <td>$105,255.65</td>
+            
+            
+            
+            <td>0.28975387857297014</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445734" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445734
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>34</td>
+            
+            
+            
+            <td>1parkcaleb</td>
+            
+            
+            
+            <td>$105,210.05</td>
+            
+            
+            
+            <td>0.28368233240617124</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444525" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444525
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>35</td>
+            
+            
+            
+            <td>3liuallen</td>
+            
+            
+            
+            <td>$105,184.57</td>
+            
+            
+            
+            <td>0.28028972283753</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445351" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445351
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>36</td>
+            
+            
+            
+            <td>3sudharsanshrivas</td>
+            
+            
+            
+            <td>$105,110.26</td>
+            
+            
+            
+            <td>0.2703954992486049</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445345" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445345
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>37</td>
+            
+            
+            
+            <td>5mehtasuhani</td>
+            
+            
+            
+            <td>$105,090.73</td>
+            
+            
+            
+            <td>0.2677951199363769</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445732" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445732
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>38</td>
+            
+            
+            
+            <td>2phamjinny</td>
+            
+            
+            
+            <td>$104,947.01</td>
+            
+            
+            
+            <td>0.2486590976755762</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447859" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447859
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>39</td>
+            
+            
+            
+            <td>2gaudaanvi</td>
+            
+            
+            
+            <td>$104,933.05</td>
+            
+            
+            
+            <td>0.24680035240170606</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10453457" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10453457
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>40</td>
+            
+            
+            
+            <td>2nguyenthien</td>
+            
+            
+            
+            <td>$104,763.08</td>
+            
+            
+            
+            <td>0.22416919665672774</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447866" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447866
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>41</td>
+            
+            
+            
+            <td>2habibvandarion</td>
+            
+            
+            
+            <td>$104,757.23</td>
+            
+            
+            
+            <td>0.2233902811945388</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447822" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447822
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>42</td>
+            
+            
+            
+            <td>p3_horvath_levente</td>
+            
+            
+            
+            <td>$104,727.41</td>
+            
+            
+            
+            <td>0.219419809556514</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10451510" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10451510
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>43</td>
+            
+            
+            
+            <td>5vajirkararnav</td>
+            
+            
+            
+            <td>$104,553.91</td>
+            
+            
+            
+            <td>0.19631864157537784</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445738" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445738
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>44</td>
+            
+            
+            
+            <td>teachermiller</td>
+            
+            
+            
+            <td>$104,305.73</td>
+            
+            
+            
+            <td>0.16327398526668307</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10442516" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10442516
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>45</td>
+            
+            
+            
+            <td>1elyasiarian</td>
+            
+            
+            
+            <td>$104,282.51</td>
+            
+            
+            
+            <td>0.16018229004753606</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444532" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444532
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>46</td>
+            
+            
+            
+            <td>1buijason</td>
+            
+            
+            
+            <td>$104,251.74</td>
+            
+            
+            
+            <td>0.15608532786436996</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444534" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444534
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>47</td>
+            
+            
+            
+            <td>2sepelucas</td>
+            
+            
+            
+            <td>$104,240.77</td>
+            
+            
+            
+            <td>0.15462469493783917</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10448346" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10448346
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>48</td>
+            
+            
+            
+            <td>5lucaslloyd</td>
+            
+            
+            
+            <td>$104,161.17</td>
+            
+            
+            
+            <td>0.1440261187343892</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445741" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445741
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>49</td>
+            
+            
+            
+            <td>5nguyendaphne</td>
+            
+            
+            
+            <td>$104,100.63</td>
+            
+            
+            
+            <td>0.13596534231030946</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445728" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445728
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>50</td>
+            
+            
+            
+            <td>1anandnikita</td>
+            
+            
+            
+            <td>$104,059.26</td>
+            
+            
+            
+            <td>0.13045701193924417</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444526" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444526
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>51</td>
+            
+            
+            
+            <td>5polakella</td>
+            
+            
+            
+            <td>$103,965.85</td>
+            
+            
+            
+            <td>0.11801966265326334</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445726" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445726
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>52</td>
+            
+            
+            
+            <td>2chenkhai</td>
+            
+            
+            
+            <td>$103,868.60</td>
+            
+            
+            
+            <td>0.1050710252690242</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447832" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447832
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>53</td>
+            
+            
+            
+            <td>6nagpurwalafayezah</td>
+            
+            
+            
+            <td>$103,795.46</td>
+            
+            
+            
+            <td>0.09533258477253842</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449071" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449071
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>54</td>
+            
+            
+            
+            <td>kayanshah</td>
+            
+            
+            
+            <td>$103,745.75</td>
+            
+            
+            
+            <td>0.08871380056307199</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445751" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445751
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>55</td>
+            
+            
+            
+            <td>5telikepallisharvil</td>
+            
+            
+            
+            <td>$103,180.84</td>
+            
+            
+            
+            <td>0.013497196504145772</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445747" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445747
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>56</td>
+            
+            
+            
+            <td>2tavakoliariana</td>
+            
+            
+            
+            <td>$103,080.11</td>
+            
+            
+            
+            <td>8.520428086191161e-05</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447812" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447812
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>57</td>
+            
+            
+            
+            <td>3leesienna</td>
+            
+            
+            
+            <td>$102,981.61</td>
+            
+            
+            
+            <td>-0.013029868031195208</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445339" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445339
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>58</td>
+            
+            
+            
+            <td>5zhounatalie</td>
+            
+            
+            
+            <td>$102,970.09</td>
+            
+            
+            
+            <td>-0.014563732325966288</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445725" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445725
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>59</td>
+            
+            
+            
+            <td>2continichris</td>
+            
+            
+            
+            <td>$102,912.10</td>
+            
+            
+            
+            <td>-0.02228498149729695</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447845" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447845
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>60</td>
+            
+            
+            
+            <td>1mungaiayanna</td>
+            
+            
+            
+            <td>$102,875.65</td>
+            
+            
+            
+            <td>-0.027138223992470907</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444528" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444528
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>61</td>
+            
+            
+            
+            <td>1nguyenkatie</td>
+            
+            
+            
+            <td>$102,851.53</td>
+            
+            
+            
+            <td>-0.0303497523596461</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444527" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444527
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>62</td>
+            
+            
+            
+            <td>2akramzaara</td>
+            
+            
+            
+            <td>$102,767.30</td>
+            
+            
+            
+            <td>-0.041564803535732574</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447815" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447815
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>63</td>
+            
+            
+            
+            <td>1phamriley</td>
+            
+            
+            
+            <td>$102,697.58</td>
+            
+            
+            
+            <td>-0.05084787806970859</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444529" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444529
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>64</td>
+            
+            
+            
+            <td>3knightizabella</td>
+            
+            
+            
+            <td>$102,598.22</td>
+            
+            
+            
+            <td>-0.06407745761210457</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445342" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445342
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>65</td>
+            
+            
+            
+            <td>1ngohailey</td>
+            
+            
+            
+            <td>$102,567.27</td>
+            
+            
+            
+            <td>-0.06819838642487745</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444524" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444524
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>66</td>
+            
+            
+            
+            <td>1mostafavidaniel</td>
+            
+            
+            
+            <td>$102,535.14</td>
+            
+            
+            
+            <td>-0.07247642980951152</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444521" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444521
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>67</td>
+            
+            
+            
+            <td>2andersonrhys</td>
+            
+            
+            
+            <td>$102,535.08</td>
+            
+            
+            
+            <td>-0.07248441868604648</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447820" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447820
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>68</td>
+            
+            
+            
+            <td>2santosshin</td>
+            
+            
+            
+            <td>$102,355.99</td>
+            
+            
+            
+            <td>-0.09632988366438418</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447823" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447823
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>69</td>
+            
+            
+            
+            <td>2chobanianbella</td>
+            
+            
+            
+            <td>$102,355.08</td>
+            
+            
+            
+            <td>-0.09645104829183614</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447819" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447819
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>70</td>
+            
+            
+            
+            <td>2baradlayannie</td>
+            
+            
+            
+            <td>$102,270.10</td>
+            
+            
+            
+            <td>-0.1077659604246134</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447827" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447827
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>71</td>
+            
+            
+            
+            <td>6sophiamovassate</td>
+            
+            
+            
+            <td>$102,185.46</td>
+            
+            
+            
+            <td>-0.11903560225702464</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449082" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449082
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>72</td>
+            
+            
+            
+            <td>2daosean</td>
+            
+            
+            
+            <td>$102,156.97</td>
+            
+            
+            
+            <td>-0.12282898713185282</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447838" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447838
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>73</td>
+            
+            
+            
+            <td>1byakodvedika</td>
+            
+            
+            
+            <td>$102,149.63</td>
+            
+            
+            
+            <td>-0.12380629302799956</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444522" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444522
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>74</td>
+            
+            
+            
+            <td>2urvizoefrain</td>
+            
+            
+            
+            <td>$102,075.50</td>
+            
+            
+            
+            <td>-0.13367654998731787</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447824" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447824
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>75</td>
+            
+            
+            
+            <td>5geselina</td>
+            
+            
+            
+            <td>$102,028.19</td>
+            
+            
+            
+            <td>-0.13997577913537262</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445731" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445731
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>76</td>
+            
+            
+            
+            <td>6mamarianrubyna</td>
+            
+            
+            
+            <td>$102,009.55</td>
+            
+            
+            
+            <td>-0.14245765677899433</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10480692" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10480692
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>77</td>
+            
+            
+            
+            <td>2hajizadehyasmin</td>
+            
+            
+            
+            <td>$101,936.02</td>
+            
+            
+            
+            <td>-0.15224802497295925</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447821" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447821
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>78</td>
+            
+            
+            
+            <td>5kanglyn</td>
+            
+            
+            
+            <td>$101,913.08</td>
+            
+            
+            
+            <td>-0.15530243876827518</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445736" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445736
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>79</td>
+            
+            
+            
+            <td>2ambrizcaden</td>
+            
+            
+            
+            <td>$101,824.29</td>
+            
+            
+            
+            <td>-0.16712464456104328</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447813" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447813
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>80</td>
+            
+            
+            
+            <td>1valerozadela</td>
+            
+            
+            
+            <td>$101,802.43</td>
+            
+            
+            
+            <td>-0.17003525857872426</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444523" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444523
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>81</td>
+            
+            
+            
+            <td>6valsalon</td>
+            
+            
+            
+            <td>$101,783.72</td>
+            
+            
+            
+            <td>-0.17252645657830276</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449075" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449075
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>82</td>
+            
+            
+            
+            <td>shankmoitra</td>
+            
+            
+            
+            <td>$101,728.47</td>
+            
+            
+            
+            <td>-0.17988288038785766</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445729" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445729
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>83</td>
+            
+            
+            
+            <td>2symmonsnatalie</td>
+            
+            
+            
+            <td>$101,682.22</td>
+            
+            
+            
+            <td>-0.18604097271712305</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10453458" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10453458
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>84</td>
+            
+            
+            
+            <td>6claypillora</td>
+            
+            
+            
+            <td>$101,613.32</td>
+            
+            
+            
+            <td>-0.19521486593844953</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449074" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449074
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>85</td>
+            
+            
+            
+            <td>5yoshioka-meonskebradley</td>
+            
+            
+            
+            <td>$101,602.64</td>
+            
+            
+            
+            <td>-0.1966368859617274</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445745" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445745
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>86</td>
+            
+            
+            
+            <td>5vincentchung</td>
+            
+            
+            
+            <td>$101,577.82</td>
+            
+            
+            
+            <td>-0.19994161788848028</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445767" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445767
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>87</td>
+            
+            
+            
+            <td>5afzalzadehlaily</td>
+            
+            
+            
+            <td>$101,315.47</td>
+            
+            
+            
+            <td>-0.23487298053891947</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445742" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445742
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>88</td>
+            
+            
+            
+            <td>3cookmeghan</td>
+            
+            
+            
+            <td>$101,179.23</td>
+            
+            
+            
+            <td>-0.25301305619165787</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445337" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445337
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>89</td>
+            
+            
+            
+            <td>5shihcalista</td>
+            
+            
+            
+            <td>$101,151.77</td>
+            
+            
+            
+            <td>-0.2566692986859622</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10452002" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10452002
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>90</td>
+            
+            
+            
+            <td>5wangwei</td>
+            
+            
+            
+            <td>$101,058.81</td>
+            
+            
+            
+            <td>-0.2690467313979309</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445759" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445759
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>91</td>
+            
+            
+            
+            <td>5ahujaalisha</td>
+            
+            
+            
+            <td>$101,039.11</td>
+            
+            
+            
+            <td>-0.2716697458603419</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445740" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445740
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>92</td>
+            
+            
+            
+            <td>seyeong</td>
+            
+            
+            
+            <td>$100,947.88</td>
+            
+            
+            
+            <td>-0.28381683263220914</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449138" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449138
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>93</td>
+            
+            
+            
+            <td>3shitomichihiro</td>
+            
+            
+            
+            <td>$100,813.22</td>
+            
+            
+            
+            <td>-0.30174653453618533</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445344" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445344
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>94</td>
+            
+            
+            
+            <td>3liuemily</td>
+            
+            
+            
+            <td>$100,808.24</td>
+            
+            
+            
+            <td>-0.30240961128861166</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445347" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445347
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>95</td>
+            
+            
+            
+            <td>1prasadanika</td>
+            
+            
+            
+            <td>$100,748.69</td>
+            
+            
+            
+            <td>-0.3103385712498608</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444536" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444536
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>96</td>
+            
+            
+            
+            <td>5qinsophia</td>
+            
+            
+            
+            <td>$100,701.58</td>
+            
+            
+            
+            <td>-0.31661117080946505</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445750" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445750
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>97</td>
+            
+            
+            
+            <td>3yueleanor</td>
+            
+            
+            
+            <td>$100,674.44</td>
+            
+            
+            
+            <td>-0.320224805962249</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445336" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445336
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>98</td>
+            
+            
+            
+            <td>1raimondiluke</td>
+            
+            
+            
+            <td>$100,490.27</td>
+            
+            
+            
+            <td>-0.34474666248723923</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444533" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444533
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>99</td>
+            
+            
+            
+            <td>5kimben</td>
+            
+            
+            
+            <td>$100,468.90</td>
+            
+            
+            
+            <td>-0.3475920340132168</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445753" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445753
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>100</td>
+            
+            
+            
+            <td>2whitecaden</td>
+            
+            
+            
+            <td>$100,460.19</td>
+            
+            
+            
+            <td>-0.34875175259025143</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447826" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447826
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>101</td>
+            
+            
+            
+            <td>3hinholivia</td>
+            
+            
+            
+            <td>$100,457.25</td>
+            
+            
+            
+            <td>-0.3491432075404796</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445335" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445335
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>102</td>
+            
+            
+            
+            <td>3liemma</td>
+            
+            
+            
+            <td>$100,388.85</td>
+            
+            
+            
+            <td>-0.3582505267906789</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445331" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445331
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>103</td>
+            
+            
+            
+            <td>5smithmarco</td>
+            
+            
+            
+            <td>$100,326.41</td>
+            
+            
+            
+            <td>-0.3665642843050432</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445744" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445744
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>104</td>
+            
+            
+            
+            <td>2neubertsophia</td>
+            
+            
+            
+            <td>$100,241.24</td>
+            
+            
+            
+            <td>-0.37790449454684905</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447830" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447830
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>105</td>
+            
+            
+            
+            <td>6choierica</td>
+            
+            
+            
+            <td>$100,088.37</td>
+            
+            
+            
+            <td>-0.3982588204792785</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449070" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449070
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>106</td>
+            
+            
+            
+            <td>6cardenasdayanara</td>
+            
+            
+            
+            <td>$100,070.85</td>
+            
+            
+            
+            <td>-0.400591572427574</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449076" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449076
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>107</td>
+            
+            
+            
+            <td>6lopesdebritorayane</td>
+            
+            
+            
+            <td>$100,049.45</td>
+            
+            
+            
+            <td>-0.40344093839181905</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449084" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449084
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>108</td>
+            
+            
+            
+            <td>3windsorlyla</td>
+            
+            
+            
+            <td>$99,876.46</td>
+            
+            
+            
+            <td>-0.4264742009224042</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445346" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445346
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>109</td>
+            
+            
+            
+            <td>5davoudibrandon</td>
+            
+            
+            
+            <td>$99,863.65</td>
+            
+            
+            
+            <td>-0.4281798260626845</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445730" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445730
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>110</td>
+            
+            
+            
+            <td>2eberhartsavannah</td>
+            
+            
+            
+            <td>$99,833.76</td>
+            
+            
+            
+            <td>-0.4321596180566681</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447853" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447853
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>111</td>
+            
+            
+            
+            <td>2quachisis</td>
+            
+            
+            
+            <td>$99,793.88</td>
+            
+            
+            
+            <td>-0.43746955799377174</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447816" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447816
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>112</td>
+            
+            
+            
+            <td>6faureian</td>
+            
+            
+            
+            <td>$99,772.74</td>
+            
+            
+            
+            <td>-0.4402843054930294</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449069" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449069
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>113</td>
+            
+            
+            
+            <td>6luosicheng</td>
+            
+            
+            
+            <td>$99,625.65</td>
+            
+            
+            
+            <td>-0.45986903631922865</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449077" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449077
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>114</td>
+            
+            
+            
+            <td>3koushikpreksha</td>
+            
+            
+            
+            <td>$99,272.62</td>
+            
+            
+            
+            <td>-0.5068742543732947</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445330" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445330
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>115</td>
+            
+            
+            
+            <td>2freyolivia</td>
+            
+            
+            
+            <td>$99,238.70</td>
+            
+            
+            
+            <td>-0.5113906325745633</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447828" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447828
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>116</td>
+            
+            
+            
+            <td>ufatalo</td>
+            
+            
+            
+            <td>$97,947.13</td>
+            
+            
+            
+            <td>-0.6833605203520609</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449072" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449072
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>117</td>
+            
+            
+            
+            <td>6chaocaleb</td>
+            
+            
+            
+            <td>$97,703.01</td>
+            
+            
+            
+            <td>-0.7158645960152031</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449078" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449078
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>118</td>
+            
+            
+            
+            <td>2alexialee</td>
+            
+            
+            
+            <td>$97,273.43</td>
+            
+            
+            
+            <td>-0.773062289048843</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447834" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447834
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>119</td>
+            
+            
+            
+            <td>3bhatiaarnay</td>
+            
+            
+            
+            <td>$96,451.76</td>
+            
+            
+            
+            <td>-0.8824659587610049</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445352" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445352
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>120</td>
+            
+            
+            
+            <td>2bumanlagjacob</td>
+            
+            
+            
+            <td>$96,223.94</td>
+            
+            
+            
+            <td>-0.9127997229653984</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447811" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447811
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>121</td>
+            
+            
+            
+            <td>2greenesal</td>
+            
+            
+            
+            <td>$95,837.56</td>
+            
+            
+            
+            <td>-0.964245424893649</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447817" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447817
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>122</td>
+            
+            
+            
+            <td>6slacklucas</td>
+            
+            
+            
+            <td>$93,408.61</td>
+            
+            
+            
+            <td>-1.287655119232442</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449067" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449067
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>123</td>
+            
+            
+            
+            <td>3vobryant</td>
+            
+            
+            
+            <td>$93,121.48</td>
+            
+            
+            
+            <td>-1.3258858878919446</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445338" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445338
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>124</td>
+            
+            
+            
+            <td>3yanjoshua</td>
+            
+            
+            
+            <td>$91,785.00</td>
+            
+            
+            
+            <td>-1.5038354497560873</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445343" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445343
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>125</td>
+            
+            
+            
+            <td>6ishiguronobuhisa</td>
+            
+            
+            
+            <td>$91,662.13</td>
+            
+            
+            
+            <td>-1.5201953374208832</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449068" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449068
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>126</td>
+            
+            
+            
+            <td>5hsutitus</td>
+            
+            
+            
+            <td>$90,774.94</td>
+            
+            
+            
+            <td>-1.638322860309553</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445727" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445727
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>127</td>
+            
+            
+            
+            <td>3goldsmithsusannah</td>
+            
+            
+            
+            <td>$76,664.55</td>
+            
+            
+            
+            <td>-3.5170922532164326</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445332" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445332
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+        <tr>
+            
+            
+            <td>128</td>
+            
+            
+            
+            <td>3linandrew</td>
+            
+            
+            
+            <td>$53,782.74</td>
+            
+            
+            
+            <td>-6.563758169772288</td>
+            
+            
+            
+            <td>
+                <a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445354" class="uk-link-reset">
+                    https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445354
+                </a>
+            </td>
+            
+            
+        </tr>
+        
+
+    </table>
+
+
+    <div class="uk-background-cover uk-flex uk-flex-center uk-flex-middle uk-height-medium"
+        data-src="./images/evan_conrad.jpg" uk-img>
+        <h1 class="text-2xl">Evan Conrad</h1>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('Stock Chart');
+      
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+              label: '# of Votes',
+              data: [12, 19, 3, 5, 2, 3],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      </script>
+
+</body>
+
+</html>
