@@ -16,6 +16,9 @@ if __name__ == "__main__":
         df.columns = ["Account Name", "Money In Account", "Investopedia Link"]
         df["Ranking"] = range(len(df))
         df = df[["Ranking", "Account Name", "Money In Account", "Investopedia Link"]]
+	
+	# Sort the dataframe one last time
+	df = df.sort_values(by=['Money In Account'], ascending=False)
 
         # Render the html template as shown here: https://stackoverflow.com/a/56296451
         rendered = render_template(
