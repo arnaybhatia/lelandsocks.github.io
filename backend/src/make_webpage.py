@@ -1,6 +1,9 @@
 from flask import render_template
 import pandas as pd
 import flask
+from datetime import datetime
+from zoneinfo import ZoneInfo
+from dateutil.tz import tzutc
 import json
 
 # this whole file is to render the html table
@@ -21,22 +24,23 @@ if __name__ == "__main__":
         # Get Statistics of the data
 
         average_money = df["Money In Account"].mean()
-        q1_money = df["Money In Account"].quantile(.25)
+        q1_money = df["Money In Account"].quantile(0.25)
         median_money = df["Money In Account"].median()
-        q3_money = df["Money In Account"].quantile(.75)
+        q3_money = df["Money In Account"].quantile(0.75)
         std_money = df["Money In Account"].std()
 
         # Render the html template as shown here: https://stackoverflow.com/a/56296451
         rendered = render_template(
             "index.html",
-            average_money = average_money,
-            q1_money = q1_money,
-            median_money = median_money,
-            q3_money = q3_money,
-            std_money = std_money,
+            average_money=average_money,
+            q1_money=q1_money,
+            median_money=median_money,
+            q3_money=q3_money,
+            std_money=std_money,
             column_names=df.columns.values,
             row_data=list(df.values.tolist()),
             link_column="Investopedia Link",
+            update_time= datetime.utcnow().astimezone(ZoneInfo('US/Pacific')).strftime("%H:%M:%S %m-%d-%Y"),
             zip=zip,
         )
         print(rendered)
