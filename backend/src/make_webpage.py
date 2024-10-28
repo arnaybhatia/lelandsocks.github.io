@@ -17,11 +17,11 @@ if __name__ == "__main__":
             dict_leaderboard = json.load(file)
         df = pd.DataFrame.from_dict(dict_leaderboard, orient="index")
         df.reset_index(level=0, inplace=True)
-        df.columns = ["Account Name", "Money In Account", "Investopedia Link", "Z-Score"]
+        df.columns = ["Account Name", "Money In Account", "Investopedia Link"]
         df = df.sort_values(by=["Money In Account"], ascending=False)
         df["Ranking"] = range(1, 1 + len(df))
         df["Z-Score"] = zscore(df['Money In Account'])
-        df = df[["Ranking", "Account Name", "Money In Account", "Investopedia Link"]]
+        df = df[["Ranking", "Account Name", "Money In Account", "Z-Score", "Investopedia Link"]]
 
         # Get Statistics of the data
 
