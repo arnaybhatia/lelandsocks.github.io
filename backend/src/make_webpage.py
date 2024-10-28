@@ -36,11 +36,11 @@ if __name__ == "__main__":
         # Render the html template as shown here: https://stackoverflow.com/a/56296451
         rendered = render_template(
             "index.html",
-            average_money=average_money,
-            q1_money=q1_money,
-            median_money=median_money,
-            q3_money=q3_money,
-            std_money=std_money,
+            average_money='${:,.2f}'.format(average_money),
+            q1_money='${:,.2f}'.format(q1_money),
+            median_money='${:,.2f}'.format(median_money),
+            q3_money='${:,.2f}'.format(q3_money),
+            std_money='${:,.2f}'.format(std_money),
             column_names=df.columns.values,
             row_data=list(df.values.tolist()),
             link_column="Investopedia Link",
