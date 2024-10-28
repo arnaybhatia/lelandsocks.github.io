@@ -51,7 +51,7 @@ def get_account_information():
     with open("./backend/portfolios/portfolios.txt", "r") as file:
         for line in file:
             driver.get(fr'{line}') # what the heck is a french string doing here: https://stackoverflow.com/a/58321139
-            account_value = driver.find_element(By.XPATH, '//div[contains(text(), "Account Value")]/following-sibling::div').text
+            account_value = driver.find_element(By.XPATH, '//*[@data-cy="account-value-text"]').text
             account_value = float(account_value.replace("$", "").replace(",",""))
             account_name = driver.find_element(By.XPATH, '//*[@data-cy="user-portfolio-name"]').text.replace(" Portfolio", "") # just getting the account name
             account_information[account_name] = [account_value, line.strip()]
