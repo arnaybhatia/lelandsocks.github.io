@@ -11,6 +11,14 @@ from babel.numbers import format_currency
 # this whole file is to render the html table
 app = flask.Flask("leaderboard")
 
+def get_five_number_summary(df):
+    average_money = df["Money In Account"].mean()
+    q1_money = df["Money In Account"].quantile(0.25)
+    median_money = df["Money In Account"].median()
+    q3_money = df["Money In Account"].quantile(0.75)
+    std_money = df["Money In Account"].std()
+    return average_money, q1_money, median_money, q3_money, std_money
+
 if __name__ == "__main__":
     with app.app_context():
         # Load json as dictionary, then organise it properly: https://stackoverflow.com/a/44607210
@@ -25,12 +33,7 @@ if __name__ == "__main__":
         df = df[["Ranking", "Account Name", "Money In Account", "Z-Score", "Investopedia Link"]]
 
         # Get Statistics of the data
-        average_money = df["Money In Account"].mean()
-        q1_money = df["Money In Account"].quantile(0.25)
-        median_money = df["Money In Account"].median()
-        q3_money = df["Money In Account"].quantile(0.75)
-        std_money = df["Money In Account"].std()
-
+        average_money, q1_money, median_money, q3_money, std_money = get_five_number_summary(df)
 
         df["Money In Account"] = df["Money In Account"].apply(lambda x: format_currency(x, currency="USD", locale="en_US"))
         # Render the html template as shown here: https://stackoverflow.com/a/56296451
@@ -47,4 +50,3 @@ if __name__ == "__main__":
             update_time= datetime.utcnow().astimezone(ZoneInfo('US/Pacific')).strftime("%H:%M:%S %m-%d-%Y"),
             zip=zip,
         )
-        print(rendered)
