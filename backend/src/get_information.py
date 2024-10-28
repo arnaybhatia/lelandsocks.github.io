@@ -47,6 +47,8 @@ def set_stock(ticker):
 def get_user_account_information():
     INVESTOPEDIA_USER_ID = int(os.environ.get("INVESTOPEDIA_USER_ID"))
     driver.get(r"https://www.investopedia.com/simulator/portfolio")
+    time.sleep(10)
+    print(driver.current_url)
     account_value = driver.find_element(
         By.XPATH, '//div[contains(text(), "Account Value")]/following-sibling::div'
     ).text
@@ -74,6 +76,8 @@ def get_account_information():
             driver.get(
                 rf"{line}"
             )  # what the heck is a french string doing here: https://stackoverflow.com/a/58321139
+            print(driver.current_url)
+            time.sleep(5)
             print(driver.current_url)
             account_value = driver.find_element(
                 By.XPATH, '//*[@data-cy="account-value-text"]'
