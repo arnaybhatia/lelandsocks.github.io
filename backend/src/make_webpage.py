@@ -1,5 +1,6 @@
 from flask import render_template
 import pandas as pd
+from scipy.stats import zscore
 import flask
 from datetime import datetime
 from zoneinfo import ZoneInfo
@@ -16,9 +17,10 @@ if __name__ == "__main__":
             dict_leaderboard = json.load(file)
         df = pd.DataFrame.from_dict(dict_leaderboard, orient="index")
         df.reset_index(level=0, inplace=True)
-        df.columns = ["Account Name", "Money In Account", "Investopedia Link"]
+        df.columns = ["Account Name", "Money In Account", "Investopedia Link", "Z-Score"]
         df = df.sort_values(by=["Money In Account"], ascending=False)
         df["Ranking"] = range(1, 1 + len(df))
+        df["Z-Score"] = zscore(df['Money In Account'])
         df = df[["Ranking", "Account Name", "Money In Account", "Investopedia Link"]]
 
         # Get Statistics of the data
@@ -28,6 +30,7 @@ if __name__ == "__main__":
         median_money = df["Money In Account"].median()
         q3_money = df["Money In Account"].quantile(0.75)
         std_money = df["Money In Account"].std()
+
 
         # Render the html template as shown here: https://stackoverflow.com/a/56296451
         rendered = render_template(
