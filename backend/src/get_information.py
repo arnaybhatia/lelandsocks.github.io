@@ -71,7 +71,6 @@ def get_account_information():
     account_information = {}
     with open("./backend/portfolios/portfolios.txt", "r") as file:
         for line in file:
-<<<<<<< HEAD
             driver.get(
                 rf"{line}"
             )  # what the heck is a french string doing here: https://stackoverflow.com/a/58321139
@@ -83,12 +82,6 @@ def get_account_information():
             account_name = driver.find_element(
                 By.XPATH, '//*[@data-cy="user-portfolio-name"]'
             ).text.replace(" Portfolio", "")  # just getting the account name
-=======
-            driver.get(fr'{line}') # what the heck is a french string doing here: https://stackoverflow.com/a/58321139
-            account_value = driver.find_element(By.XPATH, '//*[@data-cy="account-value-text"]').text
-            account_value = float(account_value.replace("$", "").replace(",",""))
-            account_name = driver.find_element(By.XPATH, '//*[@data-cy="user-portfolio-name"]').text.replace(" Portfolio", "") # just getting the account name
->>>>>>> a328f5aba06b298a6bd9cf3bb1a7eef916e7fffa
             account_information[account_name] = [account_value, line.strip()]
             print(line.strip(), account_value, account_name)
     return account_information
@@ -113,11 +106,7 @@ options.add_argument("--disable-extensions")
 options.add_argument("--disable-low-res-tiling")
 options.add_argument("--log-level=3")
 options.add_argument("--silent")
-<<<<<<< HEAD
 driver = webdriver.Chrome(options=options)
-=======
-driver = webdriver.Chrome(options = options)
->>>>>>> a328f5aba06b298a6bd9cf3bb1a7eef916e7fffa
 driver.delete_all_cookies()
 
 # Perform the tasks
