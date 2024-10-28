@@ -6,6 +6,7 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 from dateutil.tz import tzutc
 import json
+from babel.numbers import format_currency
 
 # this whole file is to render the html table
 app = flask.Flask("leaderboard")
@@ -24,7 +25,6 @@ if __name__ == "__main__":
         df = df[["Ranking", "Account Name", "Money In Account", "Z-Score", "Investopedia Link"]]
 
         # Get Statistics of the data
-
         average_money = df["Money In Account"].mean()
         q1_money = df["Money In Account"].quantile(0.25)
         median_money = df["Money In Account"].median()
@@ -32,6 +32,7 @@ if __name__ == "__main__":
         std_money = df["Money In Account"].std()
 
 
+        df["Money In Account"] = df["Money In Account"].apply(lambda x: format_currency(x, currency="USD", locale="en_US"))
         # Render the html template as shown here: https://stackoverflow.com/a/56296451
         rendered = render_template(
             "index.html",
