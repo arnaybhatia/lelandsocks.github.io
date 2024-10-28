@@ -1,7 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.options import Options
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.firefox.options import Options
 import time
 import os
 import json
@@ -77,7 +77,7 @@ options.add_argument("--disable-extensions")
 options.add_argument("--disable-low-res-tiling")
 options.add_argument("--log-level=3")
 options.add_argument("--silent")
-driver = webdriver.Chrome(options = options)
+driver = webdriver.Firefox(options = options)
 driver.delete_all_cookies()
 
 # Perform the tasks
