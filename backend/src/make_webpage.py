@@ -26,9 +26,9 @@ def get_five_number_summary(df):
 if __name__ == "__main__":
     with app.app_context():
         ### This whole section makes the chart shown at the top of the page!
-        leaderboard_files = glob(
+        leaderboard_files = sorted(glob(
             "./backend/leaderboards/in_time/*"
-        )  # This section formats everything nicely for the charts!
+        ))  # This section formats everything nicely for the charts!
         labels = []
         min_monies = []
         max_monies = []
