@@ -3,7 +3,7 @@ import pandas as pd
 from scipy.stats import zscore
 import flask
 from glob import glob
-from datetime import datetime
+from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 from dateutil.tz import tzutc
 import json
@@ -42,7 +42,7 @@ if __name__ == "__main__":
             file_name = os.path.basename(file.name)
             date_time_str = file_name[len("leaderboard-") : -len(".json")]
             date_time_str = date_time_str.replace("_", ":")
-            date_time_str = datetime.strptime(date_time_str, "%Y-%m-%d-%H:%M").strftime(
+            date_time_str = (datetime.strptime(date_time_str, "%Y-%m-%d-%H:%M") - timedelta(hours= 3, minutes = 0)).strftime(
                 "%H:%M:%S %m-%d-%Y"
             )  # The final string in the right format
             labels.append(date_time_str)
