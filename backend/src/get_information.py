@@ -131,7 +131,7 @@ account_values = get_account_information()  # List of the values of the users
 # Write to a time-stamped file for storage reasons, NY timezone because finance moment
 # in_time represents the leaderboards that are in time, out_of_time represents the ones that are out of time
 # This is because I don't want the leaderboard to just have a bunch of straight lines when it is waiting for the next day to happen
-tz_NY = pytz.timezone('America/New_York') 
+tz_NY = pytz.timezone("America/New_York")
 time = datetime.now(tz_NY)
 if time.hour >= 8 and time.hour <= 17:
     file_name = f"./backend/leaderboards/in_time/leaderboard-{time.strftime("%Y-%m-%d-%H_%M")}.json"
@@ -141,6 +141,8 @@ with open(file_name, "w") as file:
     json.dump(account_values, file)
 
 # Write to a latest file to make it easy to read into a cool file at the end
-with open("./backend/leaderboards/leaderboard-latest.json", "w") as file: # latest is the file that is read by the webpage, saved in main directory for fun
+with open(
+    "./backend/leaderboards/leaderboard-latest.json", "w"
+) as file:  # latest is the file that is read by the webpage, saved in main directory for fun
     json.dump(account_values, file)
 driver.close()
