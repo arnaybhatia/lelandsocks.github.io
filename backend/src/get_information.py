@@ -114,6 +114,13 @@ options.add_argument("--silent")
 driver = webdriver.Chrome(options=options)
 driver.delete_all_cookies()
 
+tz_NY = pytz.timezone("America/New_York")
+time = datetime.now(tz_NY)
+if time.hour >= 8 and time.hour <= 17:
+    print("good")
+else:
+    print("bad")
+
 # Perform the tasks
 login()
 get_leaderboard_page()
