@@ -34,7 +34,7 @@
 <body class="bg-background text-foreground">
     <h1 class="text-center text-4xl">Imagine if Investopedia was good at making a leaderboard</h1>
     <br>
-    <p class="text-center text-xl">Last updated 23:51:43 10-28-2024</p>
+    <p class="text-center text-xl">Last updated 23:53:55 10-28-2024</p>
     <table class="uk-table uk-table-striped uk-table-responsive">
         <thead>
             <tr>
@@ -58,6 +58,19 @@
     <br>
     <div class="h-[50vmin] content-center">
         <canvas id="stockChart"></canvas>
+    </div>
+
+    <div class="text-center">
+        <input type="checkbox" id="toggleMin" checked>
+        <label for="toggleMin">Min Money</label>
+        <input type="checkbox" id="toggleMax" checked>
+        <label for="toggleMax">Max Money</label>
+        <input type="checkbox" id="toggleQ1" checked>
+        <label for="toggleQ1">Q1 Money</label>
+        <input type="checkbox" id="toggleMedian" checked>
+        <label for="toggleMedian">Median Money</label>
+        <input type="checkbox" id="toggleQ3" checked>
+        <label for="toggleQ3">Q3 Money</label>
     </div>
 
     </br>
@@ -3685,22 +3698,27 @@
                 {
                     label: 'Min Money',
                     data: min_monies,
+                    hidden: true,
                 },
                 {
                     label: 'Max Money',
                     data: max_monies,
+                    hidden: false,
                 },
                 {
                     label: 'Q1 Money',
                     data: q1_monies,
+                    hidden: false,
                 },
                 {
                     label: 'Median Money',
                     data: median_monies,
+                    hidden: false,
                 },
                 {
                     label: 'Q3 Money',
                     data: q3_monies,
+                    hidden: false,
                 }
             ]
         };
@@ -3712,6 +3730,29 @@
         }
 
         var myLineChart = new Chart(ctx, config);
+
+        // Function to toggle dataset visibility
+        function toggleDataset(index, isVisible) {
+            myLineChart.data.datasets[index].hidden = !isVisible;
+            myLineChart.update();
+        }
+
+        // Event listeners for checkboxes
+        document.getElementById('toggleMin').addEventListener('change', function () {
+            toggleDataset(0, this.checked);
+        });
+        document.getElementById('toggleMax').addEventListener('change', function () {
+            toggleDataset(1, this.checked);
+        });
+        document.getElementById('toggleQ1').addEventListener('change', function () {
+            toggleDataset(2, this.checked);
+        });
+        document.getElementById('toggleMedian').addEventListener('change', function () {
+            toggleDataset(3, this.checked);
+        });
+        document.getElementById('toggleQ3').addEventListener('change', function () {
+            toggleDataset(4, this.checked);
+        });
     </script>
 
 </body>
