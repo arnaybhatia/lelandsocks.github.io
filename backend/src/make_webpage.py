@@ -26,9 +26,9 @@ def get_five_number_summary(df):
 if __name__ == "__main__":
     with app.app_context():
         ### This whole section makes the chart shown at the top of the page!
-        leaderboard_files = sorted(glob(
-            "./backend/leaderboards/in_time/*"
-        ))  # This section formats everything nicely for the charts!
+        leaderboard_files = sorted(
+            glob("./backend/leaderboards/in_time/*")
+        )  # This section formats everything nicely for the charts!
         labels = []
         min_monies = []
         max_monies = []
@@ -42,9 +42,10 @@ if __name__ == "__main__":
             file_name = os.path.basename(file.name)
             date_time_str = file_name[len("leaderboard-") : -len(".json")]
             date_time_str = date_time_str.replace("_", ":")
-            date_time_str = (datetime.strptime(date_time_str, "%Y-%m-%d-%H:%M") - timedelta(hours= 3, minutes = 0)).strftime(
-                "%H:%M:%S %m-%d-%Y"
-            )  # The final string in the right format
+            date_time_str = (
+                datetime.strptime(date_time_str, "%Y-%m-%d-%H:%M")
+                - timedelta(hours=3, minutes=0)
+            ).strftime("%H:%M:%S %m-%d-%Y")  # The final string in the right format
             labels.append(date_time_str)
 
             df2 = pd.DataFrame.from_dict(dict_leaderboard, orient="index")
