@@ -51,7 +51,7 @@ if __name__ == "__main__":
 
             df2 = pd.DataFrame.from_dict(dict_leaderboard, orient="index")
             df2.reset_index(level=0, inplace=True)
-            df2.columns = ["Account Name", "Money In Account", "Investopedia Link"]
+            df2.columns = ["Account Name", "Money In Account", "Stocks Invested In", "Investopedia Link"]
             df2 = df2.sort_values(by=["Money In Account"], ascending=False)
             _1, q1_money, median_money, q3_money, _2 = get_five_number_summary(
                 df2
