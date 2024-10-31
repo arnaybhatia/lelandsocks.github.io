@@ -78,7 +78,7 @@ def get_account_information():
             )  # what the heck is a french string doing here: https://stackoverflow.com/a/58321139
             # print(driver.current_url)
             driver.implicitly_wait(3)
-            print(driver.current_url)
+            # print(driver.current_url)
             account_value = driver.find_element(
                 By.XPATH, '//*[@data-cy="account-value-text"]'
             ).text
