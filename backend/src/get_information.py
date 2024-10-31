@@ -146,8 +146,8 @@ user_stocks = get_user_stocks()
 # in_time represents the leaderboards that are in time, out_of_time represents the ones that are out of time
 # This is because I don't want the leaderboard to just have a bunch of straight lines when it is waiting for the next day to happen
 tz_NY = pytz.timezone("America/New_York")
-time = datetime.now(tz_NY)
-if (time.hour >= 9) and time.hour <= 16:
+curr_time = datetime.now(tz_NY)
+if curr_time.hour >= 9 and curr_time.hour <= 16:
     file_name = f"./backend/leaderboards/in_time/leaderboard-{time.strftime("%Y-%m-%d-%H_%M")}.json"
 else:
     file_name = f"./backend/leaderboards/out_of_time/leaderboard-{time.strftime("%Y-%m-%d-%H_%M")}.json"
