@@ -34,7 +34,7 @@
 <body class="bg-background text-foreground">
     <h1 class="text-center text-4xl">Imagine if Investopedia was good at making a leaderboard</h1>
     <br>
-    <p class="text-center text-xl">Last updated 21:44:01 10-30-2024</p>
+    <p class="text-center text-xl">Last updated 00:10:13 10-31-2024</p>
     <table class="uk-table uk-table-striped uk-table-responsive">
         <thead>
             <tr>
@@ -56,11 +56,1310 @@
         </tbody>
     </table>
     <br>
-    <div class="h-[50vmin] flex justify-center items-center">
-        <canvas id="stockChart"></canvas>
+    <div class="flex flex-wrap justify-center items-start">
+        <!-- Chart Container -->
+        <div class="w-full md:w-1/2 p-4">
+            <canvas id="stockChart"></canvas>
+        </div>
+        <!-- Vertical Summary Statistics Table -->
+        <div class="w-full md:w-1/4 p-4">
+            <table class="uk-table uk-table-striped uk-table-responsive">
+                <thead>
+                    <tr>
+                        <th colspan="2" class="text-center">Summary Statistics</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Average Money</th>
+                        <td>$102,298.64</td>
+                    </tr>
+                    <tr>
+                        <th>Q1 Money</th>
+                        <td>$100,420.79</td>
+                    </tr>
+                    <tr>
+                        <th>Median Money</th>
+                        <td>$102,360.09</td>
+                    </tr>
+                    <tr>
+                        <th>Q3 Money</th>
+                        <td>$105,104.91</td>
+                    </tr>
+                    <tr>
+                        <th>Standard Deviation Money</th>
+                        <td>$7,755.49</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- New section for stocks and their counts -->
+        <div class="w-full md:w-1/4 p-4">
+            <div class="overflow-y-auto" style="max-height: 400px;">
+                <table class="uk-table uk-table-striped uk-table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Stock</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr>
+                            <td>NVDA</td>
+                            <td>61</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>AAPL</td>
+                            <td>50</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>AMZN</td>
+                            <td>36</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>MSFT</td>
+                            <td>24</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>COST</td>
+                            <td>23</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>TSLA</td>
+                            <td>19</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>AMD</td>
+                            <td>16</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>GOOG</td>
+                            <td>12</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>LULU</td>
+                            <td>11</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>QQQ</td>
+                            <td>10</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>WMT</td>
+                            <td>10</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>PLTR</td>
+                            <td>9</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>GOOGL</td>
+                            <td>9</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>NKE</td>
+                            <td>9</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>DUOL</td>
+                            <td>8</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>LLY</td>
+                            <td>8</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>AVGO</td>
+                            <td>8</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>CRWD</td>
+                            <td>8</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>RDDT</td>
+                            <td>8</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>SPOT</td>
+                            <td>8</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>NFLX</td>
+                            <td>8</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>ADBE</td>
+                            <td>7</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>META</td>
+                            <td>7</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>UBER</td>
+                            <td>7</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>DIS</td>
+                            <td>7</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>INTC</td>
+                            <td>7</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>SBUX</td>
+                            <td>7</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>JPM</td>
+                            <td>7</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>TGT</td>
+                            <td>6</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>DJT</td>
+                            <td>6</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>SPY</td>
+                            <td>6</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>BRK.B</td>
+                            <td>6</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>ASML</td>
+                            <td>5</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>BAC</td>
+                            <td>5</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>CMG</td>
+                            <td>5</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>GE</td>
+                            <td>5</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>WOK</td>
+                            <td>5</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>HD</td>
+                            <td>5</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>V</td>
+                            <td>5</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>SPGI</td>
+                            <td>5</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>TSM</td>
+                            <td>5</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>CSCO</td>
+                            <td>5</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>ORCL</td>
+                            <td>5</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>MCD</td>
+                            <td>5</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>RBLX</td>
+                            <td>5</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>ASTS</td>
+                            <td>4</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>TQQQ</td>
+                            <td>4</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>VOO</td>
+                            <td>4</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>F</td>
+                            <td>4</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>EA</td>
+                            <td>4</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>AXP</td>
+                            <td>4</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>TMUS</td>
+                            <td>4</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>TT</td>
+                            <td>4</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>ABNB</td>
+                            <td>3</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>LMT</td>
+                            <td>3</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>BA</td>
+                            <td>3</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>PACS</td>
+                            <td>3</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>SHOP</td>
+                            <td>3</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>LB</td>
+                            <td>3</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>CMCSA</td>
+                            <td>3</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>ADSK</td>
+                            <td>3</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>CAVA</td>
+                            <td>3</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>CAT</td>
+                            <td>3</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>NOC</td>
+                            <td>3</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>ULTA</td>
+                            <td>3</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>SMCI</td>
+                            <td>3</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>ANF</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>SNY</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>SOFI</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>APP</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>RTX</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>UAL</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>PDD</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>CCJ</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>RKLB</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>ROKU</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>LOAR</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>ANET</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>ISRG</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>PANW</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>BBWI</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>ADMA</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>EIX</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>TTWO</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>NDAQ</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>BLK</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>DIA</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>RIVN</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>VZ</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>PGR</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>MA</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>WFC</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>JNJ</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>XOM</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>SMR</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>VFC</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>DRS</td>
+                            <td>2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>GLD</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>APDN</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>BIDU</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>WDC</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>HOOD</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>MSTR</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>MU</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>DB</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>PHG</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>AAL</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>PG</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>ARM</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>BABX</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>BROS</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>FLNC</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>NIO</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>TMF</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>PEP</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>HYG</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>AHR</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>AZI</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>NNE</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>RYDE</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>ULS</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>YXT</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>LUNR</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>HWKN</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>RCL</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>VGT</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>ARDX</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>BNO</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>CDXC</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>HCP</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>SGC</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>CVS</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>KSS</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>MSI</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>UPS</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>CRM</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>BND</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>SO</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>AUR</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>CHDN</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>CLOV</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>CYBN</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>DAVE</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>OUT</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>SKYT</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>SWK</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>AEM</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>HII</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>HSY</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>NEM</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>SWBI</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>CGC</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>CLSK</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>GS</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>TKO</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>KVUE</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>REGN</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>FWONA</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>RACE</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>SPYG</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>KB</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>UCO</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>WLDN</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>HRB</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>RSPA</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>VOOG</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>ONON</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>VRTX</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>OXY</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>KO</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>SMH</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>YUMC</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>LUMN</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>CONL</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>DKNG</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>MODG</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>NVDL</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>SOXL</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>SSO</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>CVX</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>LEVI</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>SPAI</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>PAYC</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>AMGN</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>MRCY</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>QLD</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>ABT</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>FTNT</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>LWAY</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>NICE</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>VSTS</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>DOW</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>LPL</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>CART</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>NCLH</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>CDNS</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>LUV</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>RIOT</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>ABBV</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>HAL</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>NEE</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>NVO</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>FI</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>GILD</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>HCA</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>AFB</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>DELL</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>APD</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>BMY</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>IOT</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>UNH</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>GIS</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>QQQM</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>DKS</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>NBIX</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>BECN</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>CROX</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>DAL</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>LVS</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>TXN</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>AFRM</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>UNP</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>SMPL</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>T</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>UBS</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>VSCO</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>ENVA</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>DASH</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>RDNT</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>SHW</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>SMMT</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>TEM</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>SHEL</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>OSTX</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>IRM</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>WAB</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>LRCX</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>KR</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>SONY</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>AMAT</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>FNGD</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>SERV</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>BX</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>CEG</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>FIS</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>MGK</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>AMDL</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>BABA</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>NCNA</td>
+                            <td>1</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>ABIO</td>
+                            <td>1</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-
-
 
     </br>
 
@@ -72,6 +1371,8 @@
             <th>Account Name</th>
             
             <th>Money In Account</th>
+            
+            <th>Stocks Invested In</th>
             
             <th>Z-Score</th>
             
@@ -91,6 +1392,10 @@
             
             
             <td>$120,659.75</td>
+            
+            
+            
+            <td></td>
             
             
             
@@ -122,6 +1427,10 @@
             
             
             
+            <td>GLD</td>
+            
+            
+            
             <td>2.3405648622674673</td>
             
             
@@ -147,6 +1456,10 @@
             
             
             <td>$116,624.22</td>
+            
+            
+            
+            <td></td>
             
             
             
@@ -178,6 +1491,10 @@
             
             
             
+            <td>ABNB, ADBE, AMD, ANF, APDN, ASML, ASTS, BAC, BIDU, CMG, DUOL, GOOG, LLY, LMT, META, NVDA, SNY, WDC</td>
+            
+            
+            
             <td>1.8146505168567768</td>
             
             
@@ -203,6 +1520,10 @@
             
             
             <td>$115,391.94</td>
+            
+            
+            
+            <td>AMZN, AVGO, HOOD, MSTR, MU, NVDA, PLTR</td>
             
             
             
@@ -234,6 +1555,10 @@
             
             
             
+            <td>TSLA</td>
+            
+            
+            
             <td>1.639162351018059</td>
             
             
@@ -259,6 +1584,10 @@
             
             
             <td>$113,580.71</td>
+            
+            
+            
+            <td>TQQQ</td>
             
             
             
@@ -290,6 +1619,10 @@
             
             
             
+            <td>QQQ, SOFI</td>
+            
+            
+            
             <td>1.3824070106357227</td>
             
             
@@ -315,6 +1648,10 @@
             
             
             <td>$111,764.33</td>
+            
+            
+            
+            <td>AAPL, AMZN, APP, GOOG, GOOGL, NVDA, PLTR, WMT</td>
             
             
             
@@ -346,6 +1683,10 @@
             
             
             
+            <td>BA, DB, GOOG, RTX, TGT, TSLA, UAL</td>
+            
+            
+            
             <td>1.1280451555310416</td>
             
             
@@ -371,6 +1712,10 @@
             
             
             <td>$110,004.35</td>
+            
+            
+            
+            <td>AMD, PDD</td>
             
             
             
@@ -402,6 +1747,10 @@
             
             
             
+            <td>AAPL, DJT, LLY, NKE, NVDA, PHG, TSLA</td>
+            
+            
+            
             <td>0.907225750677622</td>
             
             
@@ -427,6 +1776,10 @@
             
             
             <td>$109,288.65</td>
+            
+            
+            
+            <td>AAL, PG</td>
             
             
             
@@ -458,6 +1811,10 @@
             
             
             
+            <td>AMD, ARM, ASML, BABX, CCJ, CRWD, RKLB</td>
+            
+            
+            
             <td>0.8659268029770858</td>
             
             
@@ -483,6 +1840,10 @@
             
             
             <td>$108,751.32</td>
+            
+            
+            
+            <td>AAPL, AMZN, BROS, CMG, FLNC, GE, MSFT, NIO, NVDA, TMF, TSLA, WOK</td>
             
             
             
@@ -514,6 +1875,10 @@
             
             
             
+            <td>AAPL, AMZN, COST, MSFT, NVDA, PACS, RDDT, TSLA</td>
+            
+            
+            
             <td>0.8115277627887942</td>
             
             
@@ -539,6 +1904,10 @@
             
             
             <td>$108,349.07</td>
+            
+            
+            
+            <td>AAPL, AMZN, LULU, NVDA, PEP</td>
             
             
             
@@ -570,6 +1939,10 @@
             
             
             
+            <td>HYG, ROKU, SHOP, VOO</td>
+            
+            
+            
             <td>0.6708273326729999</td>
             
             
@@ -595,6 +1968,10 @@
             
             
             <td>$107,362.36</td>
+            
+            
+            
+            <td>AHR, AZI, LB, LOAR, NNE, PACS, RDDT, RYDE, ULS, WOK, YXT</td>
             
             
             
@@ -626,6 +2003,10 @@
             
             
             
+            <td>LUNR</td>
+            
+            
+            
             <td>0.6514335000987338</td>
             
             
@@ -651,6 +2032,10 @@
             
             
             <td>$107,303.30</td>
+            
+            
+            
+            <td>ANET, GE, HWKN, ISRG, LLY, META, PANW, RCL, SPOT, SPY, UBER, VGT</td>
             
             
             
@@ -682,6 +2067,10 @@
             
             
             
+            <td>AAPL, AMZN, GOOGL, HD, MSFT, NVDA, TSLA</td>
+            
+            
+            
             <td>0.5608719911616267</td>
             
             
@@ -707,6 +2096,10 @@
             
             
             <td>$106,556.39</td>
+            
+            
+            
+            <td>AAPL, ARDX, BNO, CDXC, HCP, SGC, SNY</td>
             
             
             
@@ -738,6 +2131,10 @@
             
             
             
+            <td>AAPL, BAC, DIS, LOAR, NKE, NVDA</td>
+            
+            
+            
             <td>0.5457279217926283</td>
             
             
@@ -763,6 +2160,10 @@
             
             
             <td>$106,318.95</td>
+            
+            
+            
+            <td>ABNB, BBWI, CMCSA, COST, CVS, F, INTC, KSS, LULU, MSI, NKE, RDDT, TGT, UPS</td>
             
             
             
@@ -794,6 +2195,10 @@
             
             
             
+            <td>ADMA, AMD, AVGO, CRM, CRWD, GOOGL, HD, NVDA, SBUX</td>
+            
+            
+            
             <td>0.5002646462726145</td>
             
             
@@ -819,6 +2224,10 @@
             
             
             <td>$106,147.42</td>
+            
+            
+            
+            <td>AAPL, AMZN, META, NVDA</td>
             
             
             
@@ -850,6 +2259,10 @@
             
             
             
+            <td>BND, BRK.B, COST, DJT, NVDA, SO, SPY</td>
+            
+            
+            
             <td>0.49047064431981025</td>
             
             
@@ -875,6 +2288,10 @@
             
             
             <td>$105,550.06</td>
+            
+            
+            
+            <td>AAPL, AMZN, CMCSA, GOOGL, NVDA, UBER, V</td>
             
             
             
@@ -906,6 +2323,10 @@
             
             
             
+            <td>ADSK, COST, DUOL, EA, EIX, NVDA, PLTR, UBER</td>
+            
+            
+            
             <td>0.38960511006624676</td>
             
             
@@ -931,6 +2352,10 @@
             
             
             <td>$105,242.04</td>
+            
+            
+            
+            <td>AAPL, ADMA, AMZN, APP, AUR, CHDN, CLOV, COST, CYBN, DAVE, EA, JPM, LULU, NKE, OUT, SKYT, SOFI, SPGI, SWK, WOK</td>
             
             
             
@@ -962,6 +2387,10 @@
             
             
             
+            <td>AAPL, AEM, AMD, GOOGL, HII, HSY, NEM, NVDA, SWBI, TSM, TTWO</td>
+            
+            
+            
             <td>0.369206764471179</td>
             
             
@@ -987,6 +2416,10 @@
             
             
             <td>$105,089.61</td>
+            
+            
+            
+            <td>AAPL, COST, CSCO, LULU, NVDA, ORCL, SBUX, SPOT</td>
             
             
             
@@ -1018,6 +2451,10 @@
             
             
             
+            <td>CGC</td>
+            
+            
+            
             <td>0.3466000436010015</td>
             
             
@@ -1043,6 +2480,10 @@
             
             
             <td>$104,922.75</td>
+            
+            
+            
+            <td>AXP, INTC, NDAQ, NFLX, NVDA, TMUS, WMT</td>
             
             
             
@@ -1074,6 +2515,10 @@
             
             
             
+            <td>AAPL, BLK, CCJ, CLSK, ORCL, QQQ, VOO</td>
+            
+            
+            
             <td>0.3314456184276648</td>
             
             
@@ -1099,6 +2544,10 @@
             
             
             <td>$104,776.61</td>
+            
+            
+            
+            <td>AMZN, CMCSA, GS, JPM, LLY, MCD, MSFT, NDAQ, NVDA, SPGI, TKO, TSLA, WMT</td>
             
             
             
@@ -1130,6 +2579,10 @@
             
             
             
+            <td>AMD, AVGO, CRWD, MSFT, NVDA, PLTR, QQQ</td>
+            
+            
+            
             <td>0.30765186348522533</td>
             
             
@@ -1155,6 +2608,10 @@
             
             
             <td>$104,669.73</td>
+            
+            
+            
+            <td>AMD, AMZN, GOOG, NVDA, TSM</td>
             
             
             
@@ -1186,6 +2643,10 @@
             
             
             
+            <td>AMZN, CAVA, EA, GE, JPM, KVUE, NKE, NVDA, PLTR, TSLA</td>
+            
+            
+            
             <td>0.301324467034618</td>
             
             
@@ -1211,6 +2672,10 @@
             
             
             <td>$104,375.23</td>
+            
+            
+            
+            <td>AAPL, AMZN, NVDA, TT</td>
             
             
             
@@ -1242,6 +2707,10 @@
             
             
             
+            <td>ASML, CRWD, REGN</td>
+            
+            
+            
             <td>0.26650307494759456</td>
             
             
@@ -1267,6 +2736,10 @@
             
             
             <td>$104,233.04</td>
+            
+            
+            
+            <td>AAPL, COST, FWONA, MSFT, QQQ, RACE</td>
             
             
             
@@ -1298,6 +2771,10 @@
             
             
             
+            <td>AAPL, LB, LULU, NKE, NVDA, SPYG</td>
+            
+            
+            
             <td>0.2479312343426678</td>
             
             
@@ -1323,6 +2800,10 @@
             
             
             <td>$104,193.64</td>
+            
+            
+            
+            <td>ADBE, GOOG, KB, META, NVDA, PLTR, SPY, UCO, WLDN</td>
             
             
             
@@ -1354,6 +2835,10 @@
             
             
             
+            <td>BRK.B, DIA, MSFT</td>
+            
+            
+            
             <td>0.2154398982317277</td>
             
             
@@ -1379,6 +2864,10 @@
             
             
             <td>$103,864.16</td>
+            
+            
+            
+            <td>AAPL, HRB, MSFT</td>
             
             
             
@@ -1410,6 +2899,10 @@
             
             
             
+            <td>AAPL, AMZN, CRWD, CSCO, DIS, MCD, MSFT, RSPA, VOOG</td>
+            
+            
+            
             <td>0.18729670546726712</td>
             
             
@@ -1435,6 +2928,10 @@
             
             
             <td>$103,740.86</td>
+            
+            
+            
+            <td>RIVN</td>
             
             
             
@@ -1466,6 +2963,10 @@
             
             
             
+            <td>AAPL, MCD, NVDA, ONON, SBUX, SPOT, TMUS</td>
+            
+            
+            
             <td>0.18663522846516784</td>
             
             
@@ -1491,6 +2992,10 @@
             
             
             <td>$103,674.26</td>
+            
+            
+            
+            <td>AAPL, BRK.B, PLTR, VRTX, VZ</td>
             
             
             
@@ -1522,6 +3027,10 @@
             
             
             
+            <td>AMZN, BA, BBWI, INTC, MSFT</td>
+            
+            
+            
             <td>0.15973991012345407</td>
             
             
@@ -1547,6 +3056,10 @@
             
             
             <td>$103,212.84</td>
+            
+            
+            
+            <td>AVGO, COST, LLY, META, MSFT, NVDA, OXY, SBUX, SHOP</td>
             
             
             
@@ -1578,6 +3091,10 @@
             
             
             
+            <td>AMD, F, JPM, KO, MSFT, NVDA</td>
+            
+            
+            
             <td>0.0981811257108756</td>
             
             
@@ -1603,6 +3120,10 @@
             
             
             <td>$103,031.22</td>
+            
+            
+            
+            <td>UAL</td>
             
             
             
@@ -1634,6 +3155,10 @@
             
             
             
+            <td>AAPL, COST, NFLX, NVDA, QQQ, SMH, VOO, WOK</td>
+            
+            
+            
             <td>0.08169856863117017</td>
             
             
@@ -1659,6 +3184,10 @@
             
             
             <td>$102,901.59</td>
+            
+            
+            
+            <td>AMZN, BAC, DIS, PGR, RBLX, SPOT, YUMC</td>
             
             
             
@@ -1690,6 +3219,10 @@
             
             
             
+            <td>CAT, LUMN, NVDA</td>
+            
+            
+            
             <td>0.042191175081135006</td>
             
             
@@ -1715,6 +3248,10 @@
             
             
             <td>$102,613.56</td>
+            
+            
+            
+            <td>CONL, DKNG, MODG, NVDL, PLTR, QQQ, SOXL, SSO, UBER</td>
             
             
             
@@ -1746,6 +3283,10 @@
             
             
             
+            <td>NVDA, SPY, TQQQ</td>
+            
+            
+            
             <td>0.036833340811683754</td>
             
             
@@ -1771,6 +3312,10 @@
             
             
             <td>$102,554.96</td>
+            
+            
+            
+            <td>AAPL, AMZN, CSCO, NFLX, NVDA, SBUX</td>
             
             
             
@@ -1802,6 +3347,10 @@
             
             
             
+            <td>AAPL, ADBE, AMZN, AVGO, AXP, CVX, DUOL, MA, TT</td>
+            
+            
+            
             <td>0.024700221554001343</td>
             
             
@@ -1827,6 +3376,10 @@
             
             
             <td>$102,441.91</td>
+            
+            
+            
+            <td>CRWD, LEVI, NVDA, SPAI</td>
             
             
             
@@ -1858,6 +3411,10 @@
             
             
             
+            <td>AAPL, AMD, AMZN, ASTS, LB, NFLX, NVDA, PAYC, TSLA</td>
+            
+            
+            
             <td>0.01601040723875398</td>
             
             
@@ -1883,6 +3440,10 @@
             
             
             <td>$102,297.85</td>
+            
+            
+            
+            <td>AAPL, AMZN, COST, GOOG, LULU, NVDA, TSLA</td>
             
             
             
@@ -1914,6 +3475,10 @@
             
             
             
+            <td>ADSK, DUOL, EIX, ORCL, RBLX, TMUS, WMT</td>
+            
+            
+            
             <td>-0.00040872053938149124</td>
             
             
@@ -1939,6 +3504,10 @@
             
             
             <td>$102,206.18</td>
+            
+            
+            
+            <td>AAPL, AMZN, CAVA, COST, INTC, MSFT, NVDA, SHOP, TSLA, V</td>
             
             
             
@@ -1970,6 +3539,10 @@
             
             
             
+            <td>AAPL, AMGN, AMZN, AXP, COST, CSCO, LLY, LULU, MRCY, NFLX, NVDA, PANW</td>
+            
+            
+            
             <td>-0.012892642669019499</td>
             
             
@@ -1995,6 +3568,10 @@
             
             
             <td>$102,131.30</td>
+            
+            
+            
+            <td>TT, TTWO</td>
             
             
             
@@ -2026,6 +3603,10 @@
             
             
             
+            <td></td>
+            
+            
+            
             <td>-0.028884593518204094</td>
             
             
@@ -2051,6 +3632,10 @@
             
             
             <td>$102,044.94</td>
+            
+            
+            
+            <td>NVDA, QLD, QQQ, SPY</td>
             
             
             
@@ -2082,6 +3667,10 @@
             
             
             
+            <td>ADBE, MSFT</td>
+            
+            
+            
             <td>-0.03365344141592091</td>
             
             
@@ -2107,6 +3696,10 @@
             
             
             <td>$102,031.84</td>
+            
+            
+            
+            <td>AAPL, AMZN, BRK.B, COST, JPM, NVDA, TSLA</td>
             
             
             
@@ -2138,6 +3731,10 @@
             
             
             
+            <td>AAPL, ABT, CAVA, CMG, FTNT, GE, LMT, LWAY, NICE, NOC, NVDA, TSM, VSTS</td>
+            
+            
+            
             <td>-0.03876920875896667</td>
             
             
@@ -2163,6 +3760,10 @@
             
             
             <td>$101,834.34</td>
+            
+            
+            
+            <td>AAPL, AMZN, DIS, NVDA, RBLX</td>
             
             
             
@@ -2194,6 +3795,10 @@
             
             
             
+            <td>AAPL, BA, DOW, LPL, NFLX, NVDA, SBUX, SPOT, V, WFC, WMT</td>
+            
+            
+            
             <td>-0.06174356068314802</td>
             
             
@@ -2219,6 +3824,10 @@
             
             
             <td>$101,809.24</td>
+            
+            
+            
+            <td>AMD, MSFT, NOC, NVDA, WMT</td>
             
             
             
@@ -2250,6 +3859,10 @@
             
             
             
+            <td>AAPL, CART, CAT, COST, DUOL, HD, JNJ, NCLH, PACS, RBLX, ROKU, WMT</td>
+            
+            
+            
             <td>-0.07068320877805419</td>
             
             
@@ -2275,6 +3888,10 @@
             
             
             <td>$101,742.95</td>
+            
+            
+            
+            <td>AAPL, JPM, NKE, NVDA, SPGI, TSLA</td>
             
             
             
@@ -2306,6 +3923,10 @@
             
             
             
+            <td>CDNS, COST, GOOGL, LUV, MSFT, RIOT</td>
+            
+            
+            
             <td>-0.10197844948793938</td>
             
             
@@ -2331,6 +3952,10 @@
             
             
             <td>$101,451.16</td>
+            
+            
+            
+            <td>AAPL, AMZN, ANF, BRK.B, COST, CSCO, LULU, SPGI, TGT</td>
             
             
             
@@ -2362,6 +3987,10 @@
             
             
             
+            <td>ABBV, HAL, NEE, NVDA, NVO, ULTA, WMT</td>
+            
+            
+            
             <td>-0.10976342539914224</td>
             
             
@@ -2387,6 +4016,10 @@
             
             
             <td>$101,240.23</td>
+            
+            
+            
+            <td>FI, GILD, HCA, ORCL</td>
             
             
             
@@ -2418,6 +4051,10 @@
             
             
             
+            <td>AAPL, AMZN, COST, MCD, NVDA, SBUX, TGT</td>
+            
+            
+            
             <td>-0.1475983565485667</td>
             
             
@@ -2443,6 +4080,10 @@
             
             
             <td>$101,133.88</td>
+            
+            
+            
+            <td>RDDT</td>
             
             
             
@@ -2474,6 +4115,10 @@
             
             
             
+            <td>AAPL, ADBE, AMZN, MSFT, TSLA, V</td>
+            
+            
+            
             <td>-0.16301426578144218</td>
             
             
@@ -2499,6 +4144,10 @@
             
             
             <td>$100,931.92</td>
+            
+            
+            
+            <td>AAPL, F, LULU, NKE</td>
             
             
             
@@ -2530,6 +4179,10 @@
             
             
             
+            <td>AAPL, AFB, AVGO, DELL, META, MSFT, NVDA, VZ</td>
+            
+            
+            
             <td>-0.17913566418485552</td>
             
             
@@ -2555,6 +4208,10 @@
             
             
             <td>$100,897.41</td>
+            
+            
+            
+            <td>APD, COST</td>
             
             
             
@@ -2586,6 +4243,10 @@
             
             
             
+            <td>AMD, BAC, BMY, INTC, IOT, NVDA, UNH, VOO</td>
+            
+            
+            
             <td>-0.18354464788182182</td>
             
             
@@ -2611,6 +4272,10 @@
             
             
             <td>$100,825.27</td>
+            
+            
+            
+            <td>ABNB, GIS, GOOG, NVDA, UBER</td>
             
             
             
@@ -2642,6 +4307,10 @@
             
             
             
+            <td>DIA, QQQ, QQQM</td>
+            
+            
+            
             <td>-0.194124396488782</td>
             
             
@@ -2667,6 +4336,10 @@
             
             
             <td>$100,729.86</td>
+            
+            
+            
+            <td>ADBE, CMG, DKS, LLY, NBIX, RIVN</td>
             
             
             
@@ -2698,6 +4371,10 @@
             
             
             
+            <td>AMZN, BECN, CROX, DAL, DJT, GOOGL, LVS, MSFT, QQQ, RDDT, SPOT, SPY, TSM, TXN</td>
+            
+            
+            
             <td>-0.23639678979710282</td>
             
             
@@ -2723,6 +4400,10 @@
             
             
             <td>$100,468.90</td>
+            
+            
+            
+            <td></td>
             
             
             
@@ -2754,6 +4435,10 @@
             
             
             
+            <td>AFRM, BRK.B, CRWD, NVDA, TSLA</td>
+            
+            
+            
             <td>-0.2403980136982553</td>
             
             
@@ -2779,6 +4464,10 @@
             
             
             <td>$100,358.57</td>
+            
+            
+            
+            <td>NVDA, ORCL, UBER, UNP, XOM</td>
             
             
             
@@ -2810,6 +4499,10 @@
             
             
             
+            <td>AMD, ASML, CRWD, GOOG, MSFT, NVDA</td>
+            
+            
+            
             <td>-0.2599212938267483</td>
             
             
@@ -2835,6 +4528,10 @@
             
             
             <td>$100,216.84</td>
+            
+            
+            
+            <td>AMD, META, MSFT</td>
             
             
             
@@ -2866,6 +4563,10 @@
             
             
             
+            <td>INTC</td>
+            
+            
+            
             <td>-0.27941997891993975</td>
             
             
@@ -2891,6 +4592,10 @@
             
             
             <td>$100,077.05</td>
+            
+            
+            
+            <td>AMZN, JNJ, MCD, MSFT, NVDA</td>
             
             
             
@@ -2922,6 +4627,10 @@
             
             
             
+            <td>AAPL, ANET, GE, LULU, PGR, SMR</td>
+            
+            
+            
             <td>-0.2879026771484253</td>
             
             
@@ -2947,6 +4656,10 @@
             
             
             <td>$100,050.80</td>
+            
+            
+            
+            <td>INTC, NVDA, SMPL, T, TGT, TSLA</td>
             
             
             
@@ -2978,6 +4691,10 @@
             
             
             
+            <td>MSFT, VFC, WFC</td>
+            
+            
+            
             <td>-0.29098870684119305</td>
             
             
@@ -3003,6 +4720,10 @@
             
             
             <td>$99,971.37</td>
+            
+            
+            
+            <td>AAPL, AMZN, DIS, NKE, ULTA</td>
             
             
             
@@ -3034,6 +4755,10 @@
             
             
             
+            <td></td>
+            
+            
+            
             <td>-0.3152031663348697</td>
             
             
@@ -3059,6 +4784,10 @@
             
             
             <td>$99,587.26</td>
+            
+            
+            
+            <td>ASTS, CMG, GOOG, TSLA, UBS, VSCO</td>
             
             
             
@@ -3090,6 +4819,10 @@
             
             
             
+            <td>AAPL, ADSK, AMD, AMZN, CAT, COST, DIS, DJT, DRS, DUOL, ENVA, GOOG, GOOGL, JPM, MA, NVDA, PDD, SPOT, TQQQ, TSLA, TSM, UBER, ULTA, XOM</td>
+            
+            
+            
             <td>-0.3513177394886183</td>
             
             
@@ -3115,6 +4848,10 @@
             
             
             <td>$99,378.89</td>
+            
+            
+            
+            <td>AAPL, AMD, COST, HD, RBLX, TSLA</td>
             
             
             
@@ -3146,6 +4883,10 @@
             
             
             
+            <td>BAC, COST, DASH, EA, ISRG, RDNT, SHW, SMMT, SMR, TEM, TMUS</td>
+            
+            
+            
             <td>-0.42932542461680573</td>
             
             
@@ -3171,6 +4912,10 @@
             
             
             <td>$98,825.12</td>
+            
+            
+            
+            <td>AAPL, AMZN, DIS, F, LMT, NOC, NVDA, SHEL</td>
             
             
             
@@ -3202,6 +4947,10 @@
             
             
             
+            <td>AAPL, COST, NVDA, WOK</td>
+            
+            
+            
             <td>-0.4887703304688594</td>
             
             
@@ -3227,6 +4976,10 @@
             
             
             <td>$98,261.11</td>
+            
+            
+            
+            <td>AAPL, AMZN, NFLX, NVDA</td>
             
             
             
@@ -3258,6 +5011,10 @@
             
             
             
+            <td>AAPL, AMZN, GOOG, NVDA, OSTX</td>
+            
+            
+            
             <td>-0.622382212515192</td>
             
             
@@ -3283,6 +5040,10 @@
             
             
             <td>$97,108.85</td>
+            
+            
+            
+            <td>GOOG, V</td>
             
             
             
@@ -3314,6 +5075,10 @@
             
             
             
+            <td>AVGO, NVDA, QQQ, TQQQ</td>
+            
+            
+            
             <td>-0.7106654444979058</td>
             
             
@@ -3339,6 +5104,10 @@
             
             
             <td>$95,182.20</td>
+            
+            
+            
+            <td>AAPL, ASTS, AVGO, AXP, DJT, DUOL, HD, NVDA, PLTR, RDDT, WMT</td>
             
             
             
@@ -3370,6 +5139,10 @@
             
             
             
+            <td>IRM, TT, WAB</td>
+            
+            
+            
             <td>-0.9380672574837597</td>
             
             
@@ -3395,6 +5168,10 @@
             
             
             <td>$94,395.99</td>
+            
+            
+            
+            <td>ADBE, AMD, LRCX, MSFT, SMCI</td>
             
             
             
@@ -3426,6 +5203,10 @@
             
             
             
+            <td>AMZN, COST, DUOL, GOOGL, KR, RDDT, SONY, SPOT</td>
+            
+            
+            
             <td>-1.201984931041468</td>
             
             
@@ -3451,6 +5232,10 @@
             
             
             <td>$92,705.25</td>
+            
+            
+            
+            <td>AAPL, AMAT, LLY, LULU, NVDA, RKLB, SMCI</td>
             
             
             
@@ -3482,6 +5267,10 @@
             
             
             
+            <td>FNGD, SERV</td>
+            
+            
+            
             <td>-1.2856934864578053</td>
             
             
@@ -3507,6 +5296,10 @@
             
             
             <td>$92,087.93</td>
+            
+            
+            
+            <td>AAPL, SPGI</td>
             
             
             
@@ -3538,6 +5331,10 @@
             
             
             
+            <td>AMZN, BLK, BX, CEG, DJT, FIS, MGK, NFLX, RDDT, RTX, TGT, VFC, WMT</td>
+            
+            
+            
             <td>-1.4315938248268902</td>
             
             
@@ -3563,6 +5360,10 @@
             
             
             <td>$83,751.02</td>
+            
+            
+            
+            <td>AMDL, BABA, DRS</td>
             
             
             
@@ -3594,6 +5395,10 @@
             
             
             
+            <td>ASML, NCNA</td>
+            
+            
+            
             <td>-3.617386974102129</td>
             
             
@@ -3622,6 +5427,10 @@
             
             
             
+            <td>SMCI</td>
+            
+            
+            
             <td>-4.130913188573309</td>
             
             
@@ -3647,6 +5456,10 @@
             
             
             <td>$56,253.15</td>
+            
+            
+            
+            <td>ABIO</td>
             
             
             

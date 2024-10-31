@@ -5,7 +5,7 @@ import flask
 from glob import glob
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
-from dateutil.tz import tzutc
+from collections import Counter
 import json
 import os
 from babel.numbers import format_currency
@@ -67,15 +67,29 @@ if __name__ == "__main__":
             dict_leaderboard = json.load(file)
         df = pd.DataFrame.from_dict(dict_leaderboard, orient="index")
         df.reset_index(level=0, inplace=True)
-        df.columns = ["Account Name", "Money In Account", "Investopedia Link"]
+        df.columns = [
+            "Account Name",
+            "Money In Account",
+            "Investopedia Link",
+            "Stocks Invested In",
+        ]
         df = df.sort_values(by=["Money In Account"], ascending=False)
         df["Ranking"] = range(1, 1 + len(df))
+        all_stocks = []
+        for stocks in df["Stocks Invested In"]:
+            all_stocks.extend(stocks)
+        stock_cnt = Counter(all_stocks)
+        stock_cnt = stock_cnt.most_common()  # In order to determine the most common stocks. Now stock_cnt is a list of tuples
+        df["Stocks Invested In"] = df["Stocks Invested In"].apply(
+            lambda x: ", ".join(x)
+        )
         df["Z-Score"] = zscore(df["Money In Account"])
         df = df[
             [
                 "Ranking",
                 "Account Name",
                 "Money In Account",
+                "Stocks Invested In",
                 "Z-Score",
                 "Investopedia Link",
             ]
@@ -107,6 +121,7 @@ if __name__ == "__main__":
             q1_monies=q1_monies,
             median_monies=median_monies,
             q3_monies=q3_monies,
+            stock_cnt=stock_cnt,
             zip=zip,
         )
         print(rendered)

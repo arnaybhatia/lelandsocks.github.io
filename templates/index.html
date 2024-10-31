@@ -56,11 +56,65 @@
         </tbody>
     </table>
     <br>
-    <div class="h-[50vmin] flex justify-center items-center">
-        <canvas id="stockChart"></canvas>
+    <div class="flex flex-wrap justify-center items-start">
+        <!-- Chart Container -->
+        <div class="w-full md:w-1/2 p-4">
+            <canvas id="stockChart"></canvas>
+        </div>
+        <!-- Vertical Summary Statistics Table -->
+        <div class="w-full md:w-1/4 p-4">
+            <table class="uk-table uk-table-striped uk-table-responsive">
+                <thead>
+                    <tr>
+                        <th colspan="2" class="text-center">Summary Statistics</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Average Money</th>
+                        <td>{{ average_money }}</td>
+                    </tr>
+                    <tr>
+                        <th>Q1 Money</th>
+                        <td>{{ q1_money }}</td>
+                    </tr>
+                    <tr>
+                        <th>Median Money</th>
+                        <td>{{ median_money }}</td>
+                    </tr>
+                    <tr>
+                        <th>Q3 Money</th>
+                        <td>{{ q3_money }}</td>
+                    </tr>
+                    <tr>
+                        <th>Standard Deviation Money</th>
+                        <td>{{ std_money }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- New section for stocks and their counts -->
+        <div class="w-full md:w-1/4 p-4">
+            <div class="overflow-y-auto" style="max-height: 400px;">
+                <table class="uk-table uk-table-striped uk-table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Stock</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stock, count in stock_cnt %}
+                        <tr>
+                            <td>{{ stock }}</td>
+                            <td>{{ count }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-
-
 
     </br>
 
