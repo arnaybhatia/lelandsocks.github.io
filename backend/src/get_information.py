@@ -6,7 +6,7 @@ from datetime import datetime
 import pytz
 from dotenv import load_dotenv
 from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
 load_dotenv()
@@ -132,7 +132,7 @@ options.add_argument("--log-level=3")
 options.add_argument("--silent")
 options.add_argument("--incognito")
 options.add_argument("--disable-cache")
-driver = webdriver.Firefox(options=options)
+driver = webdriver.Chrome(options=options)
 driver.delete_all_cookies()
 
 # Perform the tasks
