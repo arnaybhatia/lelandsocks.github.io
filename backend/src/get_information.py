@@ -90,6 +90,7 @@ def get_account_information():
             table = driver.find_element(By.XPATH, "//table")
             rows = table.find_elements(By.TAG_NAME, "tr")
             stock_data = []
+            print(driver.current_url)
             for row in rows:
                 cols = row.find_elements(By.TAG_NAME, "td")
                 cols = [col.text for col in cols]
