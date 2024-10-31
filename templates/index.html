@@ -3,6 +3,7 @@
 
 <head>
     <title>The Leaderboard of the Great Quicksilver Stock Exchange</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/franken-ui@1.1.0/dist/css/core.min.css" />
     <script src="https://unpkg.com/franken-ui@1.1.0/dist/js/core.iife.js" type="module"></script>
     <script src="https://unpkg.com/franken-ui@1.1.0/dist/js/icon.iife.js" type="module"></script>
@@ -38,7 +39,7 @@
     <br>
     <div class="flex flex-wrap justify-center items-start">
         <!-- Chart Container -->
-        <div class="w-full md:w-1/2 p-4">
+        <div class="w-full md:w-1/2 p-4 h-full">
             <canvas id="stockChart"></canvas>
         </div>
         <!-- Vertical Summary Statistics Table -->
@@ -174,7 +175,7 @@
             type: 'line',
             data: data,
             responsive: true,
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
         }
 
         var myLineChart = new Chart(ctx, config);
