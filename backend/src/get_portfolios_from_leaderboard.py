@@ -1,5 +1,6 @@
-from bs4 import BeautifulSoup
 import os
+
+from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
 load_dotenv()
