@@ -30,6 +30,11 @@
             api_host: 'https://us.i.posthog.com', person_profiles: 'identified_only' // or 'always' to create profiles for anonymous users as well
         })
     </script>
+    <style>
+        a {
+            @apply underline text-blue-600 hover:text-blue-800 visited:text-purple-600
+        }
+    </style>
 </head>
 
 <body class="bg-background text-foreground">
@@ -37,6 +42,8 @@
     <br>
     <p class="text-center text-xl">Last updated {{ update_time }}</p>
     <br>
+    <p class="text-center text-xl">Code can be found at: <a
+            href="https://github.com/lelandstocks/lelandstocks.github.io"> LelandStocks</a></p>
     <div class="flex flex-wrap justify-center ">
         <!-- Chart Container -->
         <div class="w-full md:w-1/2 p-4 h-full md:h-3/4">
@@ -125,7 +132,7 @@
         </tr>
         {% endfor %}
     </table>
-    <!-- 
+    <!--
 
     <div class="uk-background-cover uk-flex uk-flex-center uk-flex-middle uk-height-medium"
         data-src="./images/evan_conrad.jpg" uk-img>
