@@ -97,6 +97,7 @@ if __name__ == "__main__":
         average_money, q1_money, median_money, q3_money, std_money = (
             get_five_number_summary(df)
         )
+        # This gets the location of the the GOAT himself, Mr. Miller
 
         df["Money In Account"] = df["Money In Account"].apply(
             lambda x: format_currency(x, currency="USD", locale="en_US")
@@ -116,6 +117,7 @@ if __name__ == "__main__":
             .astimezone(ZoneInfo("US/Pacific"))
             .strftime("%H:%M:%S %m-%d-%Y"),
             labels=labels,
+            miller_location=miller_location,
             min_monies=min_monies,
             max_monies=max_monies,
             q1_monies=q1_monies,
