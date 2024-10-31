@@ -98,7 +98,9 @@ if __name__ == "__main__":
             get_five_number_summary(df)
         )
         # This gets the location of the the GOAT himself, Mr. Miller
-
+        miller_location = df.loc[
+            df["Account Name"] == "teachermiller", "Ranking"
+        ].values[0]
         df["Money In Account"] = df["Money In Account"].apply(
             lambda x: format_currency(x, currency="USD", locale="en_US")
         )
