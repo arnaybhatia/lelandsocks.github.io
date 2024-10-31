@@ -36,38 +36,29 @@ def get_leaderboard_page():
     url = r"https://www.investopedia.com/simulator/games"
     driver.get(url)
 
+def get_user_stocks():
+    # Navigate to the page containing the user's stocks
+    driver.get(r"https://www.investopedia.com/simulator/portfolio")
+    time.sleep(5)  # Adjust sleep as necessary after analyzing load times
 
-def set_stock(ticker):
-    driver.find_element(
-        By.XPATH, '//input[@placeholder="Look up Symbol/Company Name"]'
-    ).send_keys(ticker)
-    option = driver.find_element(By.XPATH, '//div[@role="option"]')
-    driver.execute_script("arguments[0].click()", option)
-
-
-# def get_user_account_information():
-#    INVESTOPEDIA_USER_ID = int(os.environ.get("INVESTOPEDIA_USER_ID"))
-#    driver.get(r"https://www.investopedia.com/simulator/portfolio")
-#    time.sleep(10)
-#    # print(driver.current_url)
-#    account_value = driver.find_element(
-#        By.XPATH, '//div[contains(text(), "Account Value")]/following-sibling::div'
-#    ).text
-#    account_value = float(account_value.replace("$", "").replace(",", ""))
-#    account_name = driver.find_element(
-#        By.XPATH, '//*[@data-cy="account-value-text"]'
-#    ).text.replace(" Portfolio", "")  # just getting the account name
-#    print(
-#        f"https://www.investopedia.com/simulator/games/user-portfolio?portfolio={INVESTOPEDIA_USER_ID}",
-#        account_value,
-#        account_name,
-#    )
-#    return (
-#        account_name,
-#        account_value,
-#        f"https://www.investopedia.com/simulator/games/user-portfolio?portfolio={INVESTOPEDIA_USER_ID}",
-#    )
-
+    # Locate the table and extract stock data. Adjust XPaths or selectors accordingly.
+    stocks = []
+    try:
+        # Example: Assuming table rows have a specific class and each row contains stock data
+        stock_rows = driver.find_elements(By.XPATH, '//*[@id="stock-table-id"]/tbody/tr')  # Example XPath
+        for row in stock_rows:
+            cells = row.find_elements(By.TAG_NAME, "td")
+            if cells:
+                stock_info = {
+                    'ticker': cells[0].text,        # Assuming the first cell contains the ticker
+                    'quantity': cells[1].text,      # Assuming the second cell contains the quantity
+                    'price': cells[2].text,         # Assuming another cell contains the price
+                    # Add more fields if necessary
+                }
+                stocks.append(stock_info)
+    except Exception as e:
+        print(f"Error fetching stocks: {e}")
+    return stocks
 
 def get_account_information():
     """Returns a list with all of the account values within it"""
@@ -118,15 +109,9 @@ driver.delete_all_cookies()
 login()
 get_leaderboard_page()
 account_values = get_account_information()  # List of the values of the users
+user_stocks = get_user_stocks()
 
-# Removed as I just made the portfolios.txt file have my own user!
-# a, b, c = (
-#    get_user_account_information()
-# )  # Get the value of the person who is running this service (me) :)
-# account_values |= {a: [b, c]}  # add the information to the dictionary
-# print(account_values[a], account_values)
-# Now sort the dictionary to make the leaderboard
-# account_values = dict(sorted(account_values.items()[0]))
+print(user_stocks)
 
 # Write to a time-stamped file for storage reasons, NY timezone because finance moment
 # in_time represents the leaderboards that are in time, out_of_time represents the ones that are out of time
