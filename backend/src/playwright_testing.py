@@ -1,7 +1,6 @@
 import asyncio
 import json
 from playwright.async_api import async_playwright
-from playwright_stealth import stealth_async
 from dotenv import load_dotenv
 
 load_dotenv()

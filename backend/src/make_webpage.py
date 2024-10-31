@@ -1,14 +1,15 @@
-from flask import render_template
-import pandas as pd
-from scipy.stats import zscore
-import flask
-from glob import glob
-from datetime import datetime, timedelta
-from zoneinfo import ZoneInfo
-from collections import Counter
 import json
 import os
+from collections import Counter
+from datetime import datetime, timedelta
+from glob import glob
+
+import flask
+import pandas as pd
 from babel.numbers import format_currency
+from flask import render_template
+from scipy.stats import zscore
+from zoneinfo import ZoneInfo
 
 # this whole file is to render the html table
 app = flask.Flask("leaderboard")
