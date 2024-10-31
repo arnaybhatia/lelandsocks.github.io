@@ -28,13 +28,13 @@ def login():
 
     driver.find_element(By.ID, "login").click()
     time.sleep(0.5)
-    print(driver.current_url)
-    print("done with login!!!")
+    # print("done with login!!!")
 
 
 def get_leaderboard_page():
     url = r"https://www.investopedia.com/simulator/games"
     driver.get(url)
+    # print(driver.current_url)
 
 def get_user_stocks():
     # Navigate to the page containing the user's stocks
@@ -68,9 +68,9 @@ def get_account_information():
             driver.get(
                 rf"{line}"
             )  # what the heck is a french string doing here: https://stackoverflow.com/a/58321139
-            # print(driver.current_url)
+            #print(driver.current_url)
             time.sleep(2)
-            # print(driver.current_url)
+            print(driver.current_url)
             account_value = driver.find_element(
                 By.XPATH, '//*[@data-cy="account-value-text"]'
             ).text
@@ -78,7 +78,20 @@ def get_account_information():
             account_name = driver.find_element(
                 By.XPATH, '//*[@data-cy="user-portfolio-name"]'
             ).text.replace(" Portfolio", "")  # just getting the account name
-            account_information[account_name] = [account_value, line.strip()]
+            
+            # Extract stock data
+            table = driver.find_element(By.XPATH, "//table")
+            rows = table.find_elements(By.TAG_NAME, "tr")
+            stock_data = []
+            for row in rows:
+               cols = row.find_elements(By.TAG_NAME, "td")
+               cols = [col.text for col in cols]
+               cols = cols[0] # Remove the price of stocks and other not relevant data
+               stock_data.append(cols)
+            if stock_data == ['user has no stock holdings yet']: # Ensure that if the user has no stocks, the list is empty
+                stock_data = []
+            print(stock_data)
+            account_information[account_name] = [account_value, line.strip(), stock_data]
             print(line.strip(), account_value, account_name)
     return account_information
 
@@ -102,6 +115,8 @@ options.add_argument("--disable-extensions")
 options.add_argument("--disable-low-res-tiling")
 options.add_argument("--log-level=3")
 options.add_argument("--silent")
+options.add_argument("--incognito")
+options.add_argument("--disable-cache")
 driver = webdriver.Chrome(options=options)
 driver.delete_all_cookies()
 
@@ -111,7 +126,7 @@ get_leaderboard_page()
 account_values = get_account_information()  # List of the values of the users
 user_stocks = get_user_stocks()
 
-print(user_stocks)
+# print(user_stocks)
 
 # Write to a time-stamped file for storage reasons, NY timezone because finance moment
 # in_time represents the leaderboards that are in time, out_of_time represents the ones that are out of time
