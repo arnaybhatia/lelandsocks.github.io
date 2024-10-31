@@ -36,6 +36,7 @@ def get_leaderboard_page():
     driver.get(url)
     # print(driver.current_url)
 
+
 def get_user_stocks():
     # Navigate to the page containing the user's stocks
     driver.get(r"https://www.investopedia.com/simulator/portfolio")
@@ -45,20 +46,27 @@ def get_user_stocks():
     stocks = []
     try:
         # Example: Assuming table rows have a specific class and each row contains stock data
-        stock_rows = driver.find_elements(By.XPATH, '//*[@id="stock-table-id"]/tbody/tr')  # Example XPath
+        stock_rows = driver.find_elements(
+            By.XPATH, '//*[@id="stock-table-id"]/tbody/tr'
+        )  # Example XPath
         for row in stock_rows:
             cells = row.find_elements(By.TAG_NAME, "td")
             if cells:
                 stock_info = {
-                    'ticker': cells[0].text,        # Assuming the first cell contains the ticker
-                    'quantity': cells[1].text,      # Assuming the second cell contains the quantity
-                    'price': cells[2].text,         # Assuming another cell contains the price
+                    "ticker": cells[
+                        0
+                    ].text,  # Assuming the first cell contains the ticker
+                    "quantity": cells[
+                        1
+                    ].text,  # Assuming the second cell contains the quantity
+                    "price": cells[2].text,  # Assuming another cell contains the price
                     # Add more fields if necessary
                 }
                 stocks.append(stock_info)
     except Exception as e:
         print(f"Error fetching stocks: {e}")
     return stocks
+
 
 def get_account_information():
     """Returns a list with all of the account values within it"""
@@ -68,7 +76,7 @@ def get_account_information():
             driver.get(
                 rf"{line}"
             )  # what the heck is a french string doing here: https://stackoverflow.com/a/58321139
-            #print(driver.current_url)
+            # print(driver.current_url)
             time.sleep(2)
             print(driver.current_url)
             account_value = driver.find_element(
@@ -78,20 +86,26 @@ def get_account_information():
             account_name = driver.find_element(
                 By.XPATH, '//*[@data-cy="user-portfolio-name"]'
             ).text.replace(" Portfolio", "")  # just getting the account name
-            
+
             # Extract stock data
             table = driver.find_element(By.XPATH, "//table")
             rows = table.find_elements(By.TAG_NAME, "tr")
             stock_data = []
             for row in rows:
-               cols = row.find_elements(By.TAG_NAME, "td")
-               cols = [col.text for col in cols]
-               cols = cols[0] # Remove the price of stocks and other not relevant data
-               stock_data.append(cols)
-            if stock_data == ['user has no stock holdings yet']: # Ensure that if the user has no stocks, the list is empty
+                cols = row.find_elements(By.TAG_NAME, "td")
+                cols = [col.text for col in cols]
+                cols = cols[0]  # Remove the price of stocks and other not relevant data
+                stock_data.append(cols)
+            if stock_data == [
+                "user has no stock holdings yet"
+            ]:  # Ensure that if the user has no stocks, the list is empty
                 stock_data = []
             print(stock_data)
-            account_information[account_name] = [account_value, line.strip(), stock_data]
+            account_information[account_name] = [
+                account_value,
+                line.strip(),
+                stock_data,
+            ]
             print(line.strip(), account_value, account_name)
     return account_information
 
@@ -133,7 +147,7 @@ user_stocks = get_user_stocks()
 # This is because I don't want the leaderboard to just have a bunch of straight lines when it is waiting for the next day to happen
 tz_NY = pytz.timezone("America/New_York")
 time = datetime.now(tz_NY)
-if time.hour >= 8 and time.hour <= 17:
+if (time.hour >= 9) and time.hour <= 16:
     file_name = f"./backend/leaderboards/in_time/leaderboard-{time.strftime("%Y-%m-%d-%H_%M")}.json"
 else:
     file_name = f"./backend/leaderboards/out_of_time/leaderboard-{time.strftime("%Y-%m-%d-%H_%M")}.json"
