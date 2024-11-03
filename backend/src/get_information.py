@@ -31,12 +31,6 @@ def login():
     # print("done with login!!!")
 
 
-def get_leaderboard_page():
-    url = r"https://www.investopedia.com/simulator/games"
-    driver.get(url)
-    # print(driver.current_url)
-
-
 def get_user_stocks():
     # Navigate to the page containing the user's stocks
     driver.get(r"https://www.investopedia.com/simulator/portfolio")
@@ -124,11 +118,11 @@ tz_NY = pytz.timezone("America/New_York")
 curr_time = datetime.now(tz_NY)
 
 # Check if the current day is a weekday
-if not curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
+if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
+    print("here")
     if (
-        not (curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30))
-        and not curr_time.hour < 16
-    ):
+        curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30)
+    ) and curr_time.hour < 16:
         options = Options()
         options.add_argument("--headless")
         options.add_argument("--no-sandbox")
@@ -152,7 +146,6 @@ if not curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
 
         # Perform the tasks
         login()
-        get_leaderboard_page()
         account_values = get_account_information()  # List of the values of the users
         user_stocks = get_user_stocks()
         file_name = f"./backend/leaderboards/in_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
