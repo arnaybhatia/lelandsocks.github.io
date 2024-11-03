@@ -22,15 +22,19 @@ def sort_files_in_directory(directory, destination_in_time, destination_out_of_t
             file_time = get_time_from_filename(full_path)
             if file_time:
                 # Convert to New York timezone
-                print(file_time)
                 tz_NY = pytz.timezone("America/New_York")
                 file_time = tz_NY.localize(file_time)
-                print(file_time)
-                if (
-                    file_time.hour > 9
-                    or (file_time.hour == 9 and file_time.minute >= 30)
-                ) and file_time.hour < 16:
-                    destination = destination_in_time
+
+                # Check if the file date is a weekday
+                if file_time.weekday() < 5:  # 0 = Monday, 4 = Friday
+                    if (
+                        file_time.hour > 9
+                        or (file_time.hour == 9 and file_time.minute >= 30)
+                    ) and file_time.hour < 16:
+                        destination = destination_in_time
+                    else:
+                        destination = destination_out_of_time
+                    print(file_time, file_time.weekday)
                 else:
                     destination = destination_out_of_time
 

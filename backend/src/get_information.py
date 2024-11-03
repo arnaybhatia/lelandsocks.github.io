@@ -148,12 +148,18 @@ user_stocks = get_user_stocks()
 # This is because I don't want the leaderboard to just have a bunch of straight lines when it is waiting for the next day to happen
 tz_NY = pytz.timezone("America/New_York")
 curr_time = datetime.now(tz_NY)
-if (
-    curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30)
-) and curr_time.hour < 16:
-    file_name = f"./backend/leaderboards/in_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
+
+# Check if the current day is a weekday
+if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
+    if (
+        curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30)
+    ) and curr_time.hour < 16:
+        file_name = f"./backend/leaderboards/in_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
+    else:
+        file_name = f"./backend/leaderboards/out_of_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
 else:
     file_name = f"./backend/leaderboards/out_of_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
+
 with open(file_name, "w") as file:
     json.dump(account_values, file)
 
