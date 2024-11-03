@@ -157,11 +157,10 @@ if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
         file_name = f"./backend/leaderboards/in_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
         with open(file_name, "w") as file:
             json.dump(account_values, file)
+        # Write to a latest file to make it easy to read into a cool file at the end
         with open(
             "./backend/leaderboards/leaderboard-latest.json", "w"
         ) as file:  # latest is the file that is read by the webpage, saved in main directory for fun
             json.dump(account_values, file)
+
         driver.close()
-
-
-# Write to a latest file to make it easy to read into a cool file at the end
