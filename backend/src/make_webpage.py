@@ -94,23 +94,43 @@ if __name__ == "__main__":
             lambda x: ", ".join(x)
         )
         df["Z-Score"] = zscore(df["Money In Account"])
-        df = df[
-            [
-                "Ranking",
-                "Account Name",
-                "Money In Account",
-                "Stocks Invested In",
-                "Z-Score",
-                "Investopedia Link",
-            ]
-        ]  # This rearranges the columns to make things be in the right order
-        average_money, q1_money, median_money, q3_money, std_money = (
-            get_five_number_summary(df)
+        # Replace Account Name with Account Link
+        df["Account Link"] = df.apply(
+            lambda row: f'<a href="{row["Investopedia Link"]}" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600" target="_blank">{row["Account Name"]}</a>',
+            axis=1,
         )
+
         # This gets the location of the the GOAT himself, Mr. Miller
         miller_location = df.loc[
             df["Account Name"] == "teachermiller", "Ranking"
         ].values[0]
+
+        # Drop the old Account Name and Investopedia Link columns
+        df = df.drop(columns=["Account Name", "Investopedia Link"])
+
+        # Rearrange columns with Account Link
+        df = df[
+            [
+                "Ranking",
+                "Account Link",
+                "Money In Account",
+                "Stocks Invested In",
+                "Z-Score",
+            ]
+        ]
+
+        # Update column_names
+        column_names = [
+            "Ranking",
+            "Account Link",
+            "Money In Account",
+            "Stocks Invested In",
+            "Z-Score",
+        ]
+        # This rearranges the columns to make things be in the right order
+        average_money, q1_money, median_money, q3_money, std_money = (
+            get_five_number_summary(df)
+        )
         df["Money In Account"] = df["Money In Account"].apply(
             lambda x: format_currency(x, currency="USD", locale="en_US")
         )
@@ -122,9 +142,9 @@ if __name__ == "__main__":
             median_money="${:,.2f}".format(median_money),
             q3_money="${:,.2f}".format(q3_money),
             std_money="${:,.2f}".format(std_money),
-            column_names=df.columns.values,
+            column_names=column_names,  # Updated column names
             row_data=list(df.values.tolist()),
-            link_column="Investopedia Link",
+            link_column="Account Link",  # Update link column
             update_time=datetime.utcnow()
             .astimezone(ZoneInfo("US/Pacific"))
             .strftime("%H:%M:%S %m-%d-%Y"),

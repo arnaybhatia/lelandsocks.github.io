@@ -117,23 +117,13 @@
     <table class="uk-table uk-table-striped uk-table-responsive">
         <tr>
             {% for col in column_names %}
-            {% if col != "Investopedia Link" %} <!-- Skip the header for Investopedia Link -->
             <th>{{col}}</th>
-            {% endif %}
             {% endfor %}
         </tr>
         {% for row in row_data %}
         <tr {% if "teachermiller" in row %}class="font-bold" {% endif %}>
             {% for col, row_ in zip(column_names, row) %}
-            {% if col == "Account Name" %}
-            <td>
-                <a href="{{ row[column_names['Investopedia Link']] }}" class="uk-link-reset" target="_blank">
-                    {{ row_ }}
-                </a>
-            </td>
-            {% elif col != "Investopedia Link" %}
-            <td>{{row_}}</td>
-            {% endif %}
+            <td>{% if col == "Account Link" %}{{ row_ | safe }}{% else %}{{ row_ }}{% endif %}</td>
             {% endfor %}
         </tr>
         {% endfor %}
