@@ -124,10 +124,11 @@ tz_NY = pytz.timezone("America/New_York")
 curr_time = datetime.now(tz_NY)
 
 # Check if the current day is a weekday
-if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
+if not curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
     if (
-        curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30)
-    ) and curr_time.hour < 16:
+        not (curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30))
+        and not curr_time.hour < 16
+    ):
         options = Options()
         options.add_argument("--headless")
         options.add_argument("--no-sandbox")
