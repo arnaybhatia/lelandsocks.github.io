@@ -114,32 +114,6 @@ def get_account_information():
 # --- main ---
 # Clear the cache, set options needed
 
-options = Options()
-options.add_argument("--headless")
-options.add_argument("--no-sandbox")
-options.add_argument("--disable-dev-shm-usage")
-options.add_argument("--disable-renderer-backgrounding")
-options.add_argument("--disable-background-timer-throttling")
-options.add_argument("--disable-backgrounding-occluded-windows")
-options.add_argument("--disable-client-side-phishing-detection")
-options.add_argument("--disable-crash-reporter")
-options.add_argument("--disable-oopr-debug-crash-dump")
-options.add_argument("--no-crash-upload")
-options.add_argument("--disable-gpu")
-options.add_argument("--disable-extensions")
-options.add_argument("--disable-low-res-tiling")
-options.add_argument("--log-level=3")
-options.add_argument("--silent")
-options.add_argument("--incognito")
-options.add_argument("--disable-cache")
-driver = webdriver.Chrome(options=options)
-driver.delete_all_cookies()
-
-# Perform the tasks
-login()
-get_leaderboard_page()
-account_values = get_account_information()  # List of the values of the users
-user_stocks = get_user_stocks()
 
 # print(user_stocks)
 
@@ -154,18 +128,40 @@ if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
     if (
         curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30)
     ) and curr_time.hour < 16:
-        file_name = f"./backend/leaderboards/in_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
-    else:
-        file_name = f"./backend/leaderboards/out_of_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
-else:
-    file_name = f"./backend/leaderboards/out_of_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
+        options = Options()
+        options.add_argument("--headless")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--disable-renderer-backgrounding")
+        options.add_argument("--disable-background-timer-throttling")
+        options.add_argument("--disable-backgrounding-occluded-windows")
+        options.add_argument("--disable-client-side-phishing-detection")
+        options.add_argument("--disable-crash-reporter")
+        options.add_argument("--disable-oopr-debug-crash-dump")
+        options.add_argument("--no-crash-upload")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--disable-extensions")
+        options.add_argument("--disable-low-res-tiling")
+        options.add_argument("--log-level=3")
+        options.add_argument("--silent")
+        options.add_argument("--incognito")
+        options.add_argument("--disable-cache")
+        driver = webdriver.Chrome(options=options)
+        driver.delete_all_cookies()
 
-with open(file_name, "w") as file:
-    json.dump(account_values, file)
+        # Perform the tasks
+        login()
+        get_leaderboard_page()
+        account_values = get_account_information()  # List of the values of the users
+        user_stocks = get_user_stocks()
+        file_name = f"./backend/leaderboards/in_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
+        with open(file_name, "w") as file:
+            json.dump(account_values, file)
+        with open(
+            "./backend/leaderboards/leaderboard-latest.json", "w"
+        ) as file:  # latest is the file that is read by the webpage, saved in main directory for fun
+            json.dump(account_values, file)
+        driver.close()
+
 
 # Write to a latest file to make it easy to read into a cool file at the end
-with open(
-    "./backend/leaderboards/leaderboard-latest.json", "w"
-) as file:  # latest is the file that is read by the webpage, saved in main directory for fun
-    json.dump(account_values, file)
-driver.close()
