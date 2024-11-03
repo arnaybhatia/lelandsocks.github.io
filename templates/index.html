@@ -3,7 +3,7 @@
 
 <head>
     <title>The Leaderboard of the Great Quicksilver Stock Exchange</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Used for styling the webpage without react-->
     <link rel="stylesheet" href="https://unpkg.com/franken-ui@1.1.0/dist/css/core.min.css" />
     <script src="https://unpkg.com/franken-ui@1.1.0/dist/js/core.iife.js" type="module"></script>
@@ -38,6 +38,25 @@
             api_host: 'https://us.i.posthog.com', person_profiles: 'identified_only' // or 'always' to create profiles for anonymous users as well
         })
     </script>
+    <style>
+        /* Apply styles for small screens */
+        @media (max-width: 768px) {
+            .chart-container {
+                min-height: 300px;
+                /* Adjust this value according to the table height */
+                display: flex;
+                align-items: stretch;
+                /* Ensures the canvas takes full height */
+            }
+
+            #stockChart {
+                width: 100% !important;
+                height: auto !important;
+                /* Allow height to scale based on content */
+                flex-grow: 1;
+            }
+        }
+    </style>
 </head>
 
 <body class="bg-background text-foreground">
@@ -48,9 +67,9 @@
     <p class="text-center text-xl">Code can be found at: <a
             href="https://github.com/lelandstocks/lelandstocks.github.io"
             class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"> LelandStocks</a></p>
-    <div class="flex flex-wrap justify-center ">
+    <div class="flex flex-wrap justify-center">
         <!-- Chart Container -->
-        <div class="w-full md:w-1/2 p-4 h-full md:h-3/4">
+        <div class="w-full md:w-1/2 p-4 h-full md:h-auto flex chart-container">
             <canvas id="stockChart"></canvas>
         </div>
         <!-- Vertical Summary Statistics Table -->
@@ -181,7 +200,16 @@
             type: 'line',
             data: data,
             options: {
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        display: false, // Hides the x-axis labels
+                    },
+                },
                 plugins: {
+                    scales: {
+                        display: false // Hides the dataset labels from the legend
+                    },
                     zoom: {
                         zoom: {
                             wheel: {
@@ -202,6 +230,9 @@
         };
 
         var myLineChart = new Chart(ctx, config);
+        window.addEventListener('resize', () => {
+            myLineChart.resize();
+        });
     </script>
 
 
