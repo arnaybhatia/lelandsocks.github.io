@@ -193,6 +193,9 @@ def make_user_page(player_name):
             ]
             df = df.sort_values(by=["Money In Account"], ascending=False)
             df["Ranking"] = range(1, 1 + len(df))
+            rankings.append(
+                df.loc[df["Account Name"] == player_name, "Ranking"].values[0]
+            )
 
 
         rendered = render_template(
