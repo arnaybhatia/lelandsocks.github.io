@@ -23,11 +23,8 @@ def get_five_number_summary(df):
     std_money = df["Money In Account"].std()
     return average_money, q1_money, median_money, q3_money, std_money
 
-
-if __name__ == "__main__":
-    with app.app_context():
-        ### This whole section makes the chart shown at the top of the page!
-        leaderboard_files = sorted(
+def make_leaderboard():
+    leaderboard_files = sorted(
             glob("./backend/leaderboards/in_time/*")
         )  # This section formats everything nicely for the charts!
         labels = []
@@ -158,4 +155,10 @@ if __name__ == "__main__":
             stock_cnt=stock_cnt,
             zip=zip,
         )
+
+
+if __name__ == "__main__":
+    with app.app_context():
+        ### This whole section makes the chart shown at the top of the page!
+        
         print(rendered)
