@@ -191,6 +191,7 @@ def make_user_page(player_name):
                 "Investopedia Link",
             ]
             df2 = df2.sort_values(by=["Money In Account"], ascending=False)
+            df["Ranking"] = range(1, 1 + len(df))
 
 
         rendered = render_template(
