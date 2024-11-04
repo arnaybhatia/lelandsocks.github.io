@@ -193,11 +193,6 @@ def make_user_page(player_name):
             _1, q1_money, median_money, q3_money, _2 = get_five_number_summary(
                 df2
             )  # get some key numbers for the charts
-            min_monies.append(int(df2["Money In Account"].min()))
-            max_monies.append(int(df2["Money In Account"].max()))
-            q1_monies.append(int(q1_money))
-            median_monies.append(int(median_money))
-            q3_monies.append(int(q3_money))
 
 
         rendered = render_template(
