@@ -203,6 +203,7 @@ def make_user_page(player_name):
         #print(rankings, player_money)
         rendered = render_template(
             "player.html",
+            labels=labels,
             player_money=player_money,
             player_name=player_name,
             update_time=datetime.utcnow()
