@@ -197,7 +197,6 @@ def make_user_page(player_name):
 
         rendered = render_template(
             "player.html",
-            column_names=column_names,
             row_data=list(player_data.values.tolist()),
             player_money=player_money,
             player_name=player_name,
