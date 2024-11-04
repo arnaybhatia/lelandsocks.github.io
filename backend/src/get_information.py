@@ -119,7 +119,6 @@ curr_time = datetime.now(tz_NY)
 
 # Check if the current day is a weekday
 if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
-    print("here")
     if (
         curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30)
     ) and curr_time.hour < 16:
@@ -144,8 +143,10 @@ if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
         driver = webdriver.Chrome(options=options)
         driver.delete_all_cookies()
 
-        # Perform the tasks
+        #login to the website
         login()
+
+        # Perform the tasks
         account_values = get_account_information()  # List of the values of the users
         user_stocks = get_user_stocks()
         file_name = f"./backend/leaderboards/in_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
