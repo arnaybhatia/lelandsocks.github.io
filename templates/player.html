@@ -30,11 +30,7 @@
         const ctx = document.getElementById('stockChart');
 
         var labels = {{ labels | safe }};
-        var min_monies = {{ min_monies | safe }};
-        var max_monies = {{ max_monies | safe }};
-        var q1_monies = {{ q1_monies | safe }};
-        var median_monies = {{ median_monies | safe }};
-        var q3_monies = {{ q3_monies | safe }};
+        var money = {{ money | safe }};
         const data = {
             labels: labels,
             datasets: [
