@@ -191,9 +191,6 @@ def make_user_page(player_name):
                 "Investopedia Link",
             ]
             df2 = df2.sort_values(by=["Money In Account"], ascending=False)
-            _1, q1_money, median_money, q3_money, _2 = get_five_number_summary(
-                df2
-            )  # get some key numbers for the charts
 
 
         rendered = render_template(
