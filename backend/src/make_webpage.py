@@ -199,12 +199,12 @@ def make_user_page(player_name):
             "player.html",
             column_names=column_names,
             row_data=list(player_data.values.tolist()),
+            player_money=player_money,
             player_name=player_name,
             update_time=datetime.utcnow()
             .astimezone(ZoneInfo("US/Pacific"))
             .strftime("%H:%M:%S %m-%d-%Y"),
             zip=zip,
-            player_money=player_money,
         )
         return rendered
 
