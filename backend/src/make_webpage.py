@@ -164,11 +164,6 @@ def make_user_page(player_name):
             glob("./backend/leaderboards/in_time/*")
         )  # This section formats everything nicely for the charts!
         labels = []
-        min_monies = []
-        max_monies = []
-        q1_monies = []
-        median_monies = []
-        q3_monies = []
         for file in leaderboard_files:
             with open(file, "r") as file:
                 dict_leaderboard = json.load(file)
