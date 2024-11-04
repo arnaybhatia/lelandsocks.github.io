@@ -158,7 +158,63 @@ def make_index_page():
         )
         return rendered
 
-def make_user_page():
+def make_user_page(player_name):
+    with app.app_context():
+        with open("backend/leaderboards/leaderboard-latest.json", "r") as file:
+            dict_leaderboard = json.load(file)
+        df = pd.DataFrame.from_dict(dict_leaderboard, orient="index")
+        df.reset_index(level=0, inplace=True)
+        df.columns = [
+            "Account Name",
+            "Money In Account",
+            "Investopedia Link",
+            "Stocks Invested In",
+        ]
+        df = df.sort_values(by=["Money In Account"], ascending=False)
+        df["Ranking"] = range(1, 1 + len(df))
+        player_data = df[df["Account Name"] == player_name]
+
+        if player_data.empty:
+            return f"No data found for player: {player_name}"
+
+        player_data["Stocks Invested In"] = player_data["Stocks Invested In"].apply(
+            lambda x: ", ".join(x)
+        )
+        player_data["Z-Score"] = zscore(df["Money In Account"])
+        player_data["Account Link"] = player_data.apply(
+            lambda row: f'<a href="{row["Investopedia Link"]}" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600" target="_blank">{row["Account Name"]}</a>',
+            axis=1,
+        )
+        player_data = player_data.drop(columns=["Account Name", "Investopedia Link"])
+        player_data = player_data[
+            [
+                "Ranking",
+                "Account Link",
+                "Money In Account",
+                "Stocks Invested In",
+                "Z-Score",
+            ]
+        ]
+        column_names = [
+            "Ranking",
+            "Account Link",
+            "Money In Account",
+            "Stocks Invested In",
+            "Z-Score",
+        ]
+        player_data["Money In Account"] = player_data["Money In Account"].apply(
+            lambda x: format_currency(x, currency="USD", locale="en_US")
+        )
+        rendered = render_template(
+            "player.html",
+            column_names=column_names,
+            row_data=list(player_data.values.tolist()),
+            player_name=player_name,
+            update_time=datetime.utcnow()
+            .astimezone(ZoneInfo("US/Pacific"))
+            .strftime("%H:%M:%S %m-%d-%Y"),
+        )
+        return rendered
 
 if __name__ == "__main__":
     with app.app_context():
