@@ -106,9 +106,6 @@ def get_account_information():
 
 
 # --- main ---
-# Clear the cache, set options needed
-
-
 # print(user_stocks)
 
 # Write to a time-stamped file for storage reasons, NY timezone because finance moment
