@@ -195,7 +195,7 @@ def make_user_page(player_name):
             df["Ranking"] = range(1, 1 + len(df))
             if player_name in df["Account Name"].values:
                 rankings.append(
-                    int(df.loc[df["Account Name"] == player_name, "Ranking"].values[0])
+                    float(df.loc[df["Account Name"] == player_name, "Ranking"].values[0])
                 )
                 player_money.append(
                     int(df.loc[df["Account Name"] == player_name, "Money In Account"].values[0])
