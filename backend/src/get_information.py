@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from make_webpage import make_leaderboard
+from make_webpage import make_index_page
 load_dotenv()
 
 
@@ -157,4 +157,4 @@ if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
 
         driver.close()
         with open("index.html", 'w') as file:
-            file.write(make_leaderboard())
+            file.write(make_index_page())
