@@ -25,6 +25,88 @@
         </div>
     </div>
     
+    
+    <script>
+        const ctx = document.getElementById('stockChart');
+
+        var labels = {{ labels | safe }};
+        var min_monies = {{ min_monies | safe }};
+        var max_monies = {{ max_monies | safe }};
+        var q1_monies = {{ q1_monies | safe }};
+        var median_monies = {{ median_monies | safe }};
+        var q3_monies = {{ q3_monies | safe }};
+        const data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Min Money',
+                    data: min_monies,
+                    hidden: true,
+                },
+                {
+                    label: 'Max Money',
+                    data: max_monies,
+                    hidden: false,
+                },
+                {
+                    label: 'Q1 Money',
+                    data: q1_monies,
+                    hidden: false,
+
+                },
+                {
+                    label: 'Median Money',
+                    data: median_monies,
+                    hidden: false,
+
+                },
+                {
+                    label: 'Q3 Money',
+                    data: q3_monies,
+                    hidden: false,
+
+                }
+            ]
+        };
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        display: false, // Hides the x-axis labels
+                    },
+                },
+                plugins: {
+                    scales: {
+                        display: false // Hides the dataset labels from the legend
+                    },
+                    zoom: {
+                        zoom: {
+                            wheel: {
+                                enabled: true,
+                            },
+                            pinch: {
+                                enabled: true
+                            },
+                            mode: 'x',
+                        },
+                        pan: {
+                            enabled: true
+                        }
+                    },
+
+                }
+            }
+        };
+
+        var myLineChart = new Chart(ctx, config);
+        window.addEventListener('resize', () => {
+            myLineChart.resize();
+        });
+    </script>
+
 </body>
 
 </html>
