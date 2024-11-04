@@ -30,7 +30,7 @@
         const ctx = document.getElementById('playerChart');
 
         var labels = {{ labels | safe }};
-        var money = {{ money | safe }};
+        var money = {{ player_money | safe }};
         const data = {
             labels: labels,
             datasets: [
