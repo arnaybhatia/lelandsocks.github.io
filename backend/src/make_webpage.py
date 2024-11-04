@@ -158,6 +158,7 @@ def make_index_page():
         )
         return rendered
 
+def make_user_page():
 
 if __name__ == "__main__":
     with app.app_context():
