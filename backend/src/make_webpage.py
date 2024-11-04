@@ -23,7 +23,7 @@ def get_five_number_summary(df):
     std_money = df["Money In Account"].std()
     return average_money, q1_money, median_money, q3_money, std_money
 
-def make_leaderboard():
+def make_index_page():
      with app.app_context():
         leaderboard_files = sorted(
             glob("./backend/leaderboards/in_time/*")
