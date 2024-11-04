@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-
+from make_webpage import make_leaderboard
 load_dotenv()
 
 
@@ -159,3 +159,5 @@ if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
             json.dump(account_values, file)
 
         driver.close()
+        with open("index.html", 'w') as file:
+            file.write(make_leaderboard())
