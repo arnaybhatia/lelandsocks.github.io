@@ -197,7 +197,7 @@ def make_user_page(player_name):
                 df.loc[df["Account Name"] == player_name, "Ranking"].values[0]
             )
             player_money.append(
-                df.loc[df["Account Name"] == player_name, "Money In Account"].values
+                df.loc[df["Account Name"] == player_name, "Money In Account"].values[0]
             )
         print(rankings)
         print(player_money)
