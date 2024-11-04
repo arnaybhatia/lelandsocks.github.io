@@ -198,7 +198,6 @@ def make_user_page(player_name):
 
         rendered = render_template(
             "player.html",
-            row_data=list(player_data.values.tolist()),
             player_money=player_money,
             player_name=player_name,
             update_time=datetime.utcnow()
