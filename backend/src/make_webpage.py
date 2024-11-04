@@ -161,5 +161,4 @@ def make_leaderboard():
 if __name__ == "__main__":
     with app.app_context():
         ### This whole section makes the chart shown at the top of the page!
-        
         print(make_leaderboard())
