@@ -178,19 +178,19 @@ def make_user_page(player_name):
             ).strftime("%H:%M:%S %m-%d-%Y")  # The final string in the right format
             labels.append(date_time_str)
 
-            df2 = pd.DataFrame.from_dict(dict_leaderboard, orient="index")
-            df2.reset_index(level=0, inplace=True)
+            df = pd.DataFrame.from_dict(dict_leaderboard, orient="index")
+            df.reset_index(level=0, inplace=True)
             if (
-                len(df2.columns) == 3
+                len(df.columns) == 3
             ):  # IF the file has only 3 columns, then add a new column to the dataframe as a place holder
-                df2["Stocks Invested In"] = [0 for i in range(len(df2))]
-            df2.columns = [
+                df["Stocks Invested In"] = [0 for i in range(len(df2))]
+            df.columns = [
                 "Account Name",
                 "Money In Account",
                 "Stocks Invested In",
                 "Investopedia Link",
             ]
-            df2 = df2.sort_values(by=["Money In Account"], ascending=False)
+            df = df.sort_values(by=["Money In Account"], ascending=False)
             df["Ranking"] = range(1, 1 + len(df))
 
 
