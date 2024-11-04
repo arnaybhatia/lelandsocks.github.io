@@ -160,7 +160,7 @@ def make_index_page():
 
 def make_user_page(player_name):
     with app.app_context():
-       leaderboard_files = sorted(
+        leaderboard_files = sorted(
             glob("./backend/leaderboards/in_time/*")
         )  # This section formats everything nicely for the charts!
         labels = []
