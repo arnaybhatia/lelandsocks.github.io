@@ -155,6 +155,7 @@ def make_leaderboard():
         stock_cnt=stock_cnt,
         zip=zip,
     )
+    return rendered
 
 
 if __name__ == "__main__":
