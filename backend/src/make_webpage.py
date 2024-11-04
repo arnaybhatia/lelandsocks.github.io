@@ -200,7 +200,7 @@ def make_user_page(player_name):
                 df.loc[df["Account Name"] == player_name, "Money In Account"].values[0]
             )
 
-
+        print(player_money)
         rendered = render_template(
             "player.html",
             player_money=player_money,
