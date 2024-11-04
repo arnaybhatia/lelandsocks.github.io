@@ -205,6 +205,10 @@ def make_user_page(player_name):
         player_data["Money In Account"] = player_data["Money In Account"].apply(
             lambda x: format_currency(x, currency="USD", locale="en_US")
         )
+
+        # Get player's money data for the chart
+        player_money = df[df["Account Name"] == player_name]["Money In Account"].tolist()
+
         rendered = render_template(
             "player.html",
             column_names=column_names,
@@ -213,6 +217,8 @@ def make_user_page(player_name):
             update_time=datetime.utcnow()
             .astimezone(ZoneInfo("US/Pacific"))
             .strftime("%H:%M:%S %m-%d-%Y"),
+            zip=zip,
+            player_money=player_money,
         )
         return rendered
 

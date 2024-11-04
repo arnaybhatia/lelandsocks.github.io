@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Player Statistics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/franken-ui@1.1.0/dist/css/core.min.css" />
+    <script src="https://unpkg.com/franken-ui@1.1.0/dist/js/core.iife.js" type="module"></script>
+    <script src="https://unpkg.com/franken-ui@1.1.0/dist/js/icon.iife.js" type="module"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+</head>
+
+<body class="bg-background text-foreground">
+    <h1 class="text-center text-4xl">teachermiller's Statistics</h1>
+    <br>
+    <p class="text-center text-xl">Last updated 08:54:23 11-04-2024</p>
+    <br>
+    <div class="flex flex-wrap justify-center">
+        <!-- Chart Container -->
+        <div class="w-full p-4 h-full flex chart-container">
+            <canvas id="playerChart"></canvas>
+        </div>
+    </div>
+    <br>
+    <table class="uk-table uk-table-striped uk-table-responsive">
+        <tr>
+            
+            <th>Ranking</th>
+            
+            <th>Account Link</th>
+            
+            <th>Money In Account</th>
+            
+            <th>Stocks Invested In</th>
+            
+            <th>Z-Score</th>
+            
+        </tr>
+        
+        <tr>
+            
+            <td>24</td>
+            
+            <td><a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10442516" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600" target="_blank">teachermiller</a></td>
+            
+            <td>$106,226.36</td>
+            
+            <td>AHR, AZI, INGM, LB, LOAR, NNE, PACS, RDDT, RYDE, SEPN, ULS, WOK, YXT</td>
+            
+            <td>0.5742654267630359</td>
+            
+        </tr>
+        
+    </table>
+    <script>
+        const ctx = document.getElementById('playerChart');
+        const data = {
+            labels: ,
+            datasets: [
+                {
+                    label: 'Money In Account',
+                    data: [106226.36],
+                    hidden: false,
+                }
+            ]
+        };
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        display: false,
+                    },
+                },
+                plugins: {
+                    scales: {
+                        display: false
+                    },
+                    zoom: {
+                        zoom: {
+                            wheel: {
+                                enabled: true,
+                            },
+                            pinch: {
+                                enabled: true
+                            },
+                            mode: 'x',
+                        },
+                        pan: {
+                            enabled: true
+                        }
+                    },
+                }
+            }
+        };
+        var playerChart = new Chart(ctx, config);
+        window.addEventListener('resize', () => {
+            playerChart.resize();
+        });
+    </script>
+</body>
+
+</html>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Player Statistics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/franken-ui@1.1.0/dist/css/core.min.css" />
+    <script src="https://unpkg.com/franken-ui@1.1.0/dist/js/core.iife.js" type="module"></script>
+    <script src="https://unpkg.com/franken-ui@1.1.0/dist/js/icon.iife.js" type="module"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+</head>
+
+<body class="bg-background text-foreground">
+    <h1 class="text-center text-4xl">teachermiller's Statistics</h1>
+    <br>
+    <p class="text-center text-xl">Last updated 08:54:41 11-04-2024</p>
+    <br>
+    <div class="flex flex-wrap justify-center">
+        <!-- Chart Container -->
+        <div class="w-full p-4 h-full flex chart-container">
+            <canvas id="playerChart"></canvas>
+        </div>
+    </div>
+    <br>
+    <table class="uk-table uk-table-striped uk-table-responsive">
+        <tr>
+            
+            <th>Ranking</th>
+            
+            <th>Account Link</th>
+            
+            <th>Money In Account</th>
+            
+            <th>Stocks Invested In</th>
+            
+            <th>Z-Score</th>
+            
+        </tr>
+        
+        <tr>
+            
+            <td>24</td>
+            
+            <td><a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10442516" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600" target="_blank">teachermiller</a></td>
+            
+            <td>$106,226.36</td>
+            
+            <td>AHR, AZI, INGM, LB, LOAR, NNE, PACS, RDDT, RYDE, SEPN, ULS, WOK, YXT</td>
+            
+            <td>0.5742654267630359</td>
+            
+        </tr>
+        
+    </table>
+    <script>
+        const ctx = document.getElementById('playerChart');
+        const data = {
+            labels: ,
+            datasets: [
+                {
+                    label: 'Money In Account',
+                    data: [106226.36],
+                    hidden: false,
+                }
+            ]
+        };
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        display: false,
+                    },
+                },
+                plugins: {
+                    scales: {
+                        display: false
+                    },
+                    zoom: {
+                        zoom: {
+                            wheel: {
+                                enabled: true,
+                            },
+                            pinch: {
+                                enabled: true
+                            },
+                            mode: 'x',
+                        },
+                        pan: {
+                            enabled: true
+                        }
+                    },
+                }
+            }
+        };
+        var playerChart = new Chart(ctx, config);
+        window.addEventListener('resize', () => {
+            playerChart.resize();
+        });
+    </script>
+</body>
+
+</html>
