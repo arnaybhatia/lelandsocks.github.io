@@ -161,62 +161,62 @@ def make_index_page():
 def make_user_page(player_name):
     with app.app_context():
        leaderboard_files = sorted(
-        glob("./backend/leaderboards/in_time/*")
-    )  # This section formats everything nicely for the charts!
-    labels = []
-    min_monies = []
-    max_monies = []
-    q1_monies = []
-    median_monies = []
-    q3_monies = []
-    for file in leaderboard_files:
-        with open(file, "r") as file:
-            dict_leaderboard = json.load(file)
-        # Get a date time object from the file name, so I can use it as a label for the chart
-        file_name = os.path.basename(file.name)
-        date_time_str = file_name[len("leaderboard-") : -len(".json")]
-        date_time_str = date_time_str.replace("_", ":")
-        date_time_str = (
-            datetime.strptime(date_time_str, "%Y-%m-%d-%H:%M")
-            - timedelta(hours=3, minutes=0)
-        ).strftime("%H:%M:%S %m-%d-%Y")  # The final string in the right format
-        labels.append(date_time_str)
+            glob("./backend/leaderboards/in_time/*")
+        )  # This section formats everything nicely for the charts!
+        labels = []
+        min_monies = []
+        max_monies = []
+        q1_monies = []
+        median_monies = []
+        q3_monies = []
+        for file in leaderboard_files:
+            with open(file, "r") as file:
+                dict_leaderboard = json.load(file)
+            # Get a date time object from the file name, so I can use it as a label for the chart
+            file_name = os.path.basename(file.name)
+            date_time_str = file_name[len("leaderboard-") : -len(".json")]
+            date_time_str = date_time_str.replace("_", ":")
+            date_time_str = (
+                datetime.strptime(date_time_str, "%Y-%m-%d-%H:%M")
+                - timedelta(hours=3, minutes=0)
+            ).strftime("%H:%M:%S %m-%d-%Y")  # The final string in the right format
+            labels.append(date_time_str)
 
-        df2 = pd.DataFrame.from_dict(dict_leaderboard, orient="index")
-        df2.reset_index(level=0, inplace=True)
-        if (
-            len(df2.columns) == 3
-        ):  # IF the file has only 3 columns, then add a new column to the dataframe as a place holder
-            df2["Stocks Invested In"] = [0 for i in range(len(df2))]
-        df2.columns = [
-            "Account Name",
-            "Money In Account",
-            "Stocks Invested In",
-            "Investopedia Link",
-        ]
-        df2 = df2.sort_values(by=["Money In Account"], ascending=False)
-        _1, q1_money, median_money, q3_money, _2 = get_five_number_summary(
-            df2
-        )  # get some key numbers for the charts
-        min_monies.append(int(df2["Money In Account"].min()))
-        max_monies.append(int(df2["Money In Account"].max()))
-        q1_monies.append(int(q1_money))
-        median_monies.append(int(median_money))
-        q3_monies.append(int(q3_money))
+            df2 = pd.DataFrame.from_dict(dict_leaderboard, orient="index")
+            df2.reset_index(level=0, inplace=True)
+            if (
+                len(df2.columns) == 3
+            ):  # IF the file has only 3 columns, then add a new column to the dataframe as a place holder
+                df2["Stocks Invested In"] = [0 for i in range(len(df2))]
+            df2.columns = [
+                "Account Name",
+                "Money In Account",
+                "Stocks Invested In",
+                "Investopedia Link",
+            ]
+            df2 = df2.sort_values(by=["Money In Account"], ascending=False)
+            _1, q1_money, median_money, q3_money, _2 = get_five_number_summary(
+                df2
+            )  # get some key numbers for the charts
+            min_monies.append(int(df2["Money In Account"].min()))
+            max_monies.append(int(df2["Money In Account"].max()))
+            q1_monies.append(int(q1_money))
+            median_monies.append(int(median_money))
+            q3_monies.append(int(q3_money))
 
 
-    rendered = render_template(
-        "player.html",
-        column_names=column_names,
-        row_data=list(player_data.values.tolist()),
-        player_name=player_name,
-        update_time=datetime.utcnow()
-        .astimezone(ZoneInfo("US/Pacific"))
-        .strftime("%H:%M:%S %m-%d-%Y"),
-        zip=zip,
-        player_money=player_money,
-    )
-    return rendered
+        rendered = render_template(
+            "player.html",
+            column_names=column_names,
+            row_data=list(player_data.values.tolist()),
+            player_name=player_name,
+            update_time=datetime.utcnow()
+            .astimezone(ZoneInfo("US/Pacific"))
+            .strftime("%H:%M:%S %m-%d-%Y"),
+            zip=zip,
+            player_money=player_money,
+        )
+        return rendered
 
 if __name__ == "__main__":
     with app.app_context():
