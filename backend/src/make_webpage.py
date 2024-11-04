@@ -196,6 +196,9 @@ def make_user_page(player_name):
             rankings.append(
                 df.loc[df["Account Name"] == player_name, "Ranking"].values[0]
             )
+            player_money.append(
+                df.loc[df["Account Name"] == player_name, "Money In Account"].values[0]
+            )
 
 
         rendered = render_template(
