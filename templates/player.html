@@ -24,69 +24,7 @@
             <canvas id="playerChart"></canvas>
         </div>
     </div>
-    <br>
-    <table class="uk-table uk-table-striped uk-table-responsive">
-        <tr>
-            {% for col in column_names %}
-            <th>{{col}}</th>
-            {% endfor %}
-        </tr>
-        {% for row in row_data %}
-        <tr>
-            {% for col, row_ in zip(column_names, row) %}
-            <td>{% if col == "Account Link" %}{{ row_ | safe }}{% else %}{{ row_ }}{% endif %}</td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
-    </table>
-    <script>
-        const ctx = document.getElementById('playerChart');
-        const data = {
-            labels: {{ labels | safe }},
-            datasets: [
-                {
-                    label: 'Money In Account',
-                    data: {{ player_money | safe }},
-                    hidden: false,
-                }
-            ]
-        };
-        const config = {
-            type: 'line',
-            data: data,
-            options: {
-                maintainAspectRatio: false,
-                scales: {
-                    x: {
-                        display: false,
-                    },
-                },
-                plugins: {
-                    scales: {
-                        display: false
-                    },
-                    zoom: {
-                        zoom: {
-                            wheel: {
-                                enabled: true,
-                            },
-                            pinch: {
-                                enabled: true
-                            },
-                            mode: 'x',
-                        },
-                        pan: {
-                            enabled: true
-                        }
-                    },
-                }
-            }
-        };
-        var playerChart = new Chart(ctx, config);
-        window.addEventListener('resize', () => {
-            playerChart.resize();
-        });
-    </script>
+    
 </body>
 
 </html>
