@@ -202,7 +202,7 @@ def make_user_page(player_name):
                 )
 
         player_stocks = []
-        for name, data in df["Stocks Invested In"]:
+        for name, data in df.loc[df["Account Name"] == player_name,"Stocks Invested In"]:
             if name == player_name and len(data) > 3:  # Check if stocks data exists
                 player_stocks = data[2]  # Get stocks list from data
         rendered = render_template(
