@@ -30,38 +30,6 @@ def login():
     time.sleep(0.5)
     # print("done with login!!!")
 
-
-def get_user_stocks():
-    # Navigate to the page containing the user's stocks
-    driver.get(r"https://www.investopedia.com/simulator/portfolio")
-    time.sleep(5)  # Adjust sleep as necessary after analyzing load times
-
-    # Locate the table and extract stock data. Adjust XPaths or selectors accordingly.
-    stocks = []
-    try:
-        # Example: Assuming table rows have a specific class and each row contains stock data
-        stock_rows = driver.find_elements(
-            By.XPATH, '//*[@id="stock-table-id"]/tbody/tr'
-        )  # Example XPath
-        for row in stock_rows:
-            cells = row.find_elements(By.TAG_NAME, "td")
-            if cells:
-                stock_info = {
-                    "ticker": cells[
-                        0
-                    ].text,  # Assuming the first cell contains the ticker
-                    "quantity": cells[
-                        1
-                    ].text,  # Assuming the second cell contains the quantity
-                    "price": cells[2].text,  # Assuming another cell contains the price
-                    # Add more fields if necessary
-                }
-                stocks.append(stock_info)
-    except Exception as e:
-        print(f"Error fetching stocks: {e}")
-    return stocks
-
-
 def get_account_information():
     """Returns a list with all of the account values within it"""
     account_information = {}
@@ -144,7 +112,6 @@ if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
 
         # Perform the tasks
         account_values = get_account_information()  # List of the values of the users
-        user_stocks = get_user_stocks()
         file_name = f"./backend/leaderboards/in_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
         with open(file_name, "w") as file:
             json.dump(account_values, file)
@@ -157,6 +124,3 @@ if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
         driver.close()
         with open("index.html", 'w') as file:
             file.write(make_index_page())
-        
-        for i in user_stocks:
-            print(i)
