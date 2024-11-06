@@ -204,8 +204,14 @@ def make_user_page(player_name):
                 )
 
         player_stocks = []
-        player_stocks = list(df.loc[df["Account Name"] == player_name, "Stocks Invested In"])
-        print(player_stocks)
+        player_stocks_data = df.loc[df["Account Name"] == player_name, "Stocks Invested In"].iloc[0]
+        for stock in player_stocks_data:
+            player_stocks.append([
+                stock[0],  # ticker
+                float(stock[1].replace("$", "").replace(",", "")),  # invested amount
+                float(stock[2].replace("%", ""))   # percentage change
+            ])
+        
         rendered = render_template(
             "player.html",
             labels=labels,
