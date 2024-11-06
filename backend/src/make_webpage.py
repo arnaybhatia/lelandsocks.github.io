@@ -96,7 +96,7 @@ def make_index_page():
         df["Z-Score"] = zscore(df["Money In Account"])
         # Replace Account Name with Account Link
         df["Account Link"] = df.apply(
-            lambda row: f'<a href="{row["Investopedia Link"]}" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600" target="_blank">{row["Account Name"]}</a>',
+            lambda row: f'<a href="/players/{row["Account Name"]}.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600" target="_blank">{row["Account Name"]}</a>',
             axis=1,
         )
 
@@ -193,6 +193,7 @@ def make_user_page(player_name):
                 "Investopedia Link",
                 "Stocks Invested In",
             ]
+
             df = df.sort_values(by=["Money In Account"], ascending=False)
             df["Ranking"] = range(1, 1 + len(df))
             if player_name in df["Account Name"].values:
@@ -202,7 +203,7 @@ def make_user_page(player_name):
                 player_money.append(
                     float(df.loc[df["Account Name"] == player_name, "Money In Account"].values[0])
                 )
-
+        investopedia_link = df.loc[df["Account Name"] == player_name, "Investopedia Link"].values[0]
         player_stocks = []
         player_stocks_data = df.loc[df["Account Name"] == player_name, "Stocks Invested In"].iloc[0]
         for stock in player_stocks_data:
@@ -217,6 +218,7 @@ def make_user_page(player_name):
             labels=labels,
             player_money=player_money,
             player_name=player_name,
+            investopedia_link = investopedia_link,
             player_stocks=player_stocks,  # Add player_stocks to template
             update_time=datetime.utcnow()
             .astimezone(ZoneInfo("US/Pacific"))
