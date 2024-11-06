@@ -28,20 +28,13 @@
     <div class="flex justify-center mt-8">
         <div class="w-4/5">
             <h2 class="text-2xl mb-4">Current Stock Holdings</h2>
-            <table class="uk-table uk-table-striped uk-table-responsive">
-                <thead>
-                    <tr>
-                        <th>Stock Symbol</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for stock in player_stocks %}
-                    <tr>
-                        <td>{{ stock }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                {% for stock in player_stocks %}
+                <div class="p-2 border rounded text-center bg-gray-100">
+                    {{ stock }}
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 
