@@ -185,6 +185,7 @@ def make_user_page(player_name):
                 len(df.columns) == 3
             ):  # IF the file has only 3 columns, then add a new column to the dataframe as a place holder
                 df["Stocks Invested In"] = [0 for i in range(len(df))]
+            print(df.head)
             df.columns = [
                 "Account Name",
                 "Money In Account",
