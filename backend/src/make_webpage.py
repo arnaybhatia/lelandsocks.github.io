@@ -209,7 +209,7 @@ def make_user_page(player_name):
         for name, data in latest_data.items():
             if name == player_name and len(data) > 3:  # Check if stocks data exists
                 player_stocks = data[2]  # Get stocks list from data
-        
+        print(player_stocks)
         rendered = render_template(
             "player.html",
             labels=labels,
