@@ -159,4 +159,5 @@ if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
         with open("index.html", 'w') as file:
             file.write(make_index_page())
         
-        
+        for i in user_stocks:
+            print(i)
