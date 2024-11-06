@@ -200,12 +200,22 @@ def make_user_page(player_name):
                 player_money.append(
                     float(df.loc[df["Account Name"] == player_name, "Money In Account"].values[0])
                 )
-        #print(rankings, player_money)
+        
+        # Get latest stocks data for the player
+        with open("backend/leaderboards/leaderboard-latest.json", "r") as file:
+            latest_data = json.load(file)
+            
+        player_stocks = []
+        for name, data in latest_data.items():
+            if name == player_name and len(data) > 3:  # Check if stocks data exists
+                player_stocks = data[2]  # Get stocks list from data
+        
         rendered = render_template(
             "player.html",
             labels=labels,
             player_money=player_money,
             player_name=player_name,
+            player_stocks=player_stocks,  # Add player_stocks to template
             update_time=datetime.utcnow()
             .astimezone(ZoneInfo("US/Pacific"))
             .strftime("%H:%M:%S %m-%d-%Y"),
