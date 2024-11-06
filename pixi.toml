@@ -11,7 +11,7 @@ get_portfolio_values = "python ./backend/src/get_information.py"
 make_webpage = "rm index.html && python ./backend/src/make_webpage.py >> index.html"
 git_push = "git add -A . &&	git commit -m 'leaderboard update' && git push origin"
 remove_temp = "rm -rf /tmp/.org.chromium.Chromium.*"
-all = {depends-on = ["get_portfolio_values", "git_push", "remove_temp"]}
+all = "python ./backend/src/get_information.py; bash a.sh"
 
 [dependencies]
 python = ">=3.13.0,<3.14"
