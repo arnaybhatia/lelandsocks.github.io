@@ -60,7 +60,7 @@ def get_account_information():
                 cols = row.find_elements(By.TAG_NAME, "td")
                 cols = [col.text for col in cols]
                 stock_data.append(cols)
-            stock_data = stock_data[0][:3]  
+            stock_data = stock_data[0] 
             if stock_data == [
                 "user has no stock holdings yet"
             ]:  # Ensure that if the user has no stocks, the list is empty
