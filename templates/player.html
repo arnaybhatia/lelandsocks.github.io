@@ -23,6 +23,29 @@
             <canvas id="playerChart" class="w-full h-full"></canvas>
         </div>
     </div>
+    
+    <!-- Add stocks table -->
+    {% if player_stocks %}
+    <div class="flex justify-center mt-8">
+        <div class="w-4/5">
+            <h2 class="text-2xl mb-4">Current Stock Holdings</h2>
+            <table class="uk-table uk-table-striped uk-table-responsive">
+                <thead>
+                    <tr>
+                        <th>Stock Symbol</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stock in player_stocks %}
+                    <tr>
+                        <td>{{ stock }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
 
     <script>
         const ctx = document.getElementById('playerChart');
