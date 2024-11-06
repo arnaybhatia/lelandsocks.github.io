@@ -8,7 +8,8 @@ from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from make_webpage import make_index_page
+from make_webpage import make_index_page, make_user_page
+
 load_dotenv()
 
 
@@ -29,6 +30,7 @@ def login():
     driver.find_element(By.ID, "login").click()
     time.sleep(0.5)
     # print("done with login!!!")
+
 
 def get_account_information():
     """Returns a list with all of the account values within it"""
@@ -104,7 +106,7 @@ if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
         driver = webdriver.Chrome(options=options)
         driver.delete_all_cookies()
 
-        #login to the website
+        # login to the website
         login()
 
         # Perform the tasks
@@ -119,13 +121,11 @@ if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
             json.dump(account_values, file)
 
         driver.close()
-        with open("index.html", 'w') as file:
+        with open("index.html", "w") as file:
             file.write(make_index_page())
-        
+
         # Now make the user leaderboards
 
         for user in account_values:
-            with open(
-                f"./players/{user}.html", "w"
-            ) as file:
+            with open(f"./players/{user}.html", "w") as file:
                 file.write(make_user_page(user))
