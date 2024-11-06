@@ -11,6 +11,14 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+    <style>
+        #playerChart {
+            width: 100% !important;
+            height: auto !important;
+            /* Allow height to scale based on content */
+            flex-grow: 1;
+        }
+    </style>
 </head>
 
 <body class="bg-background text-foreground">
@@ -18,7 +26,7 @@
     <br>
     <p class="text-center text-xl">Last updated {{ update_time }}</p>
     <br>
-    <div class = "h-full md:h-auto">
+    <div class="h-full md:h-auto">
         <canvas id="playerChart"></canvas>
     </div>
 
