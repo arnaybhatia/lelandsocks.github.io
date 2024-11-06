@@ -89,7 +89,6 @@ def get_account_information():
             for row in rows:
                 cols = row.find_elements(By.TAG_NAME, "td")
                 cols = [col.text for col in cols]
-                cols = cols[0]  # Remove the price of stocks and other not relevant data
                 stock_data.append(cols)
             if stock_data == [
                 "user has no stock holdings yet"
