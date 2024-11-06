@@ -203,7 +203,7 @@ def make_user_page(player_name):
 
         player_stocks = []
         for stock in df.loc[df["Account Name"] == player_name, "Stocks Invested In"]:
-            player_stocks.extend(stock)
+            print(stock)
         rendered = render_template(
             "player.html",
             labels=labels,
