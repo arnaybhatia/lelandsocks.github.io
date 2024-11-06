@@ -60,6 +60,7 @@ def get_account_information():
                 cols = row.find_elements(By.TAG_NAME, "td")
                 cols = [col.text for col in cols]
                 stock_data.append(cols)
+            stock_data = stock_data[0][:3]  
             if stock_data == [
                 "user has no stock holdings yet"
             ]:  # Ensure that if the user has no stocks, the list is empty
@@ -128,7 +129,5 @@ if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
             # Now make the user leaderboards
 
             for user in account_values.keys():
-                print(user)
                 with open(f"./players/{user}.html", "w") as file:
                     file.write(make_user_page(user))
-            time.sleep(60)

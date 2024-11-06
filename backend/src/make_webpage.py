@@ -85,7 +85,8 @@ def make_index_page():
         df["Ranking"] = range(1, 1 + len(df))
         all_stocks = []
         for stocks in df["Stocks Invested In"]:
-            all_stocks.extend(stocks)
+           if len(stocks) > 0:
+                all_stocks.append(stocks[0])
         stock_cnt = Counter(all_stocks)
         stock_cnt = stock_cnt.most_common()  # In order to determine the most common stocks. Now stock_cnt is a list of tuples
         df["Stocks Invested In"] = df["Stocks Invested In"].apply(
