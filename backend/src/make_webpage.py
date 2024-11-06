@@ -85,12 +85,13 @@ def make_index_page():
         df["Ranking"] = range(1, 1 + len(df))
         all_stocks = []
         for stocks in df["Stocks Invested In"]:
-           if len(stocks) > 0:
-                all_stocks.append(stocks[0])
+            if len(stocks) > 0:
+                for x in stocks:
+                    all_stocks.append(x[0])
         stock_cnt = Counter(all_stocks)
         stock_cnt = stock_cnt.most_common()  # In order to determine the most common stocks. Now stock_cnt is a list of tuples
         df["Stocks Invested In"] = df["Stocks Invested In"].apply(
-            lambda x: ", ".join(x)
+            lambda x: ", ".join([stock[0] for stock in x])
         )
         df["Z-Score"] = zscore(df["Money In Account"])
         # Replace Account Name with Account Link
@@ -203,7 +204,8 @@ def make_user_page(player_name):
                 )
 
         player_stocks = []
-        player_stocks = list(df.loc[df["Account Name"] == player_name, "Stocks Invested In"])[0]
+        player_stocks = list(df.loc[df["Account Name"] == player_name, "Stocks Invested In"])
+        print(player_stocks)
         rendered = render_template(
             "player.html",
             labels=labels,

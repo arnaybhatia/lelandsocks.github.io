@@ -40,7 +40,7 @@ def get_account_information():
             driver.get(
                 rf"{line}"
             )  # what the heck is a french string doing here: https://stackoverflow.com/a/58321139
-            time.sleep(5)
+            time.sleep(10)
             print(driver.current_url)
             # driver.save_screenshot("screenie.png")
             account_value = driver.find_element(
@@ -60,11 +60,11 @@ def get_account_information():
                 cols = row.find_elements(By.TAG_NAME, "td")
                 cols = [col.text for col in cols]
                 stock_data.append(cols)
-            stock_data = stock_data[0] 
-            if stock_data == [
+            if stock_data == [[
                 "user has no stock holdings yet"
-            ]:  # Ensure that if the user has no stocks, the list is empty
+            ]]:  # Ensure that if the user has no stocks, the list is empty
                 stock_data = []
+            stock_data = [[s for s in sub_list if s] for sub_list in stock_data] # From: https://stackoverflow.com/a/65750792
             print(stock_data)
             account_information[account_name] = [
                 account_value,
