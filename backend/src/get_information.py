@@ -158,3 +158,5 @@ if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
         driver.close()
         with open("index.html", 'w') as file:
             file.write(make_index_page())
+        
+        
