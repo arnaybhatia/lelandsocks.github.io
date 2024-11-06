@@ -72,9 +72,6 @@ def get_account_information():
     return account_information
 
 
-# --- main ---
-# print(user_stocks)
-
 # Write to a time-stamped file for storage reasons, NY timezone because finance moment
 # in_time represents the leaderboards that are in time, out_of_time represents the ones that are out of time
 # This is because I don't want the leaderboard to just have a bunch of straight lines when it is waiting for the next day to happen
