@@ -5,7 +5,7 @@ from datetime import datetime
 
 import pytz
 from dotenv import load_dotenv
-from selenium_driverless.sync import webdriver
+import undetected_chromedriver as uc
 from selenium_driverless.types.by import By
 from make_webpage import make_index_page, make_user_page
 
@@ -84,9 +84,9 @@ curr_time = datetime.now(tz_NY)
 if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
     if (
         curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30)
-    ) and curr_time.hour < 16:
+    ) and curr_time.hour < 17:
         while True:
-            options = webdriver.ChromeOptions()
+            options = uc.ChromeOptions()
             options.add_argument("--headless")
             options.add_argument("--no-sandbox")
             options.add_argument("--disable-dev-shm-usage")
@@ -104,7 +104,7 @@ if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
             options.add_argument("--silent")
             options.add_argument("--incognito")
             options.add_argument("--disable-cache")
-            driver = webdriver.Chrome(options=options)
+            driver = uc.Chrome(options=options)
             driver.delete_all_cookies()
 
             # login to the website

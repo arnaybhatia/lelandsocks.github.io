@@ -106,6 +106,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/04/d8/f071bb000d4b8f851d312c3c75701e586b3f643fe14a2e3409b1b9ab3936/propcache-0.2.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/1d/0d/95993c08c721ec68892547f2117e8f9dfbcef2ca71e098533541b4a54d5f/pyee-12.0.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/5e/92/3fcf637eebbc334543de61b319c4f00d01526053edf33c2f25aa08f05c13/selenium_driverless-1.9.4.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/1f/98/7ab46625ce2317756e4e857fe6ac24b6378c3e8f477da26c95226ed8ccb7/undetected-chromedriver-3.5.5.tar.gz
       - pypi: https://files.pythonhosted.org/packages/27/ac/35f423cb6bb15600438db80755609d27eda36d4c0b3c9d745ea12766c45e/websockets-13.1-cp313-cp313-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/b0/77/6adc482ba7f2dc6c0d9b3b492e7cd100edfac4cfc3849c7ffa26fd7beb1a/yarl-1.17.1-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 packages:
@@ -1550,6 +1551,15 @@ packages:
   purls: []
   size: 122354
   timestamp: 1728047496079
+- kind: pypi
+  name: undetected-chromedriver
+  version: 3.5.5
+  url: https://files.pythonhosted.org/packages/1f/98/7ab46625ce2317756e4e857fe6ac24b6378c3e8f477da26c95226ed8ccb7/undetected-chromedriver-3.5.5.tar.gz
+  sha256: 9f945e1435005247abe17de316bcfda85b284a4177fd5f25167c78ced33b65ec
+  requires_dist:
+  - selenium>=4.9.0
+  - requests
+  - websockets
 - kind: conda
   name: urllib3
   version: 2.2.3
