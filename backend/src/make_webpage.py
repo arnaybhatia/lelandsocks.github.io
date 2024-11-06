@@ -200,11 +200,7 @@ def make_user_page(player_name):
                 player_money.append(
                     float(df.loc[df["Account Name"] == player_name, "Money In Account"].values[0])
                 )
-        
-        # Get latest stocks data for the player
-        with open("backend/leaderboards/leaderboard-latest.json", "r") as file:
-            latest_data = json.load(file)
-            
+
         player_stocks = []
         for name, data in latest_data.items():
             if name == player_name and len(data) > 3:  # Check if stocks data exists
