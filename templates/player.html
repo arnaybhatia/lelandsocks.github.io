@@ -57,7 +57,7 @@
     <script>
         const ctx = document.getElementById('playerChart');
 
-        // Parse the JSON data from Django template variables
+        // Parse the JSON data from Flask template variables
         const labels = JSON.parse('{{ labels|safe }}');
         const money = JSON.parse('{{ player_money|safe }}');
         

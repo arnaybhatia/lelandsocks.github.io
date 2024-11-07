@@ -127,6 +127,12 @@ if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
 
             # Now make the user leaderboards
 
-            for user in account_values.keys():
-                with open(f"./players/{user}.html", "w") as file:
-                    file.write(make_user_page(user))
+            
+with open("index.html", "w") as file:
+    file.write(make_index_page())
+with open('./backend/portfolios/usernames.txt', 'r') as file:
+    usernames = file.readlines()
+    usernames = [user.strip() for user in usernames]
+for user in usernames:
+    with open(f"./players/{user}.html", "w") as file:
+        file.write(make_user_page(user))
