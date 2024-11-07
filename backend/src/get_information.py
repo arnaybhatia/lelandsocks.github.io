@@ -5,12 +5,12 @@ from datetime import datetime
 
 import pytz
 from dotenv import load_dotenv
-import undetected_chromedriver as uc
-from selenium_driverless.types.by import By
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
 from make_webpage import make_index_page, make_user_page
 
 load_dotenv()
-
 
 # --- functions ---  # PEP8: `lower_case_names`
 def login():
@@ -18,16 +18,16 @@ def login():
     INVESTOPEDIA_PASSWORD = os.environ.get("INVESTOPEDIA_PASSWORD")
 
     driver.get(r"https://www.investopedia.com/simulator/home.aspx")
-    driver.sleep(10)
+    time.sleep(10)
 
     driver.find_element(By.ID, "username").send_keys(INVESTOPEDIA_EMAIL)
-    driver.sleep(0.5)
+    time.sleep(0.5)
 
     driver.find_element(By.ID, "password").send_keys(INVESTOPEDIA_PASSWORD)
-    driver.sleep(0.5)
+    time.sleep(0.5)
 
     driver.find_element(By.ID, "login").click()
-    driver.sleep(0.5)
+    time.sleep(0.5)
     # print("done with login!!!")
 
 
@@ -86,7 +86,7 @@ if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
         curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30)
     ) and curr_time.hour < 17:
         while True:
-            options = uc.ChromeOptions()
+            options = Options()
             options.add_argument("--headless")
             options.add_argument("--no-sandbox")
             options.add_argument("--disable-dev-shm-usage")
@@ -104,7 +104,7 @@ if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
             options.add_argument("--silent")
             options.add_argument("--incognito")
             options.add_argument("--disable-cache")
-            driver = uc.Chrome(options=options)
+            driver = webdriver.Chrome(options=options)
             driver.delete_all_cookies()
 
             # login to the website
