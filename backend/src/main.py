@@ -10,6 +10,8 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from make_webpage import make_index_page, make_user_page
 
+from discord_webhook import DiscordWebhook
+
 load_dotenv()
 
 # --- functions ---  # PEP8: `lower_case_names`
@@ -82,9 +84,9 @@ curr_time = datetime.now(tz_NY)
 
 # Check if the current day is a weekday
 if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
-    if (
+    if ((
         curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30)
-    ) and curr_time.hour < 17:
+    ) and curr_time.hour < 17) or os.environ.get("FORCE_UPDATE") == "True":
         options = Options()
         options.add_argument("--headless")
         options.add_argument("--no-sandbox")
@@ -129,3 +131,7 @@ with open('./backend/portfolios/usernames.txt', 'r') as file:
 for user in usernames:
     with open(f"./players/{user}.html", "w") as file:
         file.write(make_user_page(user))
+
+webhook_url =  os.environ.get("DISCORD_WEBHOOK_URL") 
+webhook = DiscordWebhook(url=webhook_url, content="Leaderboards have been updated!")
+response = webhook.execute()
