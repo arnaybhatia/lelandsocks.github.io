@@ -85,41 +85,40 @@ if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
     if (
         curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30)
     ) and curr_time.hour < 17:
-        while True:
-            options = Options()
-            options.add_argument("--headless")
-            options.add_argument("--no-sandbox")
-            options.add_argument("--disable-dev-shm-usage")
-            options.add_argument("--disable-renderer-backgrounding")
-            options.add_argument("--disable-background-timer-throttling")
-            options.add_argument("--disable-backgrounding-occluded-windows")
-            options.add_argument("--disable-client-side-phishing-detection")
-            options.add_argument("--disable-crash-reporter")
-            options.add_argument("--disable-oopr-debug-crash-dump")
-            options.add_argument("--no-crash-upload")
-            options.add_argument("--disable-gpu")
-            options.add_argument("--disable-extensions")
-            options.add_argument("--disable-low-res-tiling")
-            options.add_argument("--log-level=3")
-            options.add_argument("--silent")
-            options.add_argument("--incognito")
-            options.add_argument("--disable-cache")
-            driver = webdriver.Chrome(options=options)
-            driver.delete_all_cookies()
+        options = Options()
+        options.add_argument("--headless")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--disable-renderer-backgrounding")
+        options.add_argument("--disable-background-timer-throttling")
+        options.add_argument("--disable-backgrounding-occluded-windows")
+        options.add_argument("--disable-client-side-phishing-detection")
+        options.add_argument("--disable-crash-reporter")
+        options.add_argument("--disable-oopr-debug-crash-dump")
+        options.add_argument("--no-crash-upload")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--disable-extensions")
+        options.add_argument("--disable-low-res-tiling")
+        options.add_argument("--log-level=3")
+        options.add_argument("--silent")
+        options.add_argument("--incognito")
+        options.add_argument("--disable-cache")
+        driver = webdriver.Chrome(options=options)
+        driver.delete_all_cookies()
 
-            # login to the website
-            login()
+        # login to the website
+        login()
 
-            # Perform the tasks
-            account_values = get_account_information()  # List of the values of the users
-            file_name = f"./backend/leaderboards/in_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
-            with open(file_name, "w") as file:
-                json.dump(account_values, file)
-            # Write to a latest file to make it easy to read into a cool file at the end
-            with open(
-                "./backend/leaderboards/leaderboard-latest.json", "w"
-            ) as file:  # latest is the file that is read by the webpage, saved in main directory for fun
-                json.dump(account_values, file)
+        # Perform the tasks
+        account_values = get_account_information()  # List of the values of the users
+        file_name = f"./backend/leaderboards/in_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
+        with open(file_name, "w") as file:
+            json.dump(account_values, file)
+        # Write to a latest file to make it easy to read into a cool file at the end
+        with open(
+            "./backend/leaderboards/leaderboard-latest.json", "w"
+        ) as file:  # latest is the file that is read by the webpage, saved in main directory for fun
+            json.dump(account_values, file)
 
 # Now make the user leaderboards into html files, this should always run just to give the impression that the leaderboard actually updates lol            
 with open("index.html", "w") as file:
