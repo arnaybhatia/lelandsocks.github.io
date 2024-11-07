@@ -121,13 +121,7 @@ if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
             ) as file:  # latest is the file that is read by the webpage, saved in main directory for fun
                 json.dump(account_values, file)
 
-            driver.close()
-            with open("index.html", "w") as file:
-                file.write(make_index_page())
-
-            # Now make the user leaderboards
-
-            
+# Now make the user leaderboards into html files, this should always run just to give the impression that the leaderboard actually updates lol            
 with open("index.html", "w") as file:
     file.write(make_index_page())
 with open('./backend/portfolios/usernames.txt', 'r') as file:
