@@ -167,6 +167,7 @@ def make_user_page(player_name):
         )  # This section formats everything nicely for the charts!
         labels = []
         player_money = []
+        stock_data = {}
         rankings = []
         for file in leaderboard_files:
             with open(file, "r") as file:
