@@ -50,5 +50,4 @@ if __name__ == "__main__":
     add_user(
         "all_in_tqqq",
         "https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10701005"
-"
     )
