@@ -57,8 +57,10 @@
     <script>
         const ctx = document.getElementById('playerChart');
 
-        var labels = {{ labels | safe }};
-        var money = {{ player_money | safe }};
+        // Parse the JSON data from Django template variables
+        const labels = JSON.parse('{{ labels|safe }}');
+        const money = JSON.parse('{{ player_money|safe }}');
+        
         const data = {
             labels: labels,
             datasets: [

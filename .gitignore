@@ -2,6 +2,7 @@
 .pixi
 *.egg-info
 .env
+auth.json
 *.test.py
 
 # Byte-compiled / optimized / DLL files
