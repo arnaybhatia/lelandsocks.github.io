@@ -57,10 +57,8 @@
     <script>
         const ctx = document.getElementById('playerChart');
 
-        // Parse the JSON data from Flask template variables
-        const labels = JSON.parse('{{ labels|safe }}');
-        const money = JSON.parse('{{ player_money|safe }}');
-        
+        var labels = {{ labels | safe }};
+        var money = {{ player_money | safe }};
         const data = {
             labels: labels,
             datasets: [
