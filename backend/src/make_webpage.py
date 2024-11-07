@@ -204,7 +204,6 @@ def make_user_page(player_name):
                 player_money.append(
                     float(df.loc[df["Account Name"] == player_name, "Money In Account"].values[0])
                 )
-        print(df.loc[df["Account Name"] == player_name])
         investopedia_link = df.loc[df["Account Name"] == player_name, "Investopedia Link"].values[0]
         player_stocks = []
         player_stocks_data = df.loc[df["Account Name"] == player_name, "Stocks Invested In"].iloc[0]
