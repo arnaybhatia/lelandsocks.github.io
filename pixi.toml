@@ -7,7 +7,7 @@ platforms = ["linux-64"]
 
 [tasks]
 make_portfolio_links = "python ./backend/src/get_portfolios_from_leaderboard.py"
-get_portfolio_values = "python ./backend/src/get_information.py"
+main = "python ./backend/src/main.py"
 make_webpage = "rm index.html && python ./backend/src/make_webpage.py >> index.html"
 git_push = "git add -A . &&	git commit -m 'leaderboard update' && git push origin"
 update_discord = "python ./backend/src/update_discord.py"
@@ -19,18 +19,15 @@ python = ">=3.13.0,<3.14"
 requests = ">=2.32.3,<2.33"
 beautifulsoup4 = ">=4.12.3,<4.13"
 selenium = ">=4.25.0,<4.26"
-webdriver-manager = ">=4.0.2,<4.1"
 pandas = ">=2.2.3,<2.3"
 flask = ">=3.0.3,<3.1"
 ruff = ">=0.7.1,<0.8"
 scipy = ">=1.14.1,<2"
 babel = ">=2.14.0,<3"
-"discord.py" = ">=2.3.2,<3"
 
 [pypi-dependencies]
-playwright-stealth = ">=1.0.6, <2"
-selenium-driverless = ">=1.9.4, <2"
 undetected-chromedriver = ">=3.5.5, <4"
 yfinance = { version = ">=0.2.48, <0.3", extras = ["nospam", "repair"] }
-yarl = "*"
-discord-py = "*"
+discord-py = ">=2.4.0, <3"
+audioop-lts = ">=0.2.1, <0.3"
+python-dotenv = ">=1.0.1, <2"

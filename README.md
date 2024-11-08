@@ -7,4 +7,12 @@ First, using your own browser (will hopefully be fixed in a future update), down
 
 Then, fill out the .env.example file with your login credentials, and the number of leaderboards (and rename it to .env).
 
-then simply run `pixi run all`
+To get your Discord Channel ID, right click on the channel you want the bot to post in and click "Copy ID"
+
+TO add the bot to your server:
+In the OAuth2 tab, grab the Client ID.
+Replace <CLIENT_ID_HERE> in the following URL and visit it in the browser to invite your bot to your new test server.
+https://discordapp.com/api/oauth2/authorize?client_id=<CLIENT_ID_HERE>&permissions=8&scope=bot
+
+Then simply run `pixi run all`
+
