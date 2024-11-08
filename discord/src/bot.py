@@ -65,8 +65,8 @@ class MyClient(discord.Client):
     async def send_leaderboard(self):
         now = datetime.datetime.now(timezone('US/Eastern'))
         if now.weekday() < 5:  # Monday-Friday are 0-4
-            start_time = now.replace(hour=9, minute=30, second=0, microsecond=0)
-            end_time = now.replace(hour=16, minute=0, second=0, microsecond=0)
+            start_time = now.replace(hour=9, minute=15, second=0, microsecond=0)
+            end_time = now.replace(hour=16, minute=15, second=0, microsecond=0)
             if start_time <= now <= end_time:
                 # Load the JSON file
                 json_file_path = "./backend/leaderboards/leaderboard-latest.json"

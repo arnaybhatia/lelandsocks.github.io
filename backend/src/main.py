@@ -10,7 +10,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from make_webpage import make_index_page, make_user_page
 
-
 load_dotenv()
 
 
