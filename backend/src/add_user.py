@@ -1,9 +1,10 @@
 import json
 from glob import glob
 
+
 def add_user(username, portfolio_url):
     """Add a new user to the system."""
-    
+
     # Add portfolio URL to portfolios.txt
     with open("./backend/portfolios/portfolios.txt", "a") as f:
         f.write(f"{portfolio_url}\n")
@@ -21,7 +22,7 @@ def add_user(username, portfolio_url):
     leaderboard[username] = [
         100000.00,  # Initial account value
         portfolio_url,  # Portfolio URL
-        []  # Empty stock holdings
+        [],  # Empty stock holdings
     ]
 
     # Write updated leaderboard
@@ -39,15 +40,16 @@ def add_user(username, portfolio_url):
             lb_data[username] = [
                 100000.00,  # Initial account value
                 portfolio_url,  # Portfolio URL
-                []  # Empty stock holdings
+                [],  # Empty stock holdings
             ]
             # Write updated leaderboard
             with open(lb_file, "w") as f:
                 json.dump(lb_data, f)
 
+
 if __name__ == "__main__":
     # Add the all_in_tqqq user
     add_user(
         "all_in_tqqq",
-        "https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10701005"
+        "https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10701005",
     )

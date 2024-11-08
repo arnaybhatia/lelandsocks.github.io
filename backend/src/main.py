@@ -10,9 +10,9 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from make_webpage import make_index_page, make_user_page
 
-from discord_webhook import DiscordWebhook
 
 load_dotenv()
+
 
 # --- functions ---  # PEP8: `lower_case_names`
 def login():
@@ -61,11 +61,13 @@ def get_account_information():
                 cols = row.find_elements(By.TAG_NAME, "td")
                 cols = [col.text for col in cols]
                 stock_data.append(cols)
-            if stock_data == [[
-                "user has no stock holdings yet"
-            ]]:  # Ensure that if the user has no stocks, the list is empty
+            if stock_data == [
+                ["user has no stock holdings yet"]
+            ]:  # Ensure that if the user has no stocks, the list is empty
                 stock_data = []
-            stock_data = [[s for s in sub_list if s] for sub_list in stock_data] # From: https://stackoverflow.com/a/65750792
+            stock_data = [
+                [s for s in sub_list if s] for sub_list in stock_data
+            ]  # From: https://stackoverflow.com/a/65750792
             print(stock_data)
             account_information[account_name] = [
                 account_value,
@@ -84,9 +86,10 @@ curr_time = datetime.now(tz_NY)
 
 # Check if the current day is a weekday
 if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
-    if ((
-        curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30)
-    ) and curr_time.hour < 17) or os.environ.get("FORCE_UPDATE") == "True":
+    if (
+        (curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30))
+        and curr_time.hour < 17
+    ) or os.environ.get("FORCE_UPDATE") == "True":
         options = Options()
         options.add_argument("--headless")
         options.add_argument("--no-sandbox")
@@ -122,16 +125,12 @@ if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
         ) as file:  # latest is the file that is read by the webpage, saved in main directory for fun
             json.dump(account_values, file)
 
-# Now make the user leaderboards into html files, this should always run just to give the impression that the leaderboard actually updates lol            
+# Now make the user leaderboards into html files, this should always run just to give the impression that the leaderboard actually updates lol
 with open("index.html", "w") as file:
     file.write(make_index_page())
-with open('./backend/portfolios/usernames.txt', 'r') as file:
+with open("./backend/portfolios/usernames.txt", "r") as file:
     usernames = file.readlines()
     usernames = [user.strip() for user in usernames]
 for user in usernames:
     with open(f"./players/{user}.html", "w") as file:
         file.write(make_user_page(user))
-
-webhook_url =  os.environ.get("DISCORD_WEBHOOK_URL") 
-webhook = DiscordWebhook(url=webhook_url, content="Leaderboards have been updated!")
-response = webhook.execute()

@@ -23,8 +23,9 @@ def get_five_number_summary(df):
     std_money = df["Money In Account"].std()
     return average_money, q1_money, median_money, q3_money, std_money
 
+
 def make_index_page():
-     with app.app_context():
+    with app.app_context():
         leaderboard_files = sorted(
             glob("./backend/leaderboards/in_time/*")
         )  # This section formats everything nicely for the charts!
@@ -160,6 +161,7 @@ def make_index_page():
         )
         return rendered
 
+
 def make_user_page(player_name):
     with app.app_context():
         leaderboard_files = sorted(
@@ -167,7 +169,6 @@ def make_user_page(player_name):
         )  # This section formats everything nicely for the charts!
         labels = []
         player_money = []
-        stock_data = {}
         rankings = []
         for file in leaderboard_files:
             with open(file, "r") as file:
@@ -199,27 +200,41 @@ def make_user_page(player_name):
             df["Ranking"] = range(1, 1 + len(df))
             if player_name in df["Account Name"].values:
                 rankings.append(
-                    float(df.loc[df["Account Name"] == player_name, "Ranking"].values[0])
+                    float(
+                        df.loc[df["Account Name"] == player_name, "Ranking"].values[0]
+                    )
                 )
                 player_money.append(
-                    float(df.loc[df["Account Name"] == player_name, "Money In Account"].values[0])
+                    float(
+                        df.loc[
+                            df["Account Name"] == player_name, "Money In Account"
+                        ].values[0]
+                    )
                 )
-        investopedia_link = df.loc[df["Account Name"] == player_name, "Investopedia Link"].values[0]
+        investopedia_link = df.loc[
+            df["Account Name"] == player_name, "Investopedia Link"
+        ].values[0]
         player_stocks = []
-        player_stocks_data = df.loc[df["Account Name"] == player_name, "Stocks Invested In"].iloc[0]
+        player_stocks_data = df.loc[
+            df["Account Name"] == player_name, "Stocks Invested In"
+        ].iloc[0]
         for stock in player_stocks_data:
-            player_stocks.append([
-                stock[0],  # ticker
-                float(stock[1].replace("$", "").replace(",", "")),  # invested amount
-                float(stock[2].replace("%", ""))   # percentage change
-            ])
-        
+            player_stocks.append(
+                [
+                    stock[0],  # ticker
+                    float(
+                        stock[1].replace("$", "").replace(",", "")
+                    ),  # invested amount
+                    float(stock[2].replace("%", "")),  # percentage change
+                ]
+            )
+
         rendered = render_template(
             "player.html",
             labels=labels,
             player_money=player_money,
             player_name=player_name,
-            investopedia_link = investopedia_link,
+            investopedia_link=investopedia_link,
             player_stocks=player_stocks,  # Add player_stocks to template
             update_time=datetime.utcnow()
             .astimezone(ZoneInfo("US/Pacific"))
@@ -227,6 +242,7 @@ def make_user_page(player_name):
             zip=zip,
         )
         return rendered
+
 
 if __name__ == "__main__":
     with app.app_context():
