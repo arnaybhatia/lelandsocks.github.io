@@ -7,7 +7,7 @@ import json
 load_dotenv()
 
 # Load the JSON file
-json_file_path = "/home/strifedeeno/lelandstocks.github.io/backend/leaderboards/leaderboard-latest.json"
+json_file_path = "./backend/leaderboards/leaderboard-latest.json"
 with open(json_file_path, 'r') as file:
     data = json.load(file)
 
