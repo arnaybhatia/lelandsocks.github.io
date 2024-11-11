@@ -2,6 +2,7 @@ import json
 import os
 import time
 from datetime import datetime
+import pickle
 
 import pytz
 from dotenv import load_dotenv
@@ -14,10 +15,35 @@ load_dotenv()
 
 
 # --- functions ---  # PEP8: `lower_case_names`
+def save_cookies(driver, path):
+    with open(path, 'wb') as file:
+        pickle.dump(driver.get_cookies(), file)
+
+def load_cookies(driver, path):
+    try:
+        with open(path, 'rb') as file:
+            cookies = pickle.load(file)
+            for cookie in cookies:
+                driver.add_cookie(cookie)
+        return True
+    except:
+        return False
+
 def login():
     INVESTOPEDIA_EMAIL = os.environ.get("INVESTOPEDIA_EMAIL")
     INVESTOPEDIA_PASSWORD = os.environ.get("INVESTOPEDIA_PASSWORD")
+    COOKIE_PATH = "./backend/cookies.pkl"
 
+    # First try to use cookies
+    driver.get("https://www.investopedia.com")
+    if load_cookies(driver, COOKIE_PATH):
+        driver.get(r"https://www.investopedia.com/simulator/home.aspx")
+        time.sleep(5)
+        # Check if we're actually logged in by looking for a login button
+        if not driver.find_elements(By.ID, "login"):
+            return
+
+    # If cookies didn't work, do regular login
     driver.get(r"https://www.investopedia.com/simulator/home.aspx")
     time.sleep(10)
 
@@ -28,8 +54,10 @@ def login():
     time.sleep(0.5)
 
     driver.find_element(By.ID, "login").click()
-    time.sleep(0.5)
-    # print("done with login!!!")
+    time.sleep(5)
+    
+    # Save cookies after successful login
+    save_cookies(driver, COOKIE_PATH)
 
 
 def get_account_information():
