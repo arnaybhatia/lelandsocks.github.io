@@ -3,6 +3,7 @@ import os
 import time
 from datetime import datetime
 import pickle
+import concurrent.futures
 
 import pytz
 from dotenv import load_dotenv
@@ -60,48 +61,77 @@ def login():
     save_cookies(driver, COOKIE_PATH)
 
 
-def get_account_information():
-    """Returns a list with all of the account values within it"""
-    account_information = {}
-    with open("./backend/portfolios/portfolios.txt", "r") as file:
-        for line in file:
-            driver.get(
-                rf"{line}"
-            )  # what the heck is a french string doing here: https://stackoverflow.com/a/58321139
-            time.sleep(10)
-            print(driver.current_url)
-            # driver.save_screenshot("screenie.png")
-            account_value = driver.find_element(
-                By.XPATH, '//*[@data-cy="account-value-text"]'
-            ).text
-            account_value = float(account_value.replace("$", "").replace(",", ""))
-            account_name = driver.find_element(
-                By.XPATH, '//*[@data-cy="user-portfolio-name"]'
-            ).text.replace(" Portfolio", "")  # just getting the account name
+def process_single_account(url):
+    """Process a single account and return its information"""
+    try:
+        options = Options()
+        options.add_argument("--headless")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--disable-renderer-backgrounding")
+        options.add_argument("--disable-background-timer-throttling")
+        options.add_argument("--disable-backgrounding-occluded-windows")
+        options.add_argument("--disable-client-side-phishing-detection")
+        options.add_argument("--disable-crash-reporter")
+        options.add_argument("--disable-oopr-debug-crash-dump")
+        options.add_argument("--no-crash-upload")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--disable-extensions")
+        options.add_argument("--disable-low-res-tiling")
+        options.add_argument("--log-level=3")
+        options.add_argument("--silent")
+        options.add_argument("--incognito")
+        options.add_argument("--disable-cache")
+        driver = webdriver.Chrome(options=options)
+        driver.delete_all_cookies()
+        
+        login()
+        
+        driver.get(url)
+        time.sleep(10)
+        
+        account_value = driver.find_element(
+            By.XPATH, '//*[@data-cy="account-value-text"]'
+        ).text
+        account_value = float(account_value.replace("$", "").replace(",", ""))
+        account_name = driver.find_element(
+            By.XPATH, '//*[@data-cy="user-portfolio-name"]'
+        ).text.replace(" Portfolio", "")
 
-            # Extract stock data
-            table = driver.find_element(By.XPATH, "//table")
-            rows = table.find_elements(By.TAG_NAME, "tr")
+        table = driver.find_element(By.XPATH, "//table")
+        rows = table.find_elements(By.TAG_NAME, "tr")
+        stock_data = []
+        for row in rows:
+            cols = row.find_elements(By.TAG_NAME, "td")
+            cols = [col.text for col in cols]
+            stock_data.append(cols)
+            
+        if stock_data == ["user has no stock holdings yet"]:
             stock_data = []
-            print(driver.current_url)
-            for row in rows:
-                cols = row.find_elements(By.TAG_NAME, "td")
-                cols = [col.text for col in cols]
-                stock_data.append(cols)
-            if stock_data == [
-                ["user has no stock holdings yet"]
-            ]:  # Ensure that if the user has no stocks, the list is empty
-                stock_data = []
-            stock_data = [
-                [s for s in sub_list if s] for sub_list in stock_data
-            ]  # From: https://stackoverflow.com/a/65750792
-            print(stock_data)
-            account_information[account_name] = [
-                account_value,
-                line.strip(),
-                stock_data,
-            ]
-            print(line.strip(), account_value, account_name)
+        stock_data = [[s for s in sub_list if s] for sub_list in stock_data]
+        
+        driver.quit()
+        return account_name, [account_value, url.strip(), stock_data]
+    except Exception as e:
+        print(f"Error processing account {url}: {str(e)}")
+        return None
+
+def get_account_information():
+    """Returns a dictionary with all of the account values within it"""
+    account_information = {}
+    urls = []
+    
+    with open("./backend/portfolios/portfolios.txt", "r") as file:
+        urls = [line.strip() for line in file]
+    
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+        future_to_url = {executor.submit(process_single_account, url): url for url in urls}
+        for future in concurrent.futures.as_completed(future_to_url):
+            result = future.result()
+            if result:
+                account_name, account_data = result
+                account_information[account_name] = account_data
+    
     return account_information
 
 
