@@ -4,6 +4,7 @@ import time
 from datetime import datetime
 import pickle
 import concurrent.futures
+import random
 
 import pytz
 from dotenv import load_dotenv
@@ -14,6 +15,17 @@ from make_webpage import make_index_page, make_user_page
 
 load_dotenv()
 
+# Add list of user agents
+USER_AGENTS = [
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15',
+    'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+]
+
+def get_random_user_agent():
+    return random.choice(USER_AGENTS)
 
 # --- functions ---  # PEP8: `lower_case_names`
 def save_cookies(driver, path):
@@ -61,10 +73,16 @@ def login():
     save_cookies(driver, COOKIE_PATH)
 
 
+# Add after imports
+SCREENSHOT_DIR = "./backend/error_screenshots"
+os.makedirs(SCREENSHOT_DIR, exist_ok=True)
+
 def process_single_account(url):
     """Process a single account and return its information"""
+    driver = None
     try:
         options = Options()
+        options.add_argument(f'user-agent={get_random_user_agent()}')
         options.add_argument("--headless")
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
@@ -85,18 +103,47 @@ def process_single_account(url):
         driver = webdriver.Chrome(options=options)
         driver.delete_all_cookies()
         
+        # First attempt
         login()
-        
         driver.get(url)
         time.sleep(10)
+        print(driver.current_url)
         
-        account_value = driver.find_element(
-            By.XPATH, '//*[@data-cy="account-value-text"]'
-        ).text
-        account_value = float(account_value.replace("$", "").replace(",", ""))
-        account_name = driver.find_element(
-            By.XPATH, '//*[@data-cy="user-portfolio-name"]'
-        ).text.replace(" Portfolio", "")
+        try:
+            account_value = driver.find_element(
+                By.XPATH, '//*[@data-cy="account-value-text"]'
+            ).text
+            account_value = float(account_value.replace("$", "").replace(",", ""))
+            account_name = driver.find_element(
+                By.XPATH, '//*[@data-cy="user-portfolio-name"]'
+            ).text.replace(" Portfolio", "")
+        except Exception as first_error:
+            # Take screenshot of first attempt
+            timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+            screenshot_path = os.path.join(SCREENSHOT_DIR, f"error_first_attempt_{timestamp}_{url.split('/')[-1]}.png")
+            driver.save_screenshot(screenshot_path)
+            
+            print("First attempt failed, trying again with fresh login...")
+            
+            # Second attempt with fresh login
+            try:
+                login()
+                driver.get(url)
+                time.sleep(10)
+                
+                account_value = driver.find_element(
+                    By.XPATH, '//*[@data-cy="account-value-text"]'
+                ).text
+                account_value = float(account_value.replace("$", "").replace(",", ""))
+                account_name = driver.find_element(
+                    By.XPATH, '//*[@data-cy="user-portfolio-name"]'
+                ).text.replace(" Portfolio", "")
+            except Exception as second_error:
+                # Take screenshot of second attempt
+                timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+                screenshot_path = os.path.join(SCREENSHOT_DIR, f"error_second_attempt_{timestamp}_{url.split('/')[-1]}.png")
+                driver.save_screenshot(screenshot_path)
+                raise second_error
 
         table = driver.find_element(By.XPATH, "//table")
         rows = table.find_elements(By.TAG_NAME, "tr")
@@ -114,7 +161,14 @@ def process_single_account(url):
         return account_name, [account_value, url.strip(), stock_data]
     except Exception as e:
         print(f"Error processing account {url}: {str(e)}")
+        if driver:
+            timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+            screenshot_path = os.path.join(SCREENSHOT_DIR, f"error_{timestamp}_{url.split('/')[-1]}.png")
+            driver.save_screenshot(screenshot_path)
         return None
+    finally:
+        if driver:
+            driver.quit()
 
 def get_account_information():
     """Returns a dictionary with all of the account values within it"""
@@ -148,6 +202,7 @@ if curr_time.weekday() < 5:  # 0 = Monday, 4 = Friday
         and curr_time.hour < 17
     ) or os.environ.get("FORCE_UPDATE") == "True":
         options = Options()
+        options.add_argument(f'user-agent={get_random_user_agent()}')
         options.add_argument("--headless")
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
