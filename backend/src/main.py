@@ -200,6 +200,8 @@ async def process_single_account(context, url):
         ]  # Added strip()
     except Exception as e:
         print(f"Error processing account {url}: {str(e)}")
+        with open('logs/log.txt', 'a') as file:
+            file.write(f"Error processing account {url}: {str(e)}, {datetime.now()}\n")
         timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
         screenshot_path = os.path.join(
             SCREENSHOT_DIR, f"error_{timestamp}_{url.split('/')[-1]}.png"
