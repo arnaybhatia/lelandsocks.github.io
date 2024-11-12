@@ -87,7 +87,7 @@ async def process_single_account(url):
             # First attempt
             await login(page)
             await page.goto(url)
-            await page.wait_for_timeout(100)
+            await page.wait_for_timeout(2000)
             print(page.url)
             
             try:
