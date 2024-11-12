@@ -87,7 +87,7 @@ async def process_single_account(url):
             # First attempt
             await login(page)
             await page.goto(url)
-            await page.wait_for_timeout(5000)
+            await page.wait_for_timeout(100)
             print(page.url)
             
             try:
@@ -100,7 +100,7 @@ async def process_single_account(url):
                 await context.clear_cookies()
                 await login(page)
                 await page.goto(url)
-                await page.wait_for_timeout(5000)
+                await page.wait_for_timeout(100)
                 
                 account_value = await page.text_content('[data-cy="account-value-text"]')
                 account_value = float(account_value.replace("$", "").replace(",", ""))
@@ -168,7 +168,7 @@ async def get_account_information():
         urls = [line.strip() for line in file]
     
     # Create semaphore to limit concurrent executions
-    semaphore = asyncio.Semaphore(8)
+    semaphore = asyncio.Semaphore(16)
     
     async def process_with_semaphore(url):
         async with semaphore:
