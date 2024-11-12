@@ -47,23 +47,21 @@ async def login(page):
     COOKIE_PATH = "./backend/cookies.pkl"
 
     # First try to use cookies
-    await page.goto("https://www.investopedia.com")
+    await page.goto("https://www.investopedia.com", wait_until='networkidle')
     if await load_cookies(page.context, COOKIE_PATH):
-        await page.goto("https://www.investopedia.com/simulator/home.aspx")
-        await page.wait_for_timeout(5000)
+        await page.goto("https://www.investopedia.com/simulator/home.aspx", wait_until='networkidle')
         # Check if we're logged in
         login_button = await page.query_selector("#login")
         if not login_button:
             return
 
     # If cookies didn't work, do regular login
-    await page.goto("https://www.investopedia.com/simulator/home.aspx")
-    await page.wait_for_timeout(5000)
+    await page.goto("https://www.investopedia.com/simulator/home.aspx", wait_until='networkidle')
 
     await page.fill("#username", INVESTOPEDIA_EMAIL)
     await page.fill("#password", INVESTOPEDIA_PASSWORD)
     await page.click("#login")
-    await page.wait_for_timeout(5000)
+    await page.wait_for_load_state('networkidle')
     
     # Save cookies after successful login
     await save_cookies(page.context, COOKIE_PATH)
@@ -86,8 +84,7 @@ async def process_single_account(url):
         try:
             # First attempt
             await login(page)
-            await page.goto(url)
-            await page.wait_for_timeout(2000)
+            await page.goto(url, wait_until='networkidle')
             print(page.url)
             
             try:
@@ -99,8 +96,7 @@ async def process_single_account(url):
                 print("First attempt failed, trying again with fresh login...")
                 await context.clear_cookies()
                 await login(page)
-                await page.goto(url)
-                await page.wait_for_timeout(100)
+                await page.goto(url, wait_until='networkidle')
                 
                 account_value = await page.text_content('[data-cy="account-value-text"]')
                 account_value = float(account_value.replace("$", "").replace(",", ""))
