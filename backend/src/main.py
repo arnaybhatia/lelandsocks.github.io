@@ -201,18 +201,19 @@ async def main():
             
             with open("./backend/leaderboards/leaderboard-latest.json", "w") as file:
                 json.dump(account_values, file)
+            # Update HTML files
+            with open("index.html", "w") as file:
+                file.write(make_index_page())
+            
+            with open("./backend/portfolios/usernames.txt", "r") as file:
+                usernames = file.readlines()
+                usernames = [user.strip() for user in usernames]
+            
+            for user in usernames:
+                with open(f"./players/{user}.html", "w") as file:
+                    file.write(make_user_page(user))
 
-    # Update HTML files
-    with open("index.html", "w") as file:
-        file.write(make_index_page())
     
-    with open("./backend/portfolios/usernames.txt", "r") as file:
-        usernames = file.readlines()
-        usernames = [user.strip() for user in usernames]
-    
-    for user in usernames:
-        with open(f"./players/{user}.html", "w") as file:
-            file.write(make_user_page(user))
 
 if __name__ == "__main__":
     asyncio.run(main())
