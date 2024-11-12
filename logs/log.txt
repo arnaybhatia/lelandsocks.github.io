@@ -110,3 +110,7 @@ Error processing account https://www.investopedia.com/simulator/games/user-portf
 Call log:
 navigating to "https://www.investopedia.com/simulator/home.aspx", waiting until "networkidle"
 , 2024-11-12 21:05:39.500198
+Error processing account https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445337: Page.goto: net::ERR_ABORTED at https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445337
+Call log:
+navigating to "https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445337", waiting until "domcontentloaded"
+, 2024-11-12 21:11:13.648234
