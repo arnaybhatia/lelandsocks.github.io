@@ -47,7 +47,7 @@ async def login(page):
     COOKIE_PATH = "./backend/cookies.pkl"
 
     # First try to use cookies
-    await page.goto("https://www.investopedia.com", wait_until='networkidle')
+    await page.goto("https://www.investopedia.com/simulator", wait_until='networkidle')
     if await load_cookies(page.context, COOKIE_PATH):
         await page.goto("https://www.investopedia.com/simulator/home.aspx", wait_until='networkidle')
         # Check if we're logged in
@@ -67,7 +67,7 @@ async def login(page):
     await save_cookies(page.context, COOKIE_PATH)
 
 # Add after imports
-SCREENSHOT_DIR = "./backend/error_screenshots"
+SCREENSHOT_DIR = "./backend/screenshots"
 os.makedirs(SCREENSHOT_DIR, exist_ok=True)
 
 async def process_single_account(url):
@@ -84,24 +84,41 @@ async def process_single_account(url):
         try:
             # First attempt
             await login(page)
-            await page.goto(url, wait_until='networkidle')
+            await page.goto(url, wait_until='domcontentloaded')
             print(page.url)
-            
+            account_name = ""
             try:
-                account_value = await page.text_content('[data-cy="account-value-text"]')
-                account_value = float(account_value.replace("$", "").replace(",", ""))
-                account_name = await page.text_content('[data-cy="user-portfolio-name"]')
-                account_name = account_name.replace(" Portfolio", "").strip()  # Added strip()
-            except Exception as first_error:
-                print("First attempt failed, trying again with fresh login...")
-                await context.clear_cookies()
-                await login(page)
-                await page.goto(url, wait_until='networkidle')
+                # Wait for account value and name to be present
+                await page.wait_for_selector('[data-cy="account-value-text"]', timeout=30000)
+                await page.wait_for_selector('[data-cy="user-portfolio-name"]', timeout=30000)
                 
                 account_value = await page.text_content('[data-cy="account-value-text"]')
                 account_value = float(account_value.replace("$", "").replace(",", ""))
                 account_name = await page.text_content('[data-cy="user-portfolio-name"]')
-                account_name = account_name.replace(" Portfolio", "").strip()  # Added strip()
+                account_name = account_name.replace(" Portfolio", "").strip()
+            except Exception as first_error:
+                print("First attempt failed, trying again with fresh login...")
+                await context.clear_cookies()
+                await login(page)
+                await page.goto(url, wait_until='domcontentloaded')
+                
+                # Wait for account value and name to be present on second attempt
+                await page.wait_for_selector('[data-cy="account-value-text"]', timeout=30000)
+                await page.wait_for_selector('[data-cy="user-portfolio-name"]', timeout=30000)
+                
+                account_value = await page.text_content('[data-cy="account-value-text"]')
+                account_value = float(account_value.replace("$", "").replace(",", ""))
+                account_name = await page.text_content('[data-cy="user-portfolio-name"]')
+                account_name = account_name.replace(" Portfolio", "").strip()
+
+            # Wait for table to be fully loaded
+            await page.wait_for_selector('table tr td', timeout=30000)  # Wait for at least one table cell
+            await page.wait_for_function("""
+                () => {
+                    const rows = document.querySelectorAll('table tr');
+                    return rows.length > 1 && rows[1].querySelectorAll('td').length > 0;
+                }
+            """, timeout=30000)
 
             # Get stock data from table
             stock_data = []
@@ -124,7 +141,7 @@ async def process_single_account(url):
                         symbol = await row.query_selector("td:nth-child(1)")
                         last_price = await row.query_selector("td:nth-child(3)")
                         gain_pct = await row.query_selector("td:nth-child(8)")
-                        
+                        # print(await symbol.text_content(), await last_price.text_content(), await gain_pct.text_content())
                         if symbol and last_price and gain_pct:
                             symbol_text = (await symbol.text_content()).strip()
                             price_text = (await last_price.text_content()).strip()
@@ -133,16 +150,19 @@ async def process_single_account(url):
                             gain_text = gain_text.replace("\n", "").replace(" ", "")
                             gain_parts = gain_text.split("(")
                             if len(gain_parts) > 1:
-                                gain_text = gain_parts[1].replace(")", "").replace("%", "")
-                            
+                                gain_text = gain_parts[1].replace(")", "")
                             if symbol_text and price_text and gain_text:
                                 stock_data.append([symbol_text, price_text, gain_text])
-                                print(f"Processed stock: {symbol_text} ${price_text} {gain_text}%")
+                                print(f"Processed stock for {account_name}: {symbol_text}____{price_text}____ {gain_text}")
                     except Exception as e:
                         print(f"Error parsing row: {e}")
                         continue
 
             if not stock_data:
+                # Take a screenshot if no stocks are discovered
+                timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+                screenshot_path = os.path.join(SCREENSHOT_DIR, f"no_stocks_{timestamp}_{url.split('/')[-1]}.png")
+                await page.screenshot(path=screenshot_path, full_page=True)
                 stock_data = []
             
             return account_name.strip(), [account_value, url.strip(), stock_data]  # Added strip()
@@ -150,7 +170,7 @@ async def process_single_account(url):
             print(f"Error processing account {url}: {str(e)}")
             timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
             screenshot_path = os.path.join(SCREENSHOT_DIR, f"error_{timestamp}_{url.split('/')[-1]}.png")
-            await page.screenshot(path=screenshot_path)
+            await page.screenshot(path=screenshot_path, full_page=True)
             return None
         finally:
             await browser.close()
@@ -199,11 +219,9 @@ async def main():
             file_name = f"./backend/leaderboards/out_of_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
             if ((curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30)) and curr_time.hour < 17):
                 file_name = f"./backend/leaderboards/in_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
-            
+                with open("./backend/leaderboards/leaderboard-latest.json", "w") as file:
+                    json.dump(account_values, file)
             with open(file_name, "w") as file:
-                json.dump(account_values, file)
-            
-            with open("./backend/leaderboards/leaderboard-latest.json", "w") as file:
                 json.dump(account_values, file)
             
             # Update index.html
