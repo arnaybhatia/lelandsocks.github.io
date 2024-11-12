@@ -114,3 +114,4 @@ Error processing account https://www.investopedia.com/simulator/games/user-portf
 Call log:
 navigating to "https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445337", waiting until "domcontentloaded"
 , 2024-11-12 21:11:13.648234
+Error processing account https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449080: Page.query_selector: Execution context was destroyed, most likely because of a navigation, 2024-11-12 21:22:27.413294
