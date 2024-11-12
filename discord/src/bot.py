@@ -63,7 +63,7 @@ class MyClient(discord.Client):
 
     @tasks.loop(minutes=5)
     async def send_leaderboard(self):
-        now = datetime.datetime.now(timezone('US/Eastern'))
+        now = datetime.datetime.now(timezone("US/Eastern"))
         if now.weekday() < 5:  # Monday-Friday are 0-4
             start_time = now.replace(hour=9, minute=15, second=0, microsecond=0)
             end_time = now.replace(hour=16, minute=15, second=0, microsecond=0)
@@ -82,7 +82,9 @@ class MyClient(discord.Client):
                     "Stocks Invested In",
                 ]
                 # Get the top ranked person's information
-                top_ranked_name, top_ranked_money, top_ranked_stocks = get_top_ranked_person_info(df)
+                top_ranked_name, top_ranked_money, top_ranked_stocks = (
+                    get_top_ranked_person_info(df)
+                )
                 # Send the Discord message
                 channel = self.get_channel(int(os.environ.get("DISCORD_CHANNEL_ID")))
                 embed = discord.Embed(
