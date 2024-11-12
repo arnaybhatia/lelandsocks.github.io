@@ -50,3 +50,11 @@ Error processing account https://www.investopedia.com/simulator/games/user-portf
 Call log:
 navigating to "https://www.investopedia.com/simulator/home.aspx", waiting until "networkidle"
 , 2024-11-12 20:10:23.912590
+Error processing account https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445730: Page.goto: Timeout 30000ms exceeded.
+Call log:
+navigating to "https://www.investopedia.com/simulator/home.aspx", waiting until "networkidle"
+, 2024-11-12 20:19:00.284187
+Error processing account https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447828: Page.goto: Timeout 30000ms exceeded.
+Call log:
+navigating to "https://www.investopedia.com/simulator/home.aspx", waiting until "networkidle"
+, 2024-11-12 20:20:44.961415
