@@ -184,6 +184,11 @@ async def get_account_information():
     
     return account_information
 
+def generate_user_page(user):
+    """Helper function to generate a single user's page"""
+    with open(f"./players/{user}.html", "w") as file:
+        file.write(make_user_page(user))
+
 # Main execution block
 async def main():
     tz_NY = pytz.timezone("America/New_York")
@@ -204,19 +209,18 @@ async def main():
             
             with open("./backend/leaderboards/leaderboard-latest.json", "w") as file:
                 json.dump(account_values, file)
-            # Update HTML files
+            
+            # Update index.html
             with open("index.html", "w") as file:
                 file.write(make_index_page())
             
+            # Read usernames
             with open("./backend/portfolios/usernames.txt", "r") as file:
-                usernames = file.readlines()
-                usernames = [user.strip() for user in usernames]
+                usernames = [user.strip() for user in file.readlines()]
             
-            for user in usernames:
-                with open(f"./players/{user}.html", "w") as file:
-                    file.write(make_user_page(user))
-
-    
+            # Parallelize user page generation
+            with concurrent.futures.ProcessPoolExecutor() as executor:
+                executor.map(generate_user_page, usernames)
 
 if __name__ == "__main__":
     asyncio.run(main())
