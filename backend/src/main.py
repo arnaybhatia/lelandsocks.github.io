@@ -163,12 +163,12 @@ async def process_single_account(context, url):
                     # print(f"Row {i} raw data:", raw_row_data)
 
                     symbol = await row.query_selector("td:nth-child(1)")
-                    last_price = await row.query_selector("td:nth-child(3)")
+                    total_amount_of_money = await row.query_selector("td:nth-child(7)")
                     gain_pct = await row.query_selector("td:nth-child(8)")
                     # print(await symbol.text_content(), await last_price.text_content(), await gain_pct.text_content())
-                    if symbol and last_price and gain_pct:
+                    if symbol and total_amount_of_money and gain_pct:
                         symbol_text = (await symbol.text_content()).strip()
-                        price_text = (await last_price.text_content()).strip()
+                        price_text = (await total_amount_of_money.text_content()).strip()
                         gain_text = (await gain_pct.text_content()).strip()
                         # Clean up gain percentage text
                         gain_text = gain_text.replace("\n", "").replace(" ", "")
