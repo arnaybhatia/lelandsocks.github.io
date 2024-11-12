@@ -195,7 +195,10 @@ async def main():
             
             account_values = await get_account_information()
             
-            file_name = f"./backend/leaderboards/in_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
+            file_name = f"./backend/leaderboards/out_of_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
+            if ((curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30)) and curr_time.hour < 17):
+                file_name = f"./backend/leaderboards/in_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
+            
             with open(file_name, "w") as file:
                 json.dump(account_values, file)
             
