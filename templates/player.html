@@ -16,6 +16,12 @@
 <body class="bg-background text-foreground">
     <h1 class="text-center text-4xl"><a href="{{ investopedia_link }}" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600" target="_blank">{{ player_name }}</a>'s Statistics</h1>
     
+    {% if player_name == 'teachermiller' %}
+    <div class="flex justify-center mt-4">
+        <img src="/static/miller.jpg" alt="Mr. Miller" class="w-48 h-48 rounded-full object-cover">
+    </div>
+    {% endif %}
+    
     <br>
     <p class="text-center text-xl">Last updated {{ update_time }}</p>
     <br>
