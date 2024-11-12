@@ -93,10 +93,10 @@ async def process_single_account(context, url):
         try:
             # Wait for account value and name to be present
             await page.wait_for_selector(
-                '[data-cy="account-value-text"]', timeout=30000
+                '[data-cy="account-value-text"]', timeout=300000
             )
             await page.wait_for_selector(
-                '[data-cy="user-portfolio-name"]', timeout=30000
+                '[data-cy="user-portfolio-name"]', timeout=300000
             )
 
             account_value = await page.text_content(
@@ -115,10 +115,10 @@ async def process_single_account(context, url):
 
             # Wait for account value and name to be present on second attempt
             await page.wait_for_selector(
-                '[data-cy="account-value-text"]', timeout=30000
+                '[data-cy="account-value-text"]', timeout=300000
             )
             await page.wait_for_selector(
-                '[data-cy="user-portfolio-name"]', timeout=30000
+                '[data-cy="user-portfolio-name"]', timeout=300000
             )
 
             account_value = await page.text_content(
@@ -132,7 +132,7 @@ async def process_single_account(context, url):
 
         # Wait for table to be fully loaded
         await page.wait_for_selector(
-            "table tr td", timeout=30000
+            "table tr td", timeout=300000
         )  # Wait for at least one table cell
         await page.wait_for_function(
             """
@@ -141,7 +141,7 @@ async def process_single_account(context, url):
                 return rows.length > 1 && rows[1].querySelectorAll('td').length > 0;
             }
         """,
-            timeout=30000,
+            timeout=300000,
         )
 
         # Get stock data from table
