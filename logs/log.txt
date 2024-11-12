@@ -8,3 +8,4 @@ navigating to "https://www.investopedia.com/simulator/home.aspx", waiting until 
 , 2024-11-12 18:38:44.423793
 Error processing account https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445336: Page.query_selector: Execution context was destroyed, most likely because of a navigation, 2024-11-12 18:42:39.763114
 Error processing account https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449079: Page.query_selector: Execution context was destroyed, most likely because of a navigation, 2024-11-12 18:46:02.185819
+Error processing account https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449081: Page.query_selector: Execution context was destroyed, most likely because of a navigation, 2024-11-12 19:01:31.973114
