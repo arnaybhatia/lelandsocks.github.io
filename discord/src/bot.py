@@ -103,7 +103,7 @@ async def compare_stock_changes(channel):
             await channel.send(embed=embed)
 
         # Update the snapshot with current data
-        snapshot_path = "./backend/leaderboards/in_time/leaderboard-snapshot.json"
+        snapshot_path = "./backend/leaderboards/snapshots/leaderboard-snapshot.json"
         with open(snapshot_path, 'w') as f:
             json.dump(current_data, f)
 
