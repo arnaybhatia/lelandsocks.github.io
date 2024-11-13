@@ -34,13 +34,10 @@ async def save_cookies(context, path):
 
 
 async def load_cookies(context, path):
-    try:
-        with open(path, "rb") as file:
-            cookies = pickle.load(file)
-            await context.add_cookies(cookies)
-        return True
-    except:
-        return False
+    with open(path, "rb") as file:
+        cookies = pickle.load(file)
+        await context.add_cookies(cookies)
+    return True
 
 
 async def login(page):
@@ -101,7 +98,7 @@ async def process_single_account(context, url):
             account_value = float(account_value.replace("$", "").replace(",", ""))
             account_name = await page.text_content('[data-cy="user-portfolio-name"]')
             account_name = account_name.replace(" Portfolio", "").strip()
-        except Exception as first_error:
+        except Exception as e:
             print("First attempt failed, trying again with fresh login...")
             await context.clear_cookies()
             await login(page)
@@ -119,7 +116,8 @@ async def process_single_account(context, url):
             account_value = float(account_value.replace("$", "").replace(",", ""))
             account_name = await page.text_content('[data-cy="user-portfolio-name"]')
             account_name = account_name.replace(" Portfolio", "").strip()
-
+            with open('logs/log.txt', 'a') as file:
+                file.write(f"First attempt failed, trying again with fresh login...{datetime.now()}\n")
         # Wait for table to be fully loaded
         await page.wait_for_selector(
             "table tr td", timeout=300000
