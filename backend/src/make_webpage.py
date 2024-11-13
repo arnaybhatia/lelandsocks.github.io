@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from glob import glob
 
 import flask
-import pandas as pd
+import polars as pl
 from babel.numbers import format_currency
 from flask import render_template
 from scipy.stats import zscore
@@ -16,11 +16,11 @@ app = flask.Flask("leaderboard")
 
 
 def get_five_number_summary(df):
-    average_money = df["Money In Account"].mean()
-    q1_money = df["Money In Account"].quantile(0.25)
-    median_money = df["Money In Account"].median()
-    q3_money = df["Money In Account"].quantile(0.75)
-    std_money = df["Money In Account"].std()
+    average_money = df.select(pl.col("Money In Account").mean())[0,0]
+    q1_money = df.select(pl.col("Money In Account").quantile(0.25))[0,0]
+    median_money = df.select(pl.col("Money In Account").median())[0,0]
+    q3_money = df.select(pl.col("Money In Account").quantile(0.75))[0,0]
+    std_money = df.select(pl.col("Money In Account").std())[0,0]
     return average_money, q1_money, median_money, q3_money, std_money
 
 
@@ -48,24 +48,19 @@ def make_index_page():
             ).strftime("%H:%M:%S %m-%d-%Y")  # The final string in the right format
             labels.append(date_time_str)
 
-            df2 = pd.DataFrame.from_dict(dict_leaderboard, orient="index")
-            df2.reset_index(level=0, inplace=True)
-            if (
-                len(df2.columns) == 3
-            ):  # IF the file has only 3 columns, then add a new column to the dataframe as a place holder
-                df2["Stocks Invested In"] = [0 for i in range(len(df2))]
-            df2.columns = [
-                "Account Name",
-                "Money In Account",
-                "Stocks Invested In",
-                "Investopedia Link",
-            ]
-            df2 = df2.sort_values(by=["Money In Account"], ascending=False)
-            _1, q1_money, median_money, q3_money, _2 = get_five_number_summary(
-                df2
-            )  # get some key numbers for the charts
-            min_monies.append(int(df2["Money In Account"].min()))
-            max_monies.append(int(df2["Money In Account"].max()))
+            df2 = pl.DataFrame(
+                {k: [v[0], v[1], v[2], v[3] if len(v) > 3 else 0] for k, v in dict_leaderboard.items()}
+            ).with_columns([
+                pl.col("column_0").alias("Account Name"),
+                pl.col("column_1").alias("Money In Account"),
+                pl.col("column_2").alias("Stocks Invested In"),
+                pl.col("column_3").alias("Investopedia Link"),
+            ])
+            
+            df2 = df2.sort("Money In Account", descending=True)
+            _1, q1_money, median_money, q3_money, _2 = get_five_number_summary(df2)
+            min_monies.append(int(df2.select(pl.col("Money In Account").min())[0,0]))
+            max_monies.append(int(df2.select(pl.col("Money In Account").max())[0,0]))
             q1_monies.append(int(q1_money))
             median_monies.append(int(median_money))
             q3_monies.append(int(q3_money))
@@ -74,51 +69,60 @@ def make_index_page():
         # Load json as dictionary, then organise it properly: https://stackoverflow.com/a/44607210
         with open("backend/leaderboards/leaderboard-latest.json", "r") as file:
             dict_leaderboard = json.load(file)
-        df = pd.DataFrame.from_dict(dict_leaderboard, orient="index")
-        df.reset_index(level=0, inplace=True)
-        df.columns = [
-            "Account Name",
-            "Money In Account",
-            "Investopedia Link",
-            "Stocks Invested In",
-        ]
-        df = df.sort_values(by=["Money In Account"], ascending=False)
-        df["Ranking"] = range(1, 1 + len(df))
+            
+        df = pl.DataFrame(
+            {k: [v[0], v[1], v[2], v[3]] for k, v in dict_leaderboard.items()}
+        ).with_columns([
+            pl.col("column_0").alias("Account Name"),
+            pl.col("column_1").alias("Money In Account"),
+            pl.col("column_2").alias("Investopedia Link"),
+            pl.col("column_3").alias("Stocks Invested In"),
+        ])
+        
+        df = df.sort("Money In Account", descending=True)
+        df = df.with_row_count("Ranking", offset=1)
+
         all_stocks = []
-        for stocks in df["Stocks Invested In"]:
+        for stocks in df.select("Stocks Invested In").to_series():
             if len(stocks) > 0:
                 for x in stocks:
                     all_stocks.append(x[0])
-        stock_cnt = Counter(all_stocks)
-        stock_cnt = stock_cnt.most_common()  # In order to determine the most common stocks. Now stock_cnt is a list of tuples
-        df["Stocks Invested In"] = df["Stocks Invested In"].apply(
-            lambda x: ", ".join([stock[0] for stock in x])
-        )
-        df["Z-Score"] = zscore(df["Money In Account"])
-        # Replace Account Name with Account Link
-        df["Account Link"] = df.apply(
-            lambda row: f'<a href="/players/{row["Account Name"]}.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600" target="_blank">{row["Account Name"]}</a>',
-            axis=1,
-        )
+        stock_cnt = Counter(all_stocks).most_common()
+
+        # Convert stocks to string
+        df = df.with_columns([
+            pl.col("Stocks Invested In").map_elements(
+                lambda x: ", ".join([stock[0] for stock in x])
+            )
+        ])
+
+        # Calculate Z-Score
+        df = df.with_columns([
+            ((pl.col("Money In Account") - pl.col("Money In Account").mean()) / 
+             pl.col("Money In Account").std()).alias("Z-Score")
+        ])
+
+        # Create Account Link column
+        df = df.with_columns([
+            pl.col("Account Name").map_elements(
+                lambda x: f'<a href="/players/{x}.html" class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600" target="_blank">{x}</a>'
+            ).alias("Account Link")
+        ])
 
         # This gets the location of the the GOAT himself, Mr. Miller
-        miller_location = df.loc[
-            df["Account Name"] == "teachermiller", "Ranking"
-        ].values[0]
+        miller_location = df.filter(pl.col("Account Name") == "teachermiller")["Ranking"][0]
 
         # Drop the old Account Name and Investopedia Link columns
         df = df.drop(columns=["Account Name", "Investopedia Link"])
 
         # Rearrange columns with Account Link
-        df = df[
-            [
-                "Ranking",
-                "Account Link",
-                "Money In Account",
-                "Stocks Invested In",
-                "Z-Score",
-            ]
-        ]
+        df = df.select([
+            "Ranking",
+            "Account Link",
+            "Money In Account",
+            "Stocks Invested In",
+            "Z-Score"
+        ])
 
         # Update column_names
         column_names = [
@@ -132,9 +136,15 @@ def make_index_page():
         average_money, q1_money, median_money, q3_money, std_money = (
             get_five_number_summary(df)
         )
-        df["Money In Account"] = df["Money In Account"].apply(
-            lambda x: format_currency(x, currency="USD", locale="en_US")
-        )
+        df = df.with_columns([
+            pl.col("Money In Account").map_elements(
+                lambda x: format_currency(x, currency="USD", locale="en_US")
+            )
+        ])
+
+        # Convert to list for template rendering
+        row_data = df.to_pandas().values.tolist()
+
         # Render the html template as shown here: https://stackoverflow.com/a/56296451
         rendered = render_template(
             "index.html",
@@ -144,7 +154,7 @@ def make_index_page():
             q3_money="${:,.2f}".format(q3_money),
             std_money="${:,.2f}".format(std_money),
             column_names=column_names,  # Updated column names
-            row_data=list(df.values.tolist()),
+            row_data=row_data,
             link_column="Account Link",  # Update link column
             update_time=datetime.utcnow()
             .astimezone(ZoneInfo("US/Pacific"))
@@ -183,41 +193,31 @@ def make_user_page(player_name):
             ).strftime("%H:%M:%S %m-%d-%Y")  # The final string in the right format
             labels.append(date_time_str)
 
-            df = pd.DataFrame.from_dict(dict_leaderboard, orient="index")
-            df.reset_index(level=0, inplace=True)
-            if (
-                len(df.columns) == 3
-            ):  # IF the file has only 3 columns, then add a new column to the dataframe as a place holder
-                df["Stocks Invested In"] = [0 for i in range(len(df))]
-            df.columns = [
-                "Account Name",
-                "Money In Account",
-                "Investopedia Link",
-                "Stocks Invested In",
-            ]
-
-            df = df.sort_values(by=["Money In Account"], ascending=False)
-            df["Ranking"] = range(1, 1 + len(df))
-            if player_name in df["Account Name"].values:
+            df = pl.DataFrame(
+                {k: [v[0], v[1], v[2], v[3] if len(v) > 3 else 0] for k, v in dict_leaderboard.items()}
+            ).with_columns([
+                pl.col("column_0").alias("Account Name"),
+                pl.col("column_1").alias("Money In Account"),
+                pl.col("column_2").alias("Stocks Invested In"),
+                pl.col("column_3").alias("Investopedia Link"),
+            ])
+            
+            df = df.sort("Money In Account", descending=True)
+            df = df.with_row_count("Ranking", offset=1)
+            if player_name in df["Account Name"].to_list():
                 rankings.append(
                     float(
-                        df.loc[df["Account Name"] == player_name, "Ranking"].values[0]
+                        df.filter(pl.col("Account Name") == player_name)["Ranking"][0]
                     )
                 )
                 player_money.append(
                     float(
-                        df.loc[
-                            df["Account Name"] == player_name, "Money In Account"
-                        ].values[0]
+                        df.filter(pl.col("Account Name") == player_name)["Money In Account"][0]
                     )
                 )
-        investopedia_link = df.loc[
-            df["Account Name"] == player_name, "Investopedia Link"
-        ].values[0]
+        investopedia_link = df.filter(pl.col("Account Name") == player_name)["Investopedia Link"][0]
         player_stocks = []
-        player_stocks_data = df.loc[
-            df["Account Name"] == player_name, "Stocks Invested In"
-        ].iloc[0]
+        player_stocks_data = df.filter(pl.col("Account Name") == player_name)["Stocks Invested In"][0]
         for stock in player_stocks_data:
             player_stocks.append(
                 [
