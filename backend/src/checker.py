@@ -1,11 +1,11 @@
 import json
 
 # Read usernames from txt file
-with open('./backend/portfolios/usernames.txt', 'r') as f:
+with open("./backend/portfolios/usernames.txt", "r") as f:
     usernames = set(line.strip() for line in f.readlines())
 
 # Read leaderboard data
-with open('./backend/leaderboards/leaderboard-latest.json', 'r') as f:
+with open("./backend/leaderboards/leaderboard-latest.json", "r") as f:
     leaderboard = json.load(f)
 
 # Get set of usernames from leaderboard

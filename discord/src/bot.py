@@ -17,7 +17,8 @@ intents.message_content = True
 intents.guilds = True
 
 # Initialize bot instance with command prefix
-bot = commands.Bot(command_prefix='$', intents=intents)
+bot = commands.Bot(command_prefix="$", intents=intents)
+
 
 def get_user_info(df, username):
     """
@@ -36,16 +37,20 @@ def get_user_info(df, username):
     )
     return user_name, user_money, formatted_holdings
 
+
 def get_latest_in_time_leaderboard():
     """
     Get the most recent leaderboard file from the in_time directory.
     """
     in_time_dir = "./backend/leaderboards/in_time"
-    files = [f for f in os.listdir(in_time_dir) if f.endswith('.json')]
+    files = [f for f in os.listdir(in_time_dir) if f.endswith(".json")]
     if not files:
         return None
-    latest_file = max(files, key=lambda x: os.path.getctime(os.path.join(in_time_dir, x)))
+    latest_file = max(
+        files, key=lambda x: os.path.getctime(os.path.join(in_time_dir, x))
+    )
     return os.path.join(in_time_dir, latest_file)
+
 
 async def compare_stock_changes(channel):
     """
@@ -59,9 +64,9 @@ async def compare_stock_changes(channel):
             return
 
         # Load both leaderboards
-        with open(latest_in_time, 'r') as f:
+        with open(latest_in_time, "r") as f:
             previous_data = json.load(f)
-        with open("./backend/leaderboards/leaderboard-latest.json", 'r') as f:
+        with open("./backend/leaderboards/leaderboard-latest.json", "r") as f:
             current_data = json.load(f)
 
         any_changes = False
@@ -90,7 +95,7 @@ async def compare_stock_changes(channel):
                     colour=discord.Colour.green(),
                     title=f"Stock Changes for {username}",
                     description=description,
-                    timestamp=discord.utils.utcnow()
+                    timestamp=discord.utils.utcnow(),
                 )
                 await channel.send(embed=embed)
 
@@ -98,28 +103,32 @@ async def compare_stock_changes(channel):
             embed = discord.Embed(
                 colour=discord.Colour.greyple(),
                 title="No Stock Changes Detected",
-                timestamp=discord.utils.utcnow()
+                timestamp=discord.utils.utcnow(),
             )
             await channel.send(embed=embed)
 
         # Update the snapshot with current data
         snapshot_path = "./backend/leaderboards/snapshots/leaderboard-snapshot.json"
-        with open(snapshot_path, 'w') as f:
+        with open(snapshot_path, "w") as f:
             json.dump(current_data, f)
 
     except Exception as e:
         await channel.send(f"Error comparing stock changes: {str(e)}")
         import traceback
+
         traceback.print_exc()
+
 
 # Load usernames from file
 with open("./backend/portfolios/usernames.txt", "r") as f:
     usernames_list = [line.strip() for line in f.readlines()]
 
+
 class UserInfo(commands.Cog):
     """
     Cog to handle user information related commands.
     """
+
     def __init__(self, bot):
         self.bot = bot
 
@@ -135,7 +144,12 @@ class UserInfo(commands.Cog):
                 data = json.load(file)
             df = pd.DataFrame.from_dict(data, orient="index")
             df.reset_index(inplace=True)
-            df.columns = ["Account Name", "Money In Account", "Investopedia Link", "Stocks Invested In"]
+            df.columns = [
+                "Account Name",
+                "Money In Account",
+                "Investopedia Link",
+                "Stocks Invested In",
+            ]
 
             user_info = get_user_info(df, username)
             if user_info is None:
@@ -157,14 +171,18 @@ class UserInfo(commands.Cog):
             await interaction.followup.send(f"Error fetching user info: {str(e)}")
 
     @userinfo.autocomplete("username")
-    async def username_autocomplete(self, interaction: discord.Interaction, current: str):
+    async def username_autocomplete(
+        self, interaction: discord.Interaction, current: str
+    ):
         """
         Provide autocomplete suggestions for usernames based on current input.
         """
         return [
             app_commands.Choice(name=username, value=username)
-            for username in usernames_list if current.lower() in username.lower()
+            for username in usernames_list
+            if current.lower() in username.lower()
         ][:25]
+
 
 async def setup(bot):
     """
@@ -172,13 +190,16 @@ async def setup(bot):
     """
     await bot.add_cog(UserInfo(bot))
 
+
 async def setup_hook():
     """
     Run setup when the bot is ready.
     """
     await setup(bot)
 
+
 bot.setup_hook = setup_hook
+
 
 @bot.tree.command(name="leaderboard", description="Get current leaderboard")
 async def leaderboard(interaction: discord.Interaction):
@@ -191,10 +212,17 @@ async def leaderboard(interaction: discord.Interaction):
             data = json.load(file)
         df = pd.DataFrame.from_dict(data, orient="index")
         df.reset_index(inplace=True)
-        df.columns = ["Account Name", "Money In Account", "Investopedia Link", "Stocks Invested In"]
+        df.columns = [
+            "Account Name",
+            "Money In Account",
+            "Investopedia Link",
+            "Stocks Invested In",
+        ]
         df.sort_values(by="Money In Account", ascending=False, inplace=True)
 
-        top_ranked_name, top_ranked_money, top_ranked_stocks = get_user_info(df, df.iloc[0]["Account Name"])
+        top_ranked_name, top_ranked_money, top_ranked_stocks = get_user_info(
+            df, df.iloc[0]["Account Name"]
+        )
         embed = discord.Embed(
             colour=discord.Colour.dark_red(),
             title="Current Leaderboard",
@@ -209,6 +237,7 @@ async def leaderboard(interaction: discord.Interaction):
     except Exception as e:
         await interaction.followup.send(f"Error fetching leaderboard: {str(e)}")
 
+
 @tasks.loop(minutes=1)
 async def send_leaderboard():
     """
@@ -220,15 +249,26 @@ async def send_leaderboard():
         end_time = now.replace(hour=16, minute=15, second=0, microsecond=0)
         if start_time <= now <= end_time:
             try:
-                with open("./backend/leaderboards/leaderboard-latest.json", "r") as file:
+                with open(
+                    "./backend/leaderboards/leaderboard-latest.json", "r"
+                ) as file:
                     data = json.load(file)
                 df = pd.DataFrame.from_dict(data, orient="index")
                 df.reset_index(inplace=True)
-                df.columns = ["Account Name", "Money In Account", "Investopedia Link", "Stocks Invested In"]
+                df.columns = [
+                    "Account Name",
+                    "Money In Account",
+                    "Investopedia Link",
+                    "Stocks Invested In",
+                ]
                 df.sort_values(by="Money In Account", ascending=False, inplace=True)
 
-                top_ranked_name, top_ranked_money, top_ranked_stocks = get_user_info(df, df.iloc[0]["Account Name"])
-                leaderboard_channel_id = int(os.environ.get("DISCORD_CHANNEL_ID_Leaderboard"))
+                top_ranked_name, top_ranked_money, top_ranked_stocks = get_user_info(
+                    df, df.iloc[0]["Account Name"]
+                )
+                leaderboard_channel_id = int(
+                    os.environ.get("DISCORD_CHANNEL_ID_Leaderboard")
+                )
                 stocks_channel_id = int(os.environ.get("DISCORD_CHANNEL_ID_Stocks"))
                 leaderboard_channel = bot.get_channel(leaderboard_channel_id)
                 stocks_channel = bot.get_channel(stocks_channel_id)
@@ -252,6 +292,7 @@ async def send_leaderboard():
             except Exception as e:
                 print(f"Error in send_leaderboard: {str(e)}")
 
+
 @bot.event
 async def on_ready():
     """
@@ -264,6 +305,7 @@ async def on_ready():
         send_leaderboard.start()
     except Exception as e:
         print(f"Failed to sync commands: {e}")
+
 
 # Run the bot with the provided token from environment variables
 DISCORD_BOT_TOKEN = os.environ.get("DISCORD_BOT_TOKEN")

@@ -15,13 +15,13 @@
 
 <body class="bg-background text-foreground">
     <h1 class="text-center text-4xl"><a href="{{ investopedia_link }}" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600" target="_blank">{{ player_name }}</a>'s Statistics</h1>
-    
+
     {% if player_name == 'teachermiller' %}
     <div class="flex justify-center mt-4">
         <img src="/static/miller.jpg" alt="Mr. Miller" class="w-48 h-48 rounded-full object-cover">
     </div>
     {% endif %}
-    
+
     <br>
     <p class="text-center text-xl">Last updated {{ update_time }}</p>
     <br>
@@ -30,7 +30,7 @@
             <canvas id="playerChart" class="w-full h-full"></canvas>
         </div>
     </div>
-    
+
     <!-- Add stocks table -->
     <div class="flex justify-center mt-8">
         <div class="w-4/5">
@@ -48,7 +48,7 @@
                     <tr class="hover:bg-gray-50">
                         <td class="border px-4 py-2 text-center">{{ stock[0] }}</td>
                         <td class="border px-4 py-2 text-center">${{ '{:,.2f}'.format(stock[1]) }}</td>
-                        <td class="border px-4 py-2 text-center 
+                        <td class="border px-4 py-2 text-center
                             {% if stock[2] >= 0 %}text-green-600{% else %}text-red-600{% endif %}">
                             {{ '{:+.2f}'.format(stock[2]) }}%
                         </td>

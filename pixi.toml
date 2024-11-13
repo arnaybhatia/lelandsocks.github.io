@@ -23,6 +23,7 @@ flask = ">=3.0.3,<3.1"
 ruff = ">=0.7.1,<0.8"
 scipy = ">=1.14.1,<2"
 babel = ">=2.14.0,<3"
+pre-commit = ">=4.0.1,<5"
 
 [pypi-dependencies]
 undetected-chromedriver = ">=3.5.5, <4"
