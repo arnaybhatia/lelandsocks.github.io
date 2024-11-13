@@ -1,16 +1,14 @@
 import json
 import os
-import time
 from datetime import datetime
 import pickle
-import concurrent.futures
 import random
 import asyncio
 from playwright.async_api import async_playwright
 
 import pytz
 from dotenv import load_dotenv
-from make_webpage import make_index_page, make_user_page
+from make_webpage import make_index_page, make_user_pages, make_user_page
 
 load_dotenv()
 
@@ -251,13 +249,7 @@ async def main():
     curr_time = datetime.now(tz_NY)
 
     if curr_time.weekday() < 5:
-        if (
-            (
-                (curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30))
-                and curr_time.hour < 17
-            )
-            or os.environ.get("FORCE_UPDATE") == "True"
-        ) and os.environ.get("DONT_UPDATE") != "True":
+        if ((curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30)) and curr_time.hour < 17) or os.environ.get("FORCE_UPDATE") == "True":
             account_values = await get_account_information()
 
             file_name = f"./backend/leaderboards/out_of_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
@@ -274,18 +266,15 @@ async def main():
 
         elif os.environ.get("DONT_UPDATE") == "True":
             print("Update disabled")
+
         # Update index.html
         with open("index.html", "w") as file:
             file.write(make_index_page())
 
-        # Read usernames
+        # Read usernames and generate all pages at once
         with open("./backend/portfolios/usernames.txt", "r") as file:
             usernames = [user.strip() for user in file.readlines()]
-
-        # Parallelize user page generation
-        with concurrent.futures.ProcessPoolExecutor() as executor:
-            executor.map(generate_user_page, usernames)
-
+            make_user_pages(usernames)
 
 if __name__ == "__main__":
     asyncio.run(main())
