@@ -261,31 +261,38 @@ async def main():
             (curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30))
             and curr_time.hour < 17
         ) or os.environ.get("FORCE_UPDATE") == "True":
-            account_values = await get_account_information()
+            if os.environ.get("DONT_UPDATE") != "True":
+                account_values = await get_account_information()
 
-            file_name = f"./backend/leaderboards/out_of_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
-            if (
-                curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30)
-            ) and curr_time.hour < 17:
-                file_name = f"./backend/leaderboards/in_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
+                file_name = f"./backend/leaderboards/out_of_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
+                if (
+                    curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30)
+                ) and curr_time.hour < 17:
+                    file_name = f"./backend/leaderboards/in_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
 
-            with open("./backend/leaderboards/leaderboard-latest.json", "w") as file:
-                json.dump(account_values, file)
+                with open("./backend/leaderboards/leaderboard-latest.json", "w") as file:
+                    json.dump(account_values, file)
 
-            with open(file_name, "w") as file:
-                json.dump(account_values, file)
+                with open(file_name, "w") as file:
+                    json.dump(account_values, file)
 
+                # Update index.html
+                with open("index.html", "w") as file:
+                    file.write(make_index_page())
+
+                # Read usernames
+                with open("./backend/portfolios/usernames.txt", "r") as file:
+                    usernames = [user.strip() for user in file.readlines()]
+
+                # Parallelize user page generation
+                with concurrent.futures.ProcessPoolExecutor() as executor:
+                    executor.map(generate_user_page, usernames)
+
+        elif os.environ.get("DONT_UPDATE") == "True":
+            print("Update disabled")
             # Update index.html
             with open("index.html", "w") as file:
                 file.write(make_index_page())
-
-            # Read usernames
-            with open("./backend/portfolios/usernames.txt", "r") as file:
-                usernames = [user.strip() for user in file.readlines()]
-
-            # Parallelize user page generation
-            with concurrent.futures.ProcessPoolExecutor() as executor:
-                executor.map(generate_user_page, usernames)
 
 
 if __name__ == "__main__":
