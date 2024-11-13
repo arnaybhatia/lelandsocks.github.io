@@ -248,3 +248,12 @@ Error processing account https://www.investopedia.com/simulator/games/user-portf
 Call log:
 navigating to "https://www.investopedia.com/simulator/home.aspx", waiting until "networkidle"
 , 2024-11-13 17:19:48.000713
+Error processing account https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445341: Page.query_selector: Execution context was destroyed, most likely because of a navigation, 2024-11-13 17:24:55.966480
+Error processing account https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10445725: Page.goto: Timeout 30000ms exceeded.
+Call log:
+navigating to "https://www.investopedia.com/simulator/home.aspx", waiting until "networkidle"
+, 2024-11-13 17:25:51.508689
+Error processing account https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447826: Page.goto: Timeout 30000ms exceeded.
+Call log:
+navigating to "https://www.investopedia.com/simulator/home.aspx", waiting until "networkidle"
+, 2024-11-13 17:27:48.138974
