@@ -83,7 +83,7 @@ os.makedirs(SCREENSHOT_DIR, exist_ok=True)
 async def process_single_account(context, url):
     """Process a single account and return its information"""
     page = await context.new_page()
-    
+
     try:
         # First attempt
         await login(page)
@@ -99,13 +99,9 @@ async def process_single_account(context, url):
                 '[data-cy="user-portfolio-name"]', timeout=300000
             )
 
-            account_value = await page.text_content(
-                '[data-cy="account-value-text"]'
-            )
+            account_value = await page.text_content('[data-cy="account-value-text"]')
             account_value = float(account_value.replace("$", "").replace(",", ""))
-            account_name = await page.text_content(
-                '[data-cy="user-portfolio-name"]'
-            )
+            account_name = await page.text_content('[data-cy="user-portfolio-name"]')
             account_name = account_name.replace(" Portfolio", "").strip()
         except Exception as first_error:
             print("First attempt failed, trying again with fresh login...")
@@ -121,13 +117,9 @@ async def process_single_account(context, url):
                 '[data-cy="user-portfolio-name"]', timeout=300000
             )
 
-            account_value = await page.text_content(
-                '[data-cy="account-value-text"]'
-            )
+            account_value = await page.text_content('[data-cy="account-value-text"]')
             account_value = float(account_value.replace("$", "").replace(",", ""))
-            account_name = await page.text_content(
-                '[data-cy="user-portfolio-name"]'
-            )
+            account_name = await page.text_content('[data-cy="user-portfolio-name"]')
             account_name = account_name.replace(" Portfolio", "").strip()
 
         # Wait for table to be fully loaded
@@ -168,7 +160,9 @@ async def process_single_account(context, url):
                     # print(await symbol.text_content(), await last_price.text_content(), await gain_pct.text_content())
                     if symbol and total_amount_of_money and gain_pct:
                         symbol_text = (await symbol.text_content()).strip()
-                        price_text = (await total_amount_of_money.text_content()).strip()
+                        price_text = (
+                            await total_amount_of_money.text_content()
+                        ).strip()
                         gain_text = (await gain_pct.text_content()).strip()
                         # Clean up gain percentage text
                         gain_text = gain_text.replace("\n", "").replace(" ", "")
@@ -200,7 +194,7 @@ async def process_single_account(context, url):
         ]  # Added strip()
     except Exception as e:
         print(f"Error processing account {url}: {str(e)}")
-        with open('logs/log.txt', 'a') as file:
+        with open("logs/log.txt", "a") as file:
             file.write(f"Error processing account {url}: {str(e)}, {datetime.now()}\n")
         timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
         screenshot_path = os.path.join(
@@ -258,41 +252,39 @@ async def main():
 
     if curr_time.weekday() < 5:
         if (
-            (curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30))
-            and curr_time.hour < 17
-        ) or os.environ.get("FORCE_UPDATE") == "True":
-            if os.environ.get("DONT_UPDATE") != "True":
-                account_values = await get_account_information()
+            (
+                (curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30))
+                and curr_time.hour < 17
+            )
+            or os.environ.get("FORCE_UPDATE") == "True"
+        ) and os.environ.get("DONT_UPDATE") != "True":
+            account_values = await get_account_information()
 
-                file_name = f"./backend/leaderboards/out_of_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
-                if (
-                    curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30)
-                ) and curr_time.hour < 17:
-                    file_name = f"./backend/leaderboards/in_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
+            file_name = f"./backend/leaderboards/out_of_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
+            if (
+                curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30)
+            ) and curr_time.hour < 17:
+                file_name = f"./backend/leaderboards/in_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
 
-                with open("./backend/leaderboards/leaderboard-latest.json", "w") as file:
-                    json.dump(account_values, file)
+            with open("./backend/leaderboards/leaderboard-latest.json", "w") as file:
+                json.dump(account_values, file)
 
-                with open(file_name, "w") as file:
-                    json.dump(account_values, file)
-
-                # Update index.html
-                with open("index.html", "w") as file:
-                    file.write(make_index_page())
-
-                # Read usernames
-                with open("./backend/portfolios/usernames.txt", "r") as file:
-                    usernames = [user.strip() for user in file.readlines()]
-
-                # Parallelize user page generation
-                with concurrent.futures.ProcessPoolExecutor() as executor:
-                    executor.map(generate_user_page, usernames)
+            with open(file_name, "w") as file:
+                json.dump(account_values, file)
 
         elif os.environ.get("DONT_UPDATE") == "True":
             print("Update disabled")
-            # Update index.html
-            with open("index.html", "w") as file:
-                file.write(make_index_page())
+        # Update index.html
+        with open("index.html", "w") as file:
+            file.write(make_index_page())
+
+        # Read usernames
+        with open("./backend/portfolios/usernames.txt", "r") as file:
+            usernames = [user.strip() for user in file.readlines()]
+
+        # Parallelize user page generation
+        with concurrent.futures.ProcessPoolExecutor() as executor:
+            executor.map(generate_user_page, usernames)
 
 
 if __name__ == "__main__":
