@@ -278,3 +278,7 @@ Call log:
 navigating to "https://www.investopedia.com/simulator/home.aspx", waiting until "networkidle"
 , 2024-11-13 18:14:26.126895
 Error processing account https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10444534: Page.query_selector: Execution context was destroyed, most likely because of a navigation, 2024-11-13 18:21:58.053300
+Error processing account https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10447834: Page.goto: Timeout 30000ms exceeded.
+Call log:
+navigating to "https://www.investopedia.com/simulator/home.aspx", waiting until "networkidle"
+, 2024-11-13 18:48:41.303751

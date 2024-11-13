@@ -48,7 +48,15 @@ def make_index_page():
             ).strftime("%H:%M:%S %m-%d-%Y")  # The final string in the right format
             labels.append(date_time_str)
 
-            df2 = pl.DataFrame(dict_leaderboard).transpose()
+            df2 = pl.DataFrame(
+                dict_leaderboard,
+                schema={
+                    "Account Name": pl.Utf8,
+                    "Money In Account": pl.Float64,
+                    "Stocks Invested In": pl.Utf8,
+                    "Investopedia Link": pl.Utf8
+                }
+            ).transpose()
             if (
                 len(df2.columns) == 3
             ):  # IF the file has only 3 columns, then add a new column to the dataframe as a place holder
@@ -73,13 +81,24 @@ def make_index_page():
         # Load json as dictionary, then organise it properly: https://stackoverflow.com/a/44607210
         with open("backend/leaderboards/leaderboard-latest.json", "r") as file:
             dict_leaderboard = json.load(file)
-        df = pl.DataFrame(dict_leaderboard).transpose()
+        df = pl.DataFrame(
+            dict_leaderboard,
+            schema={
+                "Money In Account": pl.Float64,
+                "Investopedia Link": pl.Utf8,
+                "Stocks Invested In": pl.Utf8
+            }
+        ).transpose()
+        # Set column names in the correct order based on data structure
         df.columns = [
-            "Account Name",
             "Money In Account",
             "Investopedia Link",
             "Stocks Invested In",
         ]
+        # Add Account Name from the index
+        df = df.with_columns(pl.Series(name="Account Name", values=df.index))
+        
+        # Sort by Money In Account and add ranking
         df = df.sort("Money In Account", descending=True)
         df = df.with_columns(pl.Series(name="Ranking", values=range(1, 1 + len(df))))
         all_stocks = []
@@ -161,71 +180,72 @@ def make_index_page():
 
 def make_user_page(player_name):
     with app.app_context():
-        leaderboard_files = sorted(
-            glob("./backend/leaderboards/in_time/*")
-        )  # This section formats everything nicely for the charts!
+        leaderboard_files = sorted(glob("./backend/leaderboards/in_time/*"))
         labels = []
         player_money = []
         rankings = []
         for file in leaderboard_files:
             with open(file, "r") as file:
                 dict_leaderboard = json.load(file)
-            # Get a date time object from the file name, so I can use it as a label for the chart
+            # Get datetime from filename
             file_name = os.path.basename(file.name)
             date_time_str = file_name[len("leaderboard-") : -len(".json")]
             date_time_str = date_time_str.replace("_", ":")
             date_time_str = (
                 datetime.strptime(date_time_str, "%Y-%m-%d-%H:%M")
                 - timedelta(hours=3, minutes=0)
-            ).strftime("%H:%M:%S %m-%d-%Y")  # The final string in the right format
+            ).strftime("%H:%M:%S %m-%d-%Y")
             labels.append(date_time_str)
 
-            df = pl.DataFrame(dict_leaderboard).transpose()
-            if (
-                len(df.columns) == 3
-            ):  # IF the file has only 3 columns, then add a new column to the dataframe as a place holder
-                df = df.with_columns(pl.lit(0).alias("column_3"))
-            df.columns = [
-                "Account Name",
-                "Money In Account",
-                "Investopedia Link",
-                "Stocks Invested In",
-            ]
-
+            # Create DataFrame and handle columns properly
+            df = pl.DataFrame(
+                dict_leaderboard,
+                schema={
+                    "Account Name": pl.Utf8,
+                    "Money In Account": pl.Float64,
+                    "Investopedia Link": pl.Utf8,
+                    "Stocks": pl.Utf8
+                }
+            ).transpose()
+            if len(df.columns) == 3:
+                df = df.with_columns(pl.lit([]).alias("Stocks"))
+            
+            # Explicitly name columns to avoid confusion
+            df.columns = ["Account Name", "Money In Account", "Investopedia Link", "Stocks"]
+            
+            # Sort and add rankings
             df = df.sort("Money In Account", descending=True)
             df = df.with_columns(pl.Series(name="Ranking", values=range(1, 1 + len(df))))
-            if df.filter(pl.col("Account Name") == player_name).height > 0:
-                rankings.append(
-                    float(
-                        df.filter(pl.col("Account Name") == player_name)["Ranking"].item()
-                    )
-                )
-                player_money.append(
-                    float(
-                        df.filter(pl.col("Account Name") == player_name)["Money In Account"].item()
-                    )
-                )
-        investopedia_link = df.filter(pl.col("Account Name") == player_name)["Investopedia Link"].item()
+            
+            # Filter for player data
+            player_data = df.filter(pl.col("Account Name") == player_name)
+            if player_data.height > 0:
+                rankings.append(float(player_data["Ranking"].item()))
+                player_money.append(float(player_data["Money In Account"].item()))
+        
+        # Get current player data
+        player_data = df.filter(pl.col("Account Name") == player_name)
+        investopedia_link = player_data["Investopedia Link"].item()
+        
+        # Process stocks data
         player_stocks = []
-        player_stocks_data = df.filter(pl.col("Account Name") == player_name)["Stocks Invested In"].item()
-        for stock in player_stocks_data:
-            player_stocks.append(
-                [
+        stocks_data = player_data["Stocks"].item()
+        if stocks_data:  # Check if stocks data exists
+            for stock in stocks_data:
+                player_stocks.append([
                     stock[0],  # ticker
-                    float(
-                        stock[1].replace("$", "").replace(",", "")
-                    ),  # invested amount
+                    float(stock[1].replace("$", "").replace(",", "")),  # invested amount
                     float(stock[2].replace("%", "")),  # percentage change
-                ]
-            )
+                ])
 
+        # Render template
         rendered = render_template(
             "player.html",
             labels=labels,
             player_money=player_money,
             player_name=player_name,
             investopedia_link=investopedia_link,
-            player_stocks=player_stocks,  # Add player_stocks to template
+            player_stocks=player_stocks,
             update_time=datetime.utcnow()
             .astimezone(ZoneInfo("US/Pacific"))
             .strftime("%H:%M:%S %m-%d-%Y"),
