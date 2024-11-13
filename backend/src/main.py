@@ -199,7 +199,7 @@ async def process_single_account(context, url):
             SCREENSHOT_DIR, f"error_{timestamp}_{url.split('/')[-1]}.png"
         )
         await page.screenshot(path=screenshot_path, full_page=True)
-        return None
+        return "retry"
     finally:
         await page.close()  # Close tab instead of browser
 
@@ -221,7 +221,11 @@ async def get_account_information():
 
         async def process_with_semaphore(url):
             async with semaphore:
-                return await process_single_account(context, url)
+                res = await process_single_account(context, url)
+                while res == "retry":
+                    print("Retrying...", url)
+                    res = await process_single_account(context, url)
+                return res
 
         try:
             tasks = [process_with_semaphore(url) for url in urls]
@@ -249,7 +253,13 @@ async def main():
     curr_time = datetime.now(tz_NY)
 
     if curr_time.weekday() < 5:
-        if ((curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30)) and curr_time.hour < 17) or os.environ.get("FORCE_UPDATE") == "True":
+        if (
+            (
+                (curr_time.hour > 9 or (curr_time.hour == 9 and curr_time.minute >= 30))
+                and curr_time.hour < 17
+            )
+            or os.environ.get("FORCE_UPDATE") == "True"
+        ) and os.environ.get("DONT_UPDATE") != "True":
             account_values = await get_account_information()
 
             file_name = f"./backend/leaderboards/out_of_time/leaderboard-{curr_time.strftime('%Y-%m-%d-%H_%M')}.json"
@@ -275,6 +285,7 @@ async def main():
         with open("./backend/portfolios/usernames.txt", "r") as file:
             usernames = [user.strip() for user in file.readlines()]
             make_user_pages(usernames)
+
 
 if __name__ == "__main__":
     asyncio.run(main())

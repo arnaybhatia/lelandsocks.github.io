@@ -283,6 +283,7 @@ def make_user_pages(usernames):
                     player_money.append(float(df.loc[df["Account Name"] == player_name, "Money In Account"].values[0]))
 
             if len(player_money) > 0:  # Only generate page if we have data
+                print(player_name)
                 investopedia_link = df.loc[df["Account Name"] == player_name, "Investopedia Link"].values[0]
                 player_stocks = []
                 player_stocks_data = df.loc[df["Account Name"] == player_name, "Stocks Invested In"].iloc[0]
