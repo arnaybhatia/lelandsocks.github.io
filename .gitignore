@@ -6,6 +6,7 @@ auth.json
 *.test.py
 backend/cookies.pkl
 backend/screenshots
+logs/*
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
