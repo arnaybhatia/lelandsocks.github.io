@@ -117,7 +117,7 @@ async def process_single_account(context, url):
             account_name = await page.text_content('[data-cy="user-portfolio-name"]')
             account_name = account_name.replace(" Portfolio", "").strip()
             with open('logs/log.txt', 'a') as file:
-                file.write(f"First attempt failed, trying again with fresh login...{datetime.now()}\n")
+                file.write(f" {datetime.now()} First attempt failed, trying again with fresh login, specific error was {e}\n")
         # Wait for table to be fully loaded
         await page.wait_for_selector(
             "table tr td", timeout=300000
