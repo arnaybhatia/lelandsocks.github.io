@@ -76,7 +76,7 @@
     
 <h1 class="text-center text-4xl">Imagine if Investopedia was good at making a leaderboard</h1>
 <br>
-<p class="text-center text-xl">Last updated 22:15:32 11-13-2024</p>
+<p class="text-center text-xl">Last updated 22:18:10 11-13-2024</p>
 <br>
 <p class="text-center text-xl">Code can be found at: <a
         href="https://github.com/lelandstocks/lelandstocks.github.io"
@@ -1336,6 +1336,15 @@
 </div>
 
 </br>
+
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="/pagefind/pagefind-ui.js"></script>
+<div id="search"></div>
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        new PagefindUI({ element: "#search", showSubResults: true });
+    });
+</script>
 
 <table class="uk-table uk-table-striped uk-table-responsive">
     <tr>
