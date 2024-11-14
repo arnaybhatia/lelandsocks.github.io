@@ -1403,21 +1403,19 @@
 
 </br>
 
-<div class="search-container" style="max-width: 600px; margin: 20px auto;">
-    <input
-        type="text"
-        id="accountSearch"
-        placeholder="Search for accounts..."
-        style="width: 100%;
-               padding: 12px 20px;
-               margin: 8px 0;
-               box-sizing: border-box;
-               border: 2px solid #ccc;
-               border-radius: 4px;"
-    >
+<!-- Search Container -->
+<div class="max-w-2xl mx-auto px-4 w-full">
+    <div id="search">
+        <input
+            type="text"
+            id="accountSearch"
+            placeholder="Search for accounts or stocks..."
+            class="w-full p-3 mb-2 border-2 border-gray-300 rounded-md focus:border-blue-500 focus:outline-none transition-colors dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+        >
+    </div>
 </div>
 
-<table class="uk-table uk-table-striped uk-table-responsive">
+<table class="uk-table uk-table-striped uk-table-responsive" id="rankings">
     <tr>
 
         <th>Ranking</th>
@@ -3328,6 +3326,82 @@
         myLineChart.resize();
     });
 </script>
+
+<!-- Search Functionality -->
+<script>
+    // Get the input element
+    const searchInput = document.getElementById('accountSearch');
+
+    // Get specifically the rankings table by ID
+    const rankingsTable = document.getElementById('rankings');
+
+    // Check if the rankingsTable element exists
+    if (rankingsTable) {
+        console.log('Rankings table found');
+    } else {
+        console.error('Rankings table not found');
+    }
+
+    // Get all table rows that contain account information (skip the header row)
+    const tableRows = Array.from(rankingsTable.querySelectorAll('tr')).slice(1);
+
+    // Check if tableRows array is populated
+    console.log('Table rows:', tableRows);
+
+    // Add event listener for input changes
+    searchInput.addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        console.log('Search term:', searchTerm);
+
+        // Loop through only the rows in the rankings table
+        tableRows.forEach(row => {
+            // Get text content from each column
+            const rankingText = row.querySelector('td:nth-child(1)')?.textContent.toLowerCase() || '';
+            const accountName = row.querySelector('td:nth-child(2) a')?.textContent.toLowerCase() || '';
+            const moneyText = row.querySelector('td:nth-child(3)')?.textContent.toLowerCase() || '';
+            const stocksText = row.querySelector('td:nth-child(4)')?.textContent.toLowerCase() || '';
+            const zScoreText = row.querySelector('td:nth-child(5)')?.textContent.toLowerCase() || '';
+
+            // Check if the search term matches any of the fields
+            const matches = rankingText.includes(searchTerm) ||
+                          accountName.includes(searchTerm) ||
+                          moneyText.includes(searchTerm) ||
+                          stocksText.includes(searchTerm) ||
+                          zScoreText.includes(searchTerm);
+
+            // Show/hide the row based on match
+            row.style.display = matches ? '' : 'none';
+        });
+    });
+</script>
+<style>
+    #accountSearch {
+        transition: all 0.3s ease;
+    }
+
+    #accountSearch:focus {
+        border-color: #4a90e2;
+        box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+        outline: none;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        #accountSearch {
+            background-color: #2d2d2d;
+            color: #ffffff;
+            border-color: #444;
+        }
+
+        #accountSearch::placeholder {
+            color: #888;
+        }
+
+        #accountSearch:focus {
+            border-color: #6a9ee2;
+            box-shadow: 0 0 5px rgba(106, 158, 226, 0.5);
+        }
+    }
+</style>
 
 </body>
 
