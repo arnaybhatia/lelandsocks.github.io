@@ -44,6 +44,7 @@
             flex-grow: 1;
         }
     }
+
     #accountSearch {
         transition: all 0.3s ease;
     }
@@ -78,8 +79,7 @@
 <br>
 <p class="text-center text-xl">Last updated {{ update_time }}</p>
 <br>
-<p class="text-center text-xl">Code can be found at: <a
-        href="https://github.com/lelandstocks/lelandstocks.github.io"
+<p class="text-center text-xl">Code can be found at: <a href="https://github.com/lelandstocks/lelandstocks.github.io"
         class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"> LelandStocks</a></p>
 <div class="flex flex-wrap justify-center">
     <!-- Chart Container -->
@@ -155,12 +155,8 @@
 <!-- Search Container -->
 <div class="max-w-2xl mx-auto px-4 w-full">
     <div id="search">
-        <input
-            type="text"
-            id="accountSearch"
-            placeholder="Search for accounts or stocks..."
-            class="w-full p-3 mb-2 border-2 border-gray-300 rounded-md focus:border-blue-500 focus:outline-none transition-colors dark:bg-gray-800 dark:border-gray-600 dark:text-white"
-        >
+        <input type="text" id="accountSearch" placeholder="Search for accounts or stocks..."
+            class="w-full p-3 mb-2 border-2 border-gray-300 rounded-md focus:border-blue-500 focus:outline-none transition-colors dark:bg-gray-800 dark:border-gray-600 dark:text-white">
     </div>
 </div>
 
@@ -280,7 +276,7 @@
     const tableRows = Array.from(rankingsTable.querySelectorAll('tr')).slice(1);
 
     // add event listener for input changes
-    searchInput.addEventListener('input', function(e) {
+    searchInput.addEventListener('input', function (e) {
         const searchTerm = e.target.value.toLowerCase();
 
         // loop through only the rows in the rankings table
@@ -294,10 +290,10 @@
 
             // check if the search term matches any of the fields
             const matches = rankingText.includes(searchTerm) ||
-                          accountName.includes(searchTerm) ||
-                          moneyText.includes(searchTerm) ||
-                          stocksText.includes(searchTerm) ||
-                          zScoreText.includes(searchTerm);
+                accountName.includes(searchTerm) ||
+                moneyText.includes(searchTerm) ||
+                stocksText.includes(searchTerm) ||
+                zScoreText.includes(searchTerm);
 
             // show/hide the row based on match
             row.style.display = matches ? '' : 'none';
