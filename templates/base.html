@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/franken-ui@1.1.0/dist/css/core.min.css" />
+    <script src="https://unpkg.com/franken-ui@1.1.0/dist/js/core.iife.js" type="module"></script>
+    <script src="https://unpkg.com/franken-ui@1.1.0/dist/js/icon.iife.js" type="module"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body class="bg-background text-foreground">
+    <nav class="uk-navbar-container">
+        <div class="uk-container">
+            <div class="uk-navbar uk-flex uk-flex-between">
+                <div class="uk-navbar-left uk-flex-1"></div>
+                <div class="uk-navbar-center">
+                    <a href="/" class="uk-navbar-item uk-logo" style="font-size: 1.5rem; font-weight: bold;">LelandStocks</a>
+                </div>
+                <div class="uk-navbar-right uk-flex-1">
+                    <ul class="uk-navbar-nav">
+                        <li><a href="/profiles/teachermiller.html">Teacher Miller's Profile</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

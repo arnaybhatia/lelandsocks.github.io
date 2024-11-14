@@ -1,263 +1,232 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>The Leaderboard of the Great Quicksilver Stock Exchange</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Used for styling the webpage without react-->
-    <link rel="stylesheet" href="https://unpkg.com/franken-ui@1.1.0/dist/css/core.min.css" />
-    <script src="https://unpkg.com/franken-ui@1.1.0/dist/js/core.iife.js" type="module"></script>
-    <script src="https://unpkg.com/franken-ui@1.1.0/dist/js/icon.iife.js" type="module"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+{% block title %}The Leaderboard of the Great Quicksilver Stock Exchange{% endblock %}
 
-    <!-- Used for the charts-->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+{% block extra_head %}
+<script>
+    // Dark mode detection script
+    const htmlElement = document.documentElement;
 
-    <!-- Used for detecting dark mode or not-->
-    <script>
-        const htmlElement = document.documentElement;
+    if (
+        localStorage.getItem("mode") === "dark" ||
+        (!("mode" in localStorage) &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+        htmlElement.classList.add("dark");
+    } else {
+        htmlElement.classList.remove("dark");
+    }
 
-        if (
-            localStorage.getItem("mode") === "dark" ||
-            (!("mode" in localStorage) &&
-                window.matchMedia("(prefers-color-scheme: dark)").matches)
-        ) {
-            htmlElement.classList.add("dark");
-        } else {
-            htmlElement.classList.remove("dark");
+    htmlElement.classList.add(localStorage.getItem("theme") || "uk-theme-zinc");
+</script>
+<!-- PostHog analytics script -->
+<script>
+    !function (t, e) { var o, n, p, r; e.__SV || (window.posthog = e, e._i = [], e.init = function (i, s, a) { function g(t, e) { var o = e.split("."); 2 == o.length && (t = t[o[0]], e = o[1]), t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } } (p = t.createElement("script")).type = "text/javascript", p.crossOrigin = "anonymous", p.async = !0, p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js", (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r); var u = e; for (void 0 !== a ? u = e[a] = [] : a = "posthog", u.people = u.people || [], u.toString = function (t) { var e = "posthog"; return "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e }, u.people.toString = function () { return u.toString(1) + ".people (stub)" }, o = "init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "), n = 0; n < o.length; n++)g(u, o[n]); e._i.push([i, s, a]) }, e.__SV = 1) }(document, window.posthog || []);
+    posthog.init('phc_tYlEG7Vn1ySCMoc1EgDwDYqidKJWtfRiiIe3WLPfLp5', {
+        api_host: 'https://us.i.posthog.com', person_profiles: 'identified_only' // or 'always' to create profiles for anonymous users as well
+    })
+</script>
+<style>
+    /* Apply styles for small screens */
+    @media (max-width: 768px) {
+        .chart-container {
+            min-height: 300px;
+            /* Adjust this value according to the table height */
+            display: flex;
+            align-items: stretch;
+            /* Ensures the canvas takes full height */
         }
 
-        htmlElement.classList.add(localStorage.getItem("theme") || "uk-theme-zinc");
-    </script>
-    <!-- Used for analytics-->
-    <script>
-        !function (t, e) { var o, n, p, r; e.__SV || (window.posthog = e, e._i = [], e.init = function (i, s, a) { function g(t, e) { var o = e.split("."); 2 == o.length && (t = t[o[0]], e = o[1]), t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } } (p = t.createElement("script")).type = "text/javascript", p.crossOrigin = "anonymous", p.async = !0, p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js", (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r); var u = e; for (void 0 !== a ? u = e[a] = [] : a = "posthog", u.people = u.people || [], u.toString = function (t) { var e = "posthog"; return "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e }, u.people.toString = function () { return u.toString(1) + ".people (stub)" }, o = "init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "), n = 0; n < o.length; n++)g(u, o[n]); e._i.push([i, s, a]) }, e.__SV = 1) }(document, window.posthog || []);
-        posthog.init('phc_tYlEG7Vn1ySCMoc1EgDwDYqidKJWtfRiiIe3WLPfLp5', {
-            api_host: 'https://us.i.posthog.com', person_profiles: 'identified_only' // or 'always' to create profiles for anonymous users as well
-        })
-    </script>
-    <style>
-        /* Apply styles for small screens */
-        @media (max-width: 768px) {
-            .chart-container {
-                min-height: 300px;
-                /* Adjust this value according to the table height */
-                display: flex;
-                align-items: stretch;
-                /* Ensures the canvas takes full height */
-            }
-
-            #stockChart {
-                width: 100% !important;
-                height: auto !important;
-                /* Allow height to scale based on content */
-                flex-grow: 1;
-            }
+        #stockChart {
+            width: 100% !important;
+            height: auto !important;
+            /* Allow height to scale based on content */
+            flex-grow: 1;
         }
-    </style>
-</head>
+    }
+</style>
+{% endblock %}
 
-<body class="bg-background text-foreground">
-    <nav class="uk-navbar-container">
-        <div class="uk-container">
-            <div class="uk-navbar uk-flex uk-flex-between">
-                <div class="uk-navbar-left uk-flex-1"></div>
-                <div class="uk-navbar-center">
-                    <a href="/" class="uk-navbar-item uk-logo" style="font-size: 1.5rem; font-weight: bold;">LelandStocks</a>
-                </div>
-                <div class="uk-navbar-right uk-flex-1">
-                    <ul class="uk-navbar-nav">
-                        <li><a href="/profiles/teachermiller.html">Teacher Miller's Profile</a></li>
-                    </ul>
-                </div>
-            </div>
+{% block content %}
+<h1 class="text-center text-4xl">Imagine if Investopedia was good at making a leaderboard</h1>
+<br>
+<p class="text-center text-xl">Last updated {{ update_time }}</p>
+<br>
+<p class="text-center text-xl">Code can be found at: <a
+        href="https://github.com/lelandstocks/lelandstocks.github.io"
+        class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"> LelandStocks</a></p>
+<div class="flex flex-wrap justify-center">
+    <!-- Chart Container -->
+    <div class="w-full md:w-1/2 p-4 h-full md:h-auto flex flex-col"> <!-- Added flex-col -->
+        <div class="flex-grow chart-container">
+            <canvas id="stockChart"></canvas>
         </div>
-    </nav>
-
-    <h1 class="text-center text-4xl">Imagine if Investopedia was good at making a leaderboard</h1>
-    <br>
-    <p class="text-center text-xl">Last updated {{ update_time }}</p>
-    <br>
-    <p class="text-center text-xl">Code can be found at: <a
-            href="https://github.com/lelandstocks/lelandstocks.github.io"
-            class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"> LelandStocks</a></p>
-    <div class="flex flex-wrap justify-center">
-        <!-- Chart Container -->
-        <div class="w-full md:w-1/2 p-4 h-full md:h-auto flex flex-col"> <!-- Added flex-col -->
-            <div class="flex-grow chart-container">
-                <canvas id="stockChart"></canvas>
-            </div>
-            <div class="text-center mt-2">
-                <button class="uk-button uk-button-default" id="resetZoom">Reset Zoom</button>
-            </div>
+        <div class="text-center mt-2">
+            <button class="uk-button uk-button-default" id="resetZoom">Reset Zoom</button>
         </div>
-        <!-- Vertical Summary Statistics Table -->
-        <div class="w-full md:w-1/4 p-4 md:h-3/4">
+    </div>
+    <!-- Vertical Summary Statistics Table -->
+    <div class="w-full md:w-1/4 p-4 md:h-3/4">
+        <table class="uk-table uk-table-striped uk-table-responsive">
+            <thead>
+                <tr>
+                    <th colspan="2" class="text-center">Summary Statistics</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Miller Tracker</th>
+                    <td>#{{ miller_location }}th place</td>
+                </tr>
+                <tr>
+                    <th>Average Money</th>
+                    <td>{{ average_money }}</td>
+                </tr>
+                <tr>
+                    <th>Q1 Money</th>
+                    <td>{{ q1_money }}</td>
+                </tr>
+                <tr>
+                    <th>Median Money</th>
+                    <td>{{ median_money }}</td>
+                </tr>
+                <tr>
+                    <th>Q3 Money</th>
+                    <td>{{ q3_money }}</td>
+                </tr>
+                <tr>
+                    <th>Standard Deviation Money</th>
+                    <td>{{ std_money }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- New section for stocks and their counts -->
+    <div class="w-full md:w-1/4 p-4 md:h-3/4">
+        <div class="overflow-y-auto" style="max-height: 400px;">
             <table class="uk-table uk-table-striped uk-table-responsive">
                 <thead>
                     <tr>
-                        <th colspan="2" class="text-center">Summary Statistics</th>
+                        <th>Stock</th>
+                        <th>Count</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {% for stock, count in stock_cnt %}
                     <tr>
-                        <th>Miller Tracker</th>
-                        <td>#{{ miller_location }}th place</td>
+                        <td>{{ stock }}</td>
+                        <td>{{ count }}</td>
                     </tr>
-                    <tr>
-                        <th>Average Money</th>
-                        <td>{{ average_money }}</td>
-                    </tr>
-                    <tr>
-                        <th>Q1 Money</th>
-                        <td>{{ q1_money }}</td>
-                    </tr>
-                    <tr>
-                        <th>Median Money</th>
-                        <td>{{ median_money }}</td>
-                    </tr>
-                    <tr>
-                        <th>Q3 Money</th>
-                        <td>{{ q3_money }}</td>
-                    </tr>
-                    <tr>
-                        <th>Standard Deviation Money</th>
-                        <td>{{ std_money }}</td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
-        <!-- New section for stocks and their counts -->
-        <div class="w-full md:w-1/4 p-4 md:h-3/4">
-            <div class="overflow-y-auto" style="max-height: 400px;">
-                <table class="uk-table uk-table-striped uk-table-responsive">
-                    <thead>
-                        <tr>
-                            <th>Stock</th>
-                            <th>Count</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for stock, count in stock_cnt %}
-                        <tr>
-                            <td>{{ stock }}</td>
-                            <td>{{ count }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
     </div>
+</div>
 
-    </br>
+</br>
 
-    <table class="uk-table uk-table-striped uk-table-responsive">
-        <tr>
-            {% for col in column_names %}
-            <th>{{col}}</th>
-            {% endfor %}
-        </tr>
-        {% for row in row_data %}
-        <tr {% if "teachermiller" in row %}class="font-bold" {% endif %}>
-            {% for col, row_ in zip(column_names, row) %}
-            <td>{% if col == "Account Link" %}{{ row_ | safe }}{% else %}{{ row_ }}{% endif %}</td>
-            {% endfor %}
-        </tr>
+<table class="uk-table uk-table-striped uk-table-responsive">
+    <tr>
+        {% for col in column_names %}
+        <th>{{col}}</th>
         {% endfor %}
-    </table>
+    </tr>
+    {% for row in row_data %}
+    <tr {% if "teachermiller" in row %}class="font-bold" {% endif %}>
+        {% for col, row_ in zip(column_names, row) %}
+        <td>{% if col == "Account Link" %}{{ row_ | safe }}{% else %}{{ row_ }}{% endif %}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
 
-    <script>
-        const ctx = document.getElementById('stockChart');
+{% block scripts %}
+<script>
+    const ctx = document.getElementById('stockChart');
 
-        var labels = {{ labels | safe }};
-        var min_monies = {{ min_monies | safe }};
-        var max_monies = {{ max_monies | safe }};
-        var q1_monies = {{ q1_monies | safe }};
-        var median_monies = {{ median_monies | safe }};
-        var q3_monies = {{ q3_monies | safe }};
-        const data = {
-            labels: labels,
-            datasets: [
-                {
-                    label: 'Min Money',
-                    data: min_monies,
-                    hidden: true,
-                },
-                {
-                    label: 'Max Money',
-                    data: max_monies,
-                    hidden: false,
-                },
-                {
-                    label: 'Q1 Money',
-                    data: q1_monies,
-                    hidden: false,
+    var labels = {{ labels | safe }};
+    var min_monies = {{ min_monies | safe }};
+    var max_monies = {{ max_monies | safe }};
+    var q1_monies = {{ q1_monies | safe }};
+    var median_monies = {{ median_monies | safe }};
+    var q3_monies = {{ q3_monies | safe }};
+    const data = {
+        labels: labels,
+        datasets: [
+            {
+                label: 'Min Money',
+                data: min_monies,
+                hidden: true,
+            },
+            {
+                label: 'Max Money',
+                data: max_monies,
+                hidden: false,
+            },
+            {
+                label: 'Q1 Money',
+                data: q1_monies,
+                hidden: false,
 
-                },
-                {
-                    label: 'Median Money',
-                    data: median_monies,
-                    hidden: false,
+            },
+            {
+                label: 'Median Money',
+                data: median_monies,
+                hidden: false,
 
-                },
-                {
-                    label: 'Q3 Money',
-                    data: q3_monies,
-                    hidden: false,
+            },
+            {
+                label: 'Q3 Money',
+                data: q3_monies,
+                hidden: false,
 
-                }
-            ]
-        };
-        const config = {
-            type: 'line',
-            data: data,
-            options: {
-                maintainAspectRatio: false,
-                scales: {
-                    x: {
-                        display: false, // Hides the x-axis labels
-                    },
-                },
-                plugins: {
-                    scales: {
-                        display: false // Hides the dataset labels from the legend
-                    },
-                    zoom: {
-                        zoom: {
-                            wheel: {
-                                enabled: true,
-                            },
-                            pinch: {
-                                enabled: true
-                            },
-                            mode: 'x',
-                        },
-                        pan: {
-                            enabled: true
-                        }
-                    },
-
-                }
             }
-        };
+        ]
+    };
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    display: false, // Hides the x-axis labels
+                },
+            },
+            plugins: {
+                scales: {
+                    display: false // Hides the dataset labels from the legend
+                },
+                zoom: {
+                    zoom: {
+                        wheel: {
+                            enabled: true,
+                        },
+                        pinch: {
+                            enabled: true
+                        },
+                        mode: 'x',
+                    },
+                    pan: {
+                        enabled: true
+                    }
+                },
 
-        var myLineChart = new Chart(ctx, config);
-        
-        // Add reset zoom functionality
-        document.getElementById('resetZoom').addEventListener('click', () => {
-            myLineChart.resetZoom();
-        });
-        
-        window.addEventListener('resize', () => {
-            myLineChart.resize();
-        });
-    </script>
+            }
+        }
+    };
 
-
-
-</body>
-
-</html>
+    var myLineChart = new Chart(ctx, config);
+    
+    // Add reset zoom functionality
+    document.getElementById('resetZoom').addEventListener('click', () => {
+        myLineChart.resetZoom();
+    });
+    
+    window.addEventListener('resize', () => {
+        myLineChart.resize();
+    });
+</script>
+{% endblock %}

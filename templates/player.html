@@ -1,120 +1,107 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Player Statistics</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/franken-ui@1.1.0/dist/css/core.min.css" />
-    <script src="https://unpkg.com/franken-ui@1.1.0/dist/js/core.iife.js" type="module"></script>
-    <script src="https://unpkg.com/franken-ui@1.1.0/dist/js/icon.iife.js" type="module"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
-</head>
+{% block title %}Player Statistics{% endblock %}
 
-<body class="bg-background text-foreground">
-    <h1 class="text-center text-4xl"><a href="{{ investopedia_link }}" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600" target="_blank">{{ player_name }}</a>'s Statistics</h1>
+{% block content %}
+<h1 class="text-center text-4xl"><a href="{{ investopedia_link }}" class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600" target="_blank">{{ player_name }}</a>'s Statistics</h1>
 
-    {% if player_name == 'teachermiller' %}
-    <div class="flex justify-center mt-4">
-        <img src="/static/miller.jpg" alt="Mr. Miller" class="w-48 h-48 rounded-full object-cover">
+{% if player_name == 'teachermiller' %}
+<div class="flex justify-center mt-4">
+    <img src="/static/miller.jpg" alt="Mr. Miller" class="w-48 h-48 rounded-full object-cover">
+</div>
+{% endif %}
+
+<br>
+<p class="text-center text-xl">Last updated {{ update_time }}</p>
+<br>
+<div class="flex justify-center">
+    <div class="w-4/5 h-[60vh]">
+        <canvas id="playerChart" class="w-full h-full"></canvas>
     </div>
-    {% endif %}
+</div>
 
-    <br>
-    <p class="text-center text-xl">Last updated {{ update_time }}</p>
-    <br>
-    <div class="flex justify-center">
-        <div class="w-4/5 h-[60vh]">
-            <canvas id="playerChart" class="w-full h-full"></canvas>
-        </div>
+<!-- Add stocks table -->
+<div class="flex justify-center mt-8">
+    <div class="w-4/5">
+        <h2 class="text-2xl mb-4">Current Stock Holdings</h2>
+        <table class="w-full border-collapse table-auto">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-4 py-2">Stock Ticker</th>
+                    <th class="border px-4 py-2">Money Invested</th>
+                    <th class="border px-4 py-2">Overall % Change</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in player_stocks %}
+                <tr class="hover:bg-gray-50">
+                    <td class="border px-4 py-2 text-center">{{ stock[0] }}</td>
+                    <td class="border px-4 py-2 text-center">${{ '{:,.2f}'.format(stock[1]) }}</td>
+                    <td class="border px-4 py-2 text-center
+                        {% if stock[2] >= 0 %}text-green-600{% else %}text-red-600{% endif %}">
+                        {{ '{:+.2f}'.format(stock[2]) }}%
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+</div>
+{% endblock %}
 
-    <!-- Add stocks table -->
-    <div class="flex justify-center mt-8">
-        <div class="w-4/5">
-            <h2 class="text-2xl mb-4">Current Stock Holdings</h2>
-            <table class="w-full border-collapse table-auto">
-                <thead>
-                    <tr class="bg-gray-100">
-                        <th class="border px-4 py-2">Stock Ticker</th>
-                        <th class="border px-4 py-2">Money Invested</th>
-                        <th class="border px-4 py-2">Overall % Change</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for stock in player_stocks %}
-                    <tr class="hover:bg-gray-50">
-                        <td class="border px-4 py-2 text-center">{{ stock[0] }}</td>
-                        <td class="border px-4 py-2 text-center">${{ '{:,.2f}'.format(stock[1]) }}</td>
-                        <td class="border px-4 py-2 text-center
-                            {% if stock[2] >= 0 %}text-green-600{% else %}text-red-600{% endif %}">
-                            {{ '{:+.2f}'.format(stock[2]) }}%
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
+{% block scripts %}
+<script>
+    const ctx = document.getElementById('playerChart');
 
-
-    <script>
-        const ctx = document.getElementById('playerChart');
-
-        var labels = {{ labels | safe }};
-        var money = {{ player_money | safe }};
-        const data = {
-            labels: labels,
-            datasets: [
-                {
-                    label: 'Portfolio Value',
-                    data: money,
-                    fill: false,
-                    borderColor: 'rgb(75, 192, 192)',
-                }
-            ]
-        };
-        const config = {
-            type: 'line',
-            data: data,
-            options: {
-                maintainAspectRatio: false,
-                scales: {
-                    x: {
-                        display: false, // Hides the x-axis labels
-                    },
-                },
-                plugins: {
-                    scales: {
-                        display: false // Hides the dataset labels from the legend
-                    },
-                    zoom: {
-                        zoom: {
-                            wheel: {
-                                enabled: true,
-                            },
-                            pinch: {
-                                enabled: true
-                            },
-                            mode: 'x',
-                        },
-                        pan: {
-                            enabled: true
-                        }
-                    },
-
-                }
+    var labels = {{ labels | safe }};
+    var money = {{ player_money | safe }};
+    const data = {
+        labels: labels,
+        datasets: [
+            {
+                label: 'Portfolio Value',
+                data: money,
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
             }
-        };
+        ]
+    };
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    display: false, // Hides the x-axis labels
+                },
+            },
+            plugins: {
+                scales: {
+                    display: false // Hides the dataset labels from the legend
+                },
+                zoom: {
+                    zoom: {
+                        wheel: {
+                            enabled: true,
+                        },
+                        pinch: {
+                            enabled: true
+                        },
+                        mode: 'x',
+                    },
+                    pan: {
+                        enabled: true
+                    }
+                },
 
-        var myLineChart = new Chart(ctx, config);
-        window.addEventListener('resize', () => {
-            myLineChart.resize();
-        });
-    </script>
+            }
+        }
+    };
 
-</body>
-
-</html>
+    var myLineChart = new Chart(ctx, config);
+    window.addEventListener('resize', () => {
+        myLineChart.resize();
+    });
+</script>
+{% endblock %}
