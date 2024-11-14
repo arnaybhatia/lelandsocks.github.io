@@ -54,17 +54,21 @@ def get_latest_in_time_leaderboard():
 
 async def compare_stock_changes(channel):
     """
-    Compare current leaderboard with previous snapshot to detect stock changes, and send updates to the Discord channel as embeds.
+    Compare current leaderboard with snapshot to detect stock changes, and send updates to the Discord channel as embeds.
     """
     try:
-        # Load the latest snapshot from in_time directory
-        latest_in_time = get_latest_in_time_leaderboard()
-        if not latest_in_time:
-            await channel.send("No historical data found")
+        # Load the snapshot file
+        snapshot_path = "./backend/leaderboards/snapshots/leaderboard-snapshot.json"
+        if not os.path.exists(snapshot_path):
+            # If snapshot doesn't exist, create it and return
+            with open("./backend/leaderboards/leaderboard-latest.json", "r") as f:
+                current_data = json.load(f)
+            with open(snapshot_path, "w") as f:
+                json.dump(current_data, f)
             return
 
-        # Load both leaderboards
-        with open(latest_in_time, "r") as f:
+        # Load both snapshot and current data
+        with open(snapshot_path, "r") as f:
             previous_data = json.load(f)
         with open("./backend/leaderboards/leaderboard-latest.json", "r") as f:
             current_data = json.load(f)
@@ -107,8 +111,7 @@ async def compare_stock_changes(channel):
             )
             await channel.send(embed=embed)
 
-        # Update the snapshot with current data
-        snapshot_path = "./backend/leaderboards/snapshots/leaderboard-snapshot.json"
+        # Update the snapshot with current data after comparison
         with open(snapshot_path, "w") as f:
             json.dump(current_data, f)
 
