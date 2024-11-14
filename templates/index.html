@@ -128,10 +128,42 @@
 
 <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
 <script src="/pagefind/pagefind-ui.js"></script>
-<div id="search"></div>
+<style>
+    .search-container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 0 20px;
+    }
+    
+    /* Style the search input */
+    .pagefind-ui .pagefind-ui__search-input {
+        padding: 12px 16px;
+        border-radius: 6px;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    /* Center the search results */
+    .pagefind-ui__results {
+        margin: 0 auto;
+    }
+
+    /* Improve result items spacing */
+    .pagefind-ui__result {
+        padding: 12px 0;
+        border-bottom: 1px solid #eee;
+    }
+</style>
+<div class="search-container">
+    <div id="search"></div>
+</div>
 <script>
     window.addEventListener('DOMContentLoaded', (event) => {
-        new PagefindUI({ element: "#search", showSubResults: true });
+        new PagefindUI({ 
+            element: "#search", 
+            showSubResults: true,
+            autofocus: true
+        });
     });
 </script>
 
