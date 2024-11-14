@@ -76,7 +76,7 @@
     
 <h1 class="text-center text-4xl">Imagine if Investopedia was good at making a leaderboard</h1>
 <br>
-<p class="text-center text-xl">Last updated 00:25:27 11-14-2024</p>
+<p class="text-center text-xl">Last updated 00:27:42 11-14-2024</p>
 <br>
 <p class="text-center text-xl">Code can be found at: <a
         href="https://github.com/lelandstocks/lelandstocks.github.io"
@@ -1340,23 +1340,22 @@
 <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
 <script src="/pagefind/pagefind-ui.js"></script>
 <style>
-    .search-container {
-        max-width: 600px;
-        margin: 20px auto;
-        padding: 0 20px;
-    }
-    
     /* Style the search input */
     .pagefind-ui .pagefind-ui__search-input {
-        padding: 12px 16px;
+        padding: 12px 16px 12px 46px !important; /* Increased left padding to make room for icon */
         border-radius: 6px;
         width: 100%;
         margin-bottom: 20px;
     }
 
-    /* Center the search results */
-    .pagefind-ui__results {
-        margin: 0 auto;
+    /* Adjust search icon position */
+    .pagefind-ui__search-clear {
+        right: 20px !important;
+    }
+
+    .pagefind-ui__search-icon {
+        left: 16px !important;
+        pointer-events: none;
     }
 
     /* Improve result items spacing */
@@ -1365,9 +1364,10 @@
         border-bottom: 1px solid #eee;
     }
 </style>
-<div class="search-container">
+<div class="max-w-2xl mx-auto px-4 w-full">
     <div id="search"></div>
 </div>
+
 <script>
     window.addEventListener('DOMContentLoaded', (event) => {
         new PagefindUI({ 
