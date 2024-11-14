@@ -53,6 +53,32 @@
             flex-grow: 1;
         }
     }
+    #accountSearch {
+        transition: all 0.3s ease;
+    }
+
+    #accountSearch:focus {
+        border-color: #4a90e2;
+        box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+        outline: none;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        #accountSearch {
+            background-color: #2d2d2d;
+            color: #ffffff;
+            border-color: #444;
+        }
+
+        #accountSearch::placeholder {
+            color: #888;
+        }
+
+        #accountSearch:focus {
+            border-color: #6a9ee2;
+            box-shadow: 0 0 5px rgba(106, 158, 226, 0.5);
+        }
+    }
 </style>
 
     <style>
@@ -127,7 +153,7 @@
     
 <h1 class="text-center text-2xl">Imagine if Investopedia was good at making a leaderboard</h1>
 <br>
-<p class="text-center text-xl">Last updated 14:41:32 11-14-2024</p>
+<p class="text-center text-xl">Last updated 14:48:41 11-14-2024</p>
 <br>
 <p class="text-center text-xl">Code can be found at: <a
         href="https://github.com/lelandstocks/lelandstocks.github.io"
@@ -1415,7 +1441,7 @@
     </div>
 </div>
 
-<table class="uk-table uk-table-striped uk-table-responsive">
+<table class="uk-table uk-table-striped uk-table-responsive" id="rankings">
     <tr>
         
         <th>Ranking</th>
@@ -3363,34 +3389,7 @@
         });
     });
 </script>
-<style>
-    #accountSearch {
-        transition: all 0.3s ease;
-    }
 
-    #accountSearch:focus {
-        border-color: #4a90e2;
-        box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
-        outline: none;
-    }
-
-    @media (prefers-color-scheme: dark) {
-        #accountSearch {
-            background-color: #2d2d2d;
-            color: #ffffff;
-            border-color: #444;
-        }
-
-        #accountSearch::placeholder {
-            color: #888;
-        }
-
-        #accountSearch:focus {
-            border-color: #6a9ee2;
-            box-shadow: 0 0 5px rgba(106, 158, 226, 0.5);
-        }
-    }
-</style>
 
 </body>
 
