@@ -202,9 +202,10 @@ bot.setup_hook = setup_hook
 
 
 @bot.tree.command(name="leaderboard", description="Get current leaderboard")
-async def leaderboard(interaction: discord.Interaction):
+@app_commands.describe(count="Number of top users to display (default: 1)")
+async def leaderboard(interaction: discord.Interaction, count: int = 1):
     """
-    Respond to the /leaderboard command with the top-ranked user's info.
+    Respond to the /leaderboard command with the top N users' info.
     """
     await interaction.response.defer()
     try:
@@ -220,17 +221,22 @@ async def leaderboard(interaction: discord.Interaction):
         ]
         df.sort_values(by="Money In Account", ascending=False, inplace=True)
 
-        top_ranked_name, top_ranked_money, top_ranked_stocks = get_user_info(
-            df, df.iloc[0]["Account Name"]
-        )
+        # Limit count to be between 1 and 10
+        count = max(1, min(count, 10))
+
+        description = ""
+        for i in range(min(count, len(df))):
+            user_name, user_money, user_stocks = get_user_info(
+                df, df.iloc[i]["Account Name"]
+            )
+            description += f"**#{i+1} - {user_name}**\n"
+            description += f"Money: {user_money}\n"
+            description += f"Holdings:\n{user_stocks}\n\n"
+
         embed = discord.Embed(
             colour=discord.Colour.dark_red(),
             title="Current Leaderboard",
-            description=(
-                f"**Top Ranked Person:** {top_ranked_name}\n\n"
-                f"**Current Money:** {top_ranked_money}\n\n"
-                f"**Current Holdings:**\n{top_ranked_stocks}"
-            ),
+            description=description,
             timestamp=discord.utils.utcnow(),
         )
         await interaction.followup.send(embed=embed)
