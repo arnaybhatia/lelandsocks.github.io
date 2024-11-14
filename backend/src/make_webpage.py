@@ -97,7 +97,7 @@ def make_index_page():
         df["Z-Score"] = zscore(df["Money In Account"])
         # Replace Account Name with Account Link
         df["Account Link"] = df.apply(
-            lambda row: f'<a href="/players/{row["Account Name"]}.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600" target="_blank">{row["Account Name"]}</a>',
+            lambda row: f'<a href="/players/{row["Account Name"]}.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 {row["Account Name"]}" target="_blank">{row["Account Name"]}</a>',
             axis=1,
         )
 
