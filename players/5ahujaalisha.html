@@ -66,15 +66,19 @@
 
 
 <br>
-<p class="text-center text-xl">Last updated 13:46:09 11-15-2024</p>
+<p class="text-center text-xl">Last updated 13:49:17 11-15-2024</p>
 <br>
 <div class="flex justify-center">
     <div class="w-4/5 h-[60vh]" id="chartContainer">
         <div id="playerChart"></div>
     </div>
 </div>
-<div class="text-center mt-2">
+<div class="text-center mt-2 space-x-2">
     <button class="uk-button uk-button-default" id="resetZoom">Reset Zoom</button>
+    <button class="uk-button uk-button-default time-range" data-days="1">1D</button>
+    <button class="uk-button uk-button-default time-range" data-days="7">1W</button>
+    <button class="uk-button uk-button-default time-range" data-days="30">1M</button>
+    <button class="uk-button uk-button-default time-range" data-days="365">1Y</button>
 </div>
 
 <!-- Add stocks table -->
@@ -143,7 +147,6 @@
             background: { type: 'solid', color: '#ffffff' },
             textColor: '#333333',
             fontSize: 12,
-            attributionLogo: false,
         },
         grid: {
             vertLines: { color: '#f0f0f0' },
@@ -238,6 +241,20 @@
         chart.timeScale().fitContent();
         chart.priceScale('right').applyOptions({
             autoScale: true
+        });
+    });
+
+    // Add time range functionality
+    document.querySelectorAll('.time-range').forEach(button => {
+        button.addEventListener('click', () => {
+            const days = parseInt(button.dataset.days);
+            const now = Math.floor(Date.now() / 1000);
+            const start = now - (days * 24 * 60 * 60);
+            
+            chart.timeScale().setVisibleRange({
+                from: start,
+                to: now,
+            });
         });
     });
 
