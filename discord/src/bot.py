@@ -52,6 +52,11 @@ def get_latest_in_time_leaderboard():
     return os.path.join(in_time_dir, latest_file)
 
 
+def get_pst_time():
+    """Helper function to get current time in PST"""
+    return datetime.datetime.now(timezone("America/Los_Angeles"))
+
+
 async def compare_stock_changes(channel):
     """
     Compare current leaderboard with snapshot to detect stock changes, and send updates to the Discord channel as embeds.
@@ -99,17 +104,12 @@ async def compare_stock_changes(channel):
                     colour=discord.Colour.green(),
                     title=f"Stock Changes for {username}",
                     description=description,
-                    timestamp=discord.utils.utcnow(),
+                    timestamp=get_pst_time(),
                 )
                 await channel.send(embed=embed)
 
         if not any_changes:
-            embed = discord.Embed(
-                colour=discord.Colour.greyple(),
-                title="No Stock Changes Detected",
-                timestamp=discord.utils.utcnow(),
-            )
-            await channel.send(embed=embed)
+            print("no stock changes", datetime.datetime.now())
 
         # Update the snapshot with current data after comparison
         with open(snapshot_path, "w") as f:
@@ -167,7 +167,7 @@ class UserInfo(commands.Cog):
                     f"**Current Money:** {user_money}\n\n"
                     f"**Current Holdings:**\n{user_holdings}"
                 ),
-                timestamp=discord.utils.utcnow(),
+                timestamp=get_pst_time(),
             )
             await interaction.followup.send(embed=embed)
         except Exception as e:
@@ -240,7 +240,7 @@ async def leaderboard(interaction: discord.Interaction, count: int = 1):
             colour=discord.Colour.dark_red(),
             title="Current Leaderboard",
             description=description,
-            timestamp=discord.utils.utcnow(),
+            timestamp=get_pst_time(),
         )
         await interaction.followup.send(embed=embed)
     except Exception as e:
@@ -291,7 +291,7 @@ async def send_leaderboard():
                             f"**Current Money:** {top_ranked_money}\n\n"
                             f"**Current Holdings:**\n{top_ranked_stocks}"
                         ),
-                        timestamp=discord.utils.utcnow(),
+                        timestamp=get_pst_time(),
                     )
                     await leaderboard_channel.send(embed=embed)
 
