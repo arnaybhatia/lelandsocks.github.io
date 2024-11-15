@@ -58,9 +58,9 @@
 
 {% block scripts %}
 <script>
-    // function convertTZ(date, tzString) {
-    //     return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
-    // }
+    function convertTZ(date, tzString) {
+        return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
+    }
 
     const chartContainer = document.getElementById('chartContainer');
     const chartOptions = {
@@ -131,7 +131,7 @@
     const portfolioData = labels.map((timeStr, i) => {
         const date = new Date(timeStr);
         // Convert to PST
-        // const pstDate = convertTZ(date, 'America/Los_Angeles');
+        const pstDate = convertTZ(date, 'America/Los_Angeles');
         return {
             time: Math.floor(date.getTime() / 1000),
             value: money[i] || 0
@@ -141,7 +141,7 @@
     const sp500ChartData = labels.map((timeStr, i) => {
         const date = new Date(timeStr);
         // Convert to PST
-        // const pstDate = convertTZ(date, 'America/Los_Angeles');
+        const pstDate = convertTZ(date, 'America/Los_Angeles');
         return {
             time: Math.floor(date.getTime() / 1000),
             value: sp500Data[i] || 0
