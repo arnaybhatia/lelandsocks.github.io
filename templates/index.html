@@ -180,6 +180,7 @@
 
     const labels = {{ labels | safe }};
     
+    // Define all series first
     const sp500Series = chart.addAreaSeries({
         lineColor: '#FF6384',
         topColor: 'rgba(255, 99, 132, 0.4)',
@@ -208,7 +209,7 @@
         lineWidth: 2,
     });
 
-    // Filter out null values from data
+    // Create and process data
     const sp500Data = labels.map((time, i) => ({
         time: time,
         value: {{ sp500_prices | safe }}[i] || 0
@@ -228,6 +229,20 @@
         time: time,
         value: {{ q3_monies | safe }}[i] || 0
     })).filter(item => item.value !== 0);
+
+    // Debug logging of raw and processed data
+    console.log('Raw data:');
+    console.log('Labels:', labels);
+    console.log('SP500:', {{ sp500_prices | safe }});
+    console.log('Q1:', {{ q1_monies | safe }});
+    console.log('Median:', {{ median_monies | safe }});
+    console.log('Q3:', {{ q3_monies | safe }});
+
+    console.log('\nProcessed data:');
+    console.log('SP500 Data:', sp500Data);
+    console.log('Q1 Data:', q1Data);
+    console.log('Median Data:', medianData);
+    console.log('Q3 Data:', q3Data);
 
     sp500Series.setData(sp500Data);
     q1Series.setData(q1Data);
