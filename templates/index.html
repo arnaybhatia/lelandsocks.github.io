@@ -308,14 +308,14 @@
             const accountName = row.querySelector('td:nth-child(2) a')?.textContent.toLowerCase() || '';
             const moneyText = row.querySelector('td:nth-child(3)')?.textContent.toLowerCase() || '';
             const stocksText = row.querySelector('td:nth-child(4)')?.textContent.toLowerCase() || '';
-            const zScoreText = row.querySelector('td:nth-child(5)')?.textContent.toLowerCase() || '';
+            //const zScoreText = row.querySelector('td:nth-child(5)')?.textContent.toLowerCase() || '';
 
             // check if the search term matches any of the fields
             const matches = rankingText.includes(searchTerm) ||
                 accountName.includes(searchTerm) ||
                 moneyText.includes(searchTerm) ||
                 stocksText.includes(searchTerm) ||
-                zScoreText.includes(searchTerm);
+                //zScoreText.includes(searchTerm);
 
             // show/hide the row based on match
             row.style.display = matches ? '' : 'none';
