@@ -152,6 +152,7 @@ def make_index_page():
 
             # Get S&P 500 price for this timestamp
             date_for_sp500 = timestamp.date()
+            print(date_for_sp500)
             try:
                 current_sp500_price = float(sp500.loc[date_for_sp500, "Close"])
                 relative_return = current_sp500_price / initial_sp500_price
