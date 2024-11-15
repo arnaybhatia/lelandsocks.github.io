@@ -247,10 +247,8 @@ def make_user_page(player_name):
             with open(file, "r") as file:
                 dict_leaderboard = json.load(file)
 
-            # Format timestamp
-            date_time_str = (timestamp - timedelta(hours=3)).strftime(
-                "%Y-%m-%d"  # Changed format to yyyy-mm-dd
-            )
+            # Format timestamp with full UTC date-time info
+            date_time_str = timestamp.strftime("%Y-%m-%dT%H:%M:%S")
             labels.append(date_time_str)
 
             # Get S&P 500 price
@@ -366,10 +364,8 @@ def make_user_pages(usernames):
 
         # Process each timestamp
         for file, timestamp in zip(leaderboard_files, timestamps):
-            # Process datetime for label
-            date_time_str = (timestamp - timedelta(hours=3)).strftime(
-                "%Y-%m-%d"  # Changed format to yyyy-mm-dd
-            )
+            # Format timestamp with full UTC date-time info
+            date_time_str = timestamp.strftime("%Y-%m-%dT%H:%M:%S")
             labels.append(date_time_str)
 
             # Get S&P 500 price
