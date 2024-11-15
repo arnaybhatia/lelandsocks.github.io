@@ -212,25 +212,68 @@ def make_index_page():
 
 def make_user_page(player_name):
     with app.app_context():
-        leaderboard_files = sorted(
-            glob("./backend/leaderboards/in_time/*")
-        )  # This section formats everything nicely for the charts!
+        leaderboard_files = sorted(glob("./backend/leaderboards/in_time/*"))
         labels = []
         player_money = []
-        rankings = []
+        sp500_prices = []
+        timestamps = []
+
+        # First collect all timestamps
         for file in leaderboard_files:
+            file_name = os.path.basename(file)
+            date_time_str = file_name[len("leaderboard-") : -len(".json")]
+            date_time = datetime.strptime(
+                date_time_str.replace("_", ":"), "%Y-%m-%d-%H:%M"
+            )
+            timestamps.append(date_time)
+
+        # Fetch S&P 500 data
+        start_date = min(timestamps).date()
+        end_date = max(timestamps).date() + timedelta(days=1)
+        sp500 = yf.download("SPY", start=start_date, end=end_date, interval="1h")
+
+        # Get initial S&P 500 price
+        initial_sp500_price = None
+        initial_date = start_date
+        while initial_sp500_price is None and initial_date <= end_date:
+            try:
+                initial_sp500_price = float(sp500.loc[initial_date, "Close"])
+            except KeyError:
+                initial_date += timedelta(days=1)
+
+        if initial_sp500_price is None:
+            initial_sp500_price = float(sp500["Close"].iloc[0])
+
+        # Process each file
+        for file, timestamp in zip(leaderboard_files, timestamps):
             with open(file, "r") as file:
                 dict_leaderboard = json.load(file)
-            # Get a date time object from the file name, so I can use it as a label for the chart
-            file_name = os.path.basename(file.name)
-            date_time_str = file_name[len("leaderboard-") : -len(".json")]
-            date_time_str = date_time_str.replace("_", ":")
-            date_time_str = (
-                datetime.strptime(date_time_str, "%Y-%m-%d-%H:%M")
-                - timedelta(hours=3, minutes=0)
-            ).strftime("%H:%M:%S %m-%d-%Y")  # The final string in the right format
+
+            # Format timestamp
+            date_time_str = (timestamp - timedelta(hours=3)).strftime(
+                "%H:%M:%S %m-%d-%Y"
+            )
             labels.append(date_time_str)
 
+            # Get S&P 500 price
+            date_for_sp500 = timestamp.date()
+            try:
+                current_sp500_price = float(sp500.loc[date_for_sp500, "Close"])
+                relative_return = current_sp500_price / initial_sp500_price
+                sp500_price = 100000 * relative_return
+            except KeyError:
+                previous_dates = sp500.index[sp500.index.date <= date_for_sp500]
+                if len(previous_dates) > 0:
+                    current_sp500_price = float(
+                        sp500.loc[previous_dates[-1], "Close"].iloc[0]
+                    )
+                    relative_return = current_sp500_price / initial_sp500_price
+                    sp500_price = 100000 * relative_return
+                else:
+                    sp500_price = None
+            sp500_prices.append(sp500_price)
+
+            # Process player data
             df = pd.DataFrame.from_dict(dict_leaderboard, orient="index")
             df.reset_index(level=0, inplace=True)
             if (
@@ -247,11 +290,6 @@ def make_user_page(player_name):
             df = df.sort_values(by=["Money In Account"], ascending=False)
             df["Ranking"] = range(1, 1 + len(df))
             if player_name in df["Account Name"].values:
-                rankings.append(
-                    float(
-                        df.loc[df["Account Name"] == player_name, "Ranking"].values[0]
-                    )
-                )
                 player_money.append(
                     float(
                         df.loc[
@@ -283,10 +321,11 @@ def make_user_page(player_name):
             player_money=player_money,
             player_name=player_name,
             investopedia_link=investopedia_link,
-            player_stocks=player_stocks,  # Add player_stocks to template
+            player_stocks=player_stocks,
             update_time=datetime.utcnow()
             .astimezone(ZoneInfo("US/Pacific"))
             .strftime("%H:%M:%S %m-%d-%Y"),
+            sp500_prices=sp500_prices,
             zip=zip,
         )
         return rendered
@@ -296,26 +335,67 @@ def make_user_pages(usernames):
     """Generate HTML pages for multiple users at once"""
     with app.app_context():
         leaderboard_files = sorted(glob("./backend/leaderboards/in_time/*"))
-
-        # Load and process all leaderboard data once
         labels = []
         all_dfs = []
+        timestamps = []
+        sp500_prices = []
 
+        # Collect timestamps and process files
         for file in leaderboard_files:
-            with open(file, "r") as f:
-                dict_leaderboard = json.load(f)
-
-            # Process datetime for label
-            file_name = os.path.basename(f.name)
+            file_name = os.path.basename(file)
             date_time_str = file_name[len("leaderboard-") : -len(".json")]
-            date_time_str = date_time_str.replace("_", ":")
-            date_time_str = (
-                datetime.strptime(date_time_str, "%Y-%m-%d-%H:%M")
-                - timedelta(hours=3, minutes=0)
-            ).strftime("%H:%M:%S %m-%d-%Y")
+            date_time = datetime.strptime(
+                date_time_str.replace("_", ":"), "%Y-%m-%d-%H:%M"
+            )
+            timestamps.append(date_time)
+
+        # Fetch S&P 500 data
+        start_date = min(timestamps).date()
+        end_date = max(timestamps).date() + timedelta(days=1)
+        sp500 = yf.download("SPY", start=start_date, end=end_date, interval="1h")
+
+        # Get initial S&P 500 price
+        initial_sp500_price = None
+        initial_date = start_date
+        while initial_sp500_price is None and initial_date <= end_date:
+            try:
+                initial_sp500_price = float(sp500.loc[initial_date, "Close"])
+            except KeyError:
+                initial_date += timedelta(days=1)
+
+        if initial_sp500_price is None:
+            initial_sp500_price = float(sp500["Close"].iloc[0])
+
+        # Process each timestamp
+        for file, timestamp in zip(leaderboard_files, timestamps):
+            # Process datetime for label
+            date_time_str = (timestamp - timedelta(hours=3)).strftime(
+                "%H:%M:%S %m-%d-%Y"
+            )
             labels.append(date_time_str)
 
-            # Process DataFrame once
+            # Get S&P 500 price
+            date_for_sp500 = timestamp.date()
+            try:
+                current_sp500_price = float(sp500.loc[date_for_sp500, "Close"])
+                relative_return = current_sp500_price / initial_sp500_price
+                sp500_price = 100000 * relative_return
+            except KeyError:
+                previous_dates = sp500.index[sp500.index.date <= date_for_sp500]
+                if len(previous_dates) > 0:
+                    current_sp500_price = float(
+                        sp500.loc[previous_dates[-1], "Close"].iloc[0]
+                    )
+                    relative_return = current_sp500_price / initial_sp500_price
+                    sp500_price = 100000 * relative_return
+                else:
+                    sp500_price = None
+            sp500_prices.append(sp500_price)
+
+            # Process leaderboard data
+            with open(file, "r") as f:
+                dict_leaderboard = json.load(f)
+            # ...existing DataFrame processing code...
             df = pd.DataFrame.from_dict(dict_leaderboard, orient="index")
             df.reset_index(level=0, inplace=True)
             if len(df.columns) == 3:
@@ -389,6 +469,7 @@ def make_user_pages(usernames):
                 update_time=datetime.utcnow()
                 .astimezone(ZoneInfo("US/Pacific"))
                 .strftime("%H:%M:%S %m-%d-%Y"),
+                sp500_prices=sp500_prices,
                 zip=zip,
             )
 

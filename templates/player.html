@@ -55,6 +55,7 @@
 
     var labels = {{ labels | safe }};
     var money = {{ player_money | safe }};
+    var sp500Data = {{ sp500_prices | safe }};
     const data = {
         labels: labels,
         datasets: [
@@ -63,6 +64,12 @@
                 data: money,
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
+            },
+            {
+                label: 'S&P 500',
+                data: sp500Data,
+                fill: false,
+                borderColor: 'rgb(192, 75, 75)',
             }
         ]
     };
