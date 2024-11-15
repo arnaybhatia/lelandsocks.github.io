@@ -81,7 +81,7 @@
 
 
 <br>
-<p class="text-center text-xl">Last updated 14:28:33 11-15-2024</p>
+<p class="text-center text-xl">Last updated 14:29:50 11-15-2024</p>
 <br>
 <div class="flex justify-center">
     <div class="w-4/5 h-[60vh]" id="chartContainer">
@@ -307,7 +307,7 @@
     const portfolioData = labels.map((timeStr, i) => {
         const date = new Date(timeStr);
         // Convert to PST
-        const pstDate = new Date(date.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+        const pstDate = convertTZ(date, 'America/Los_Angeles');
         return {
             time: Math.floor(pstDate.getTime() / 1000),
             value: money[i] || 0
@@ -317,7 +317,7 @@
     const sp500ChartData = labels.map((timeStr, i) => {
         const date = new Date(timeStr);
         // Convert to PST
-        const pstDate = new Date(date.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+        const pstDate = convertTZ(date, 'America/Los_Angeles');
         return {
             time: Math.floor(pstDate.getTime() / 1000),
             value: sp500Data[i] || 0

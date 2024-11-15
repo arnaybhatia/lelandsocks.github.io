@@ -159,6 +159,9 @@
 
 {% block scripts %}
 <script>
+    function convertTZ(date, tzString) {
+        return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
+    }
     const chartContainer = document.getElementById('chartContainer');
     const chartOptions = {
         width: chartContainer.offsetWidth,
@@ -240,7 +243,7 @@
     const sp500Data = labels.map((timeStr, i) => {
         const date = new Date(timeStr);
         // Convert to PST
-        const pstDate = new Date(date.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+        const pstDate = convertTZ(date, 'America/Los_Angeles');
         return {
             time: Math.floor(pstDate.getTime() / 1000),
             value: {{ sp500_prices | safe }}[i] || 0
@@ -250,7 +253,7 @@
     const q1Data = labels.map((timeStr, i) => {
         const date = new Date(timeStr);
         // Convert to PST
-        const pstDate = new Date(date.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+        const pstDate = convertTZ(date, 'America/Los_Angeles');
         return {
             time: Math.floor(pstDate.getTime() / 1000),
             value: {{ q1_monies | safe }}[i] || 0
@@ -260,7 +263,7 @@
     const medianData = labels.map((timeStr, i) => {
         const date = new Date(timeStr);
         // Convert to PST
-        const pstDate = new Date(date.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+        const pstDate = convertTZ(date, 'America/Los_Angeles');
         return {
             time: Math.floor(pstDate.getTime() / 1000),
             value: {{ median_monies | safe }}[i] || 0
@@ -270,7 +273,7 @@
     const q3Data = labels.map((timeStr, i) => {
         const date = new Date(timeStr);
         // Convert to PST
-        const pstDate = new Date(date.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+        const pstDate = convertTZ(date, 'America/Los_Angeles');
         return {
             time: Math.floor(pstDate.getTime() / 1000),
             value: {{ q3_monies | safe }}[i] || 0
