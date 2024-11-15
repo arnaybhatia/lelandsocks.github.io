@@ -72,12 +72,14 @@
         </nav>
 
         
-<h1 class="text-center text-4xl"><a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449081" class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600" target="_blank">6saishyamrugoobur</a>'s Statistics</h1>
+<h1 class="text-center text-4xl"><a href="https://www.investopedia.com/simulator/games/user-portfolio?portfolio=10449081"
+        class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
+        target="_blank">6saishyamrugoobur</a>'s Statistics</h1>
 
 
 
 <br>
-<p class="text-center text-xl">Last updated 14:21:29 11-15-2024</p>
+<p class="text-center text-xl">Last updated 14:23:05 11-15-2024</p>
 <br>
 <div class="flex justify-center">
     <div class="w-4/5 h-[60vh]" id="chartContainer">
@@ -85,11 +87,16 @@
     </div>
 </div>
 <div class="text-center mt-2 space-x-2">
-    <button class="uk-button uk-button-default" id="resetZoom">Reset Zoom</button>
-    <button class="uk-button uk-button-default time-range" data-days="1">1D</button>
-    <button class="uk-button uk-button-default time-range" data-days="7">1W</button>
-    <button class="uk-button uk-button-default time-range" data-days="30">1M</button>
-    <button class="uk-button uk-button-default time-range" data-days="365">1Y</button>
+    <button class="uk-button uk-button-default" id="resetZoom">Reset
+        Zoom</button>
+    <button class="uk-button uk-button-default time-range"
+        data-days="1">1D</button>
+    <button class="uk-button uk-button-default time-range"
+        data-days="7">1W</button>
+    <button class="uk-button uk-button-default time-range"
+        data-days="30">1M</button>
+    <button class="uk-button uk-button-default time-range"
+        data-days="365">1Y</button>
 </div>
 
 <!-- Add stocks table -->
@@ -177,6 +184,9 @@
 
         
 <script>
+    function convertTZ(date, tzString) {
+        return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
+    }
     const chartContainer = document.getElementById('chartContainer');
     const chartOptions = {
         width: chartContainer.offsetWidth,
