@@ -25,61 +25,138 @@ def get_five_number_summary(df):
     return average_money, q1_money, median_money, q3_money, std_money
 
 
+def generate_trading_timestamps(start_date, end_date):
+    """Generate 5-minute interval timestamps during trading hours (9:30 AM - 4:00 PM EST)"""
+    timestamps = []
+    current = start_date.replace(hour=9, minute=30, second=0, microsecond=0)
+
+    while current <= end_date:
+        # Skip weekends
+        if current.weekday() < 5:  # Monday = 0, Friday = 4
+            # Add timestamps for the trading day (9:30 AM - 4:00 PM EST)
+            day_time = current
+            while day_time.hour < 16 or (day_time.hour == 16 and day_time.minute == 0):
+                timestamps.append(day_time)
+                day_time += timedelta(minutes=5)
+
+        # Move to next day
+        current = (current + timedelta(days=1)).replace(
+            hour=9, minute=30, second=0, microsecond=0
+        )
+
+    return timestamps
+
+
+def interpolate_value(timestamps, data_times, data_values, target_time):
+    """Interpolate value for a given timestamp using surrounding data points"""
+    if not data_times or not data_values:
+        return None
+
+    # Find the closest points before and after target_time
+    before_idx = None
+    after_idx = None
+
+    for i, time in enumerate(data_times):
+        if time <= target_time:
+            before_idx = i
+        if time >= target_time:
+            after_idx = i
+            break
+
+    if before_idx is None or after_idx is None:
+        return (
+            data_values[before_idx]
+            if before_idx is not None
+            else data_values[after_idx]
+        )
+
+    if before_idx == after_idx:
+        return data_values[before_idx]
+
+    # Linear interpolation
+    time_diff = (data_times[after_idx] - data_times[before_idx]).total_seconds()
+    target_diff = (target_time - data_times[before_idx]).total_seconds()
+    ratio = target_diff / time_diff
+
+    return data_values[before_idx] + ratio * (
+        data_values[after_idx] - data_values[before_idx]
+    )
+
+
 def make_index_page():
     with app.app_context():
         leaderboard_files = sorted(glob("./backend/leaderboards/in_time/*"))
-        labels = []
-        min_monies = []
-        max_monies = []
-        q1_monies = []
-        median_monies = []
-        q3_monies = []
-        sp500_prices = []
-        timestamps = []
 
-        # First pass - collect all timestamps
+        # First collect all raw timestamps and data
+        raw_timestamps = []
+        raw_data = {"min": [], "max": [], "q1": [], "median": [], "q3": [], "sp500": []}
+
+        # Fetch S&P 500 data first
+        start_date = None
+        end_date = None
+        sp500 = None
+        initial_sp500_price = None
+
+        # First pass to collect timestamps
         for file in leaderboard_files:
             file_name = os.path.basename(file)
             date_time_str = file_name[len("leaderboard-") : -len(".json")]
             date_time = datetime.strptime(
                 date_time_str.replace("_", ":"), "%Y-%m-%d-%H:%M"
             )
-            timestamps.append(date_time)
+            raw_timestamps.append(date_time)
 
-        # Fetch S&P 500 data for the entire period
-        start_date = min(timestamps).date()
-        end_date = max(timestamps).date() + timedelta(days=1)
-        sp500 = yf.download("SPY", start=start_date, end=end_date, interval="1h")
+        if raw_timestamps:
+            start_date = min(raw_timestamps).date()
+            end_date = max(raw_timestamps).date() + timedelta(days=1)
+            sp500 = yf.download("SPY", start=start_date, end=end_date, interval="1h")
 
-        # Get initial S&P 500 price for relative calculation
-        initial_sp500_price = None
-        initial_date = start_date
-        while initial_sp500_price is None and initial_date <= end_date:
-            try:
-                initial_sp500_price = float(sp500.loc[initial_date, "Close"])
-            except KeyError:
-                initial_date += timedelta(days=1)
+            # Get initial S&P 500 price
+            initial_date = start_date
+            while initial_sp500_price is None and initial_date <= end_date:
+                try:
+                    initial_sp500_price = float(sp500.loc[initial_date, "Close"])
+                except KeyError:
+                    initial_date += timedelta(days=1)
 
-        if initial_sp500_price is None:
-            initial_sp500_price = float(sp500["Close"].iloc[0])
+            if initial_sp500_price is None:
+                initial_sp500_price = float(sp500["Close"].iloc[0])
 
-        # Process each file
-        for file, timestamp in zip(leaderboard_files, timestamps):
+        # Second pass to collect data
+        for file, timestamp in zip(leaderboard_files, raw_timestamps):
             with open(file, "r") as f:
                 dict_leaderboard = json.load(f)
 
-            # Format timestamp for label (with full UTC date-time info)
-            date_time_str = timestamp.strftime("%Y-%m-%dT%H:%M:%S")
-            labels.append(date_time_str)
+            # Process leaderboard data
+            df = pd.DataFrame.from_dict(dict_leaderboard, orient="index")
+            df.reset_index(level=0, inplace=True)
+            if (
+                len(df.columns) == 3
+            ):  # IF the file has only 3 columns, then add a new column to the dataframe as a place holder
+                df["Stocks Invested In"] = [0 for i in range(len(df))]
+            df.columns = [
+                "Account Name",
+                "Money In Account",
+                "Stocks Invested In",
+                "Investopedia Link",
+            ]
+            df = df.sort_values(by=["Money In Account"], ascending=False)
+            _1, q1_money, median_money, q3_money, _2 = get_five_number_summary(
+                df
+            )  # get some key numbers for the charts
+            raw_data["min"].append(int(df["Money In Account"].min()))
+            raw_data["max"].append(int(df["Money In Account"].max()))
+            raw_data["q1"].append(int(q1_money))
+            raw_data["median"].append(int(median_money))
+            raw_data["q3"].append(int(q3_money))
 
-            # Get S&P 500 price for this date and convert to relative value from 100k investment
+            # Get S&P 500 price for this timestamp
             date_for_sp500 = timestamp.date()
             try:
                 current_sp500_price = float(sp500.loc[date_for_sp500, "Close"])
                 relative_return = current_sp500_price / initial_sp500_price
                 sp500_price = 100000 * relative_return
             except KeyError:
-                # If exact date not found, get the most recent previous date
                 previous_dates = sp500.index[sp500.index.date <= date_for_sp500]
                 if len(previous_dates) > 0:
                     current_sp500_price = float(
@@ -89,31 +166,69 @@ def make_index_page():
                     sp500_price = 100000 * relative_return
                 else:
                     sp500_price = None
-            sp500_prices.append(sp500_price)
+            raw_data["sp500"].append(sp500_price)
 
-            # Process money data
-            df2 = pd.DataFrame.from_dict(dict_leaderboard, orient="index")
-            df2.reset_index(level=0, inplace=True)
-            if (
-                len(df2.columns) == 3
-            ):  # IF the file has only 3 columns, then add a new column to the dataframe as a place holder
-                df2["Stocks Invested In"] = [0 for i in range(len(df2))]
-            df2.columns = [
-                "Account Name",
-                "Money In Account",
-                "Stocks Invested In",
-                "Investopedia Link",
-            ]
-            df2 = df2.sort_values(by=["Money In Account"], ascending=False)
-            _1, q1_money, median_money, q3_money, _2 = get_five_number_summary(
-                df2
-            )  # get some key numbers for the charts
-            min_monies.append(int(df2["Money In Account"].min()))
-            max_monies.append(int(df2["Money In Account"].max()))
-            q1_monies.append(int(q1_money))
-            median_monies.append(int(median_money))
-            q3_monies.append(int(q3_money))
+        # Generate complete set of 5-minute interval timestamps
+        if raw_timestamps:
+            start_date = min(raw_timestamps)
+            end_date = max(raw_timestamps)
+            complete_timestamps = generate_trading_timestamps(start_date, end_date)
 
+            # Interpolate values for each timestamp
+            labels = []
+            min_monies = []
+            max_monies = []
+            q1_monies = []
+            median_monies = []
+            q3_monies = []
+            sp500_prices = []
+
+            for timestamp in complete_timestamps:
+                labels.append(timestamp.strftime("%Y-%m-%dT%H:%M:%S"))
+
+                # Interpolate each metric
+                min_monies.append(
+                    interpolate_value(
+                        raw_timestamps, raw_timestamps, raw_data["min"], timestamp
+                    )
+                )
+                max_monies.append(
+                    interpolate_value(
+                        raw_timestamps, raw_timestamps, raw_data["max"], timestamp
+                    )
+                )
+                q1_monies.append(
+                    interpolate_value(
+                        raw_timestamps, raw_timestamps, raw_data["q1"], timestamp
+                    )
+                )
+                median_monies.append(
+                    interpolate_value(
+                        raw_timestamps, raw_timestamps, raw_data["median"], timestamp
+                    )
+                )
+                q3_monies.append(
+                    interpolate_value(
+                        raw_timestamps, raw_timestamps, raw_data["q3"], timestamp
+                    )
+                )
+                sp500_prices.append(
+                    interpolate_value(
+                        raw_timestamps, raw_timestamps, raw_data["sp500"], timestamp
+                    )
+                )
+        else:
+            # If no data, initialize empty lists
+            labels = []
+            min_monies = []
+            max_monies = []
+            q1_monies = []
+            median_monies = []
+            q3_monies = []
+            sp500_prices = []
+
+        # Continue with existing code to render the template
+        # ...existing rendering code...
         ### This whole section makes the Individual Statistics
         # Load json as dictionary, then organise it properly: https://stackoverflow.com/a/44607210
         with open("backend/leaderboards/leaderboard-latest.json", "r") as file:
