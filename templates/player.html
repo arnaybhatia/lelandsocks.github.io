@@ -58,6 +58,10 @@
 
 {% block scripts %}
 <script>
+    function convertTZ(date, tzString) {
+        return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
+    }
+
     const chartContainer = document.getElementById('chartContainer');
     const chartOptions = {
         width: chartContainer.offsetWidth,

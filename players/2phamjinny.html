@@ -77,7 +77,7 @@
 
 
 <br>
-<p class="text-center text-xl">Last updated 14:24:21 11-15-2024</p>
+<p class="text-center text-xl">Last updated 14:25:29 11-15-2024</p>
 <br>
 <div class="flex justify-center">
     <div class="w-4/5 h-[60vh]" id="chartContainer">
@@ -186,6 +186,10 @@
 
         
 <script>
+    function convertTZ(date, tzString) {
+        return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
+    }
+
     const chartContainer = document.getElementById('chartContainer');
     const chartOptions = {
         width: chartContainer.offsetWidth,
