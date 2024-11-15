@@ -10,6 +10,7 @@ from babel.numbers import format_currency
 from flask import render_template
 from scipy.stats import zscore
 from zoneinfo import ZoneInfo
+import yfinance as yf
 
 # this whole file is to render the html table
 app = flask.Flask("leaderboard")
@@ -26,28 +27,71 @@ def get_five_number_summary(df):
 
 def make_index_page():
     with app.app_context():
-        leaderboard_files = sorted(
-            glob("./backend/leaderboards/in_time/*")
-        )  # This section formats everything nicely for the charts!
+        leaderboard_files = sorted(glob("./backend/leaderboards/in_time/*"))
         labels = []
         min_monies = []
         max_monies = []
         q1_monies = []
         median_monies = []
         q3_monies = []
+        sp500_prices = []
+        timestamps = []
+
+        # First pass - collect all timestamps
         for file in leaderboard_files:
-            with open(file, "r") as file:
-                dict_leaderboard = json.load(file)
-            # Get a date time object from the file name, so I can use it as a label for the chart
-            file_name = os.path.basename(file.name)
+            file_name = os.path.basename(file)
             date_time_str = file_name[len("leaderboard-") : -len(".json")]
-            date_time_str = date_time_str.replace("_", ":")
-            date_time_str = (
-                datetime.strptime(date_time_str, "%Y-%m-%d-%H:%M")
-                - timedelta(hours=3, minutes=0)
-            ).strftime("%H:%M:%S %m-%d-%Y")  # The final string in the right format
+            date_time = datetime.strptime(
+                date_time_str.replace("_", ":"), "%Y-%m-%d-%H:%M"
+            )
+            timestamps.append(date_time)
+
+        # Fetch S&P 500 data for the entire period
+        start_date = min(timestamps).date()
+        end_date = max(timestamps).date() + timedelta(days=1)
+        sp500 = yf.download("SPY", start=start_date, end=end_date, interval="1h")
+
+        # Get initial S&P 500 price for relative calculation
+        initial_sp500_price = None
+        initial_date = start_date
+        while initial_sp500_price is None and initial_date <= end_date:
+            try:
+                initial_sp500_price = float(sp500.loc[initial_date, "Close"])
+            except KeyError:
+                initial_date += timedelta(days=1)
+
+        if initial_sp500_price is None:
+            initial_sp500_price = float(sp500["Close"].iloc[0])
+
+        # Process each file
+        for file, timestamp in zip(leaderboard_files, timestamps):
+            with open(file, "r") as f:
+                dict_leaderboard = json.load(f)
+
+            # Format timestamp for label
+            date_time_str = (timestamp - timedelta(hours=3)).strftime(
+                "%H:%M:%S %m-%d-%Y"
+            )
             labels.append(date_time_str)
 
+            # Get S&P 500 price for this date and convert to relative value from 100k investment
+            date_for_sp500 = timestamp.date()
+            try:
+                current_sp500_price = float(sp500.loc[date_for_sp500, "Close"])
+                relative_return = current_sp500_price / initial_sp500_price
+                sp500_price = 100000 * relative_return
+            except KeyError:
+                # If exact date not found, get the most recent previous date
+                previous_dates = sp500.index[sp500.index.date <= date_for_sp500]
+                if len(previous_dates) > 0:
+                    current_sp500_price = float(sp500.loc[previous_dates[-1], "Close"])
+                    relative_return = current_sp500_price / initial_sp500_price
+                    sp500_price = 100000 * relative_return
+                else:
+                    sp500_price = None
+            sp500_prices.append(sp500_price)
+
+            # Process money data
             df2 = pd.DataFrame.from_dict(dict_leaderboard, orient="index")
             df2.reset_index(level=0, inplace=True)
             if (
@@ -157,8 +201,10 @@ def make_index_page():
             median_monies=median_monies,
             q3_monies=q3_monies,
             stock_cnt=stock_cnt,
+            sp500_prices=sp500_prices,  # Add S&P 500 prices
             zip=zip,
         )
+        print("all done with the index page")
         return rendered
 
 
