@@ -15,8 +15,8 @@
 <p class="text-center text-xl">Last updated {{ update_time }}</p>
 <br>
 <div class="flex justify-center">
-    <div class="w-4/5 h-[60vh]">
-        <canvas id="playerChart" class="w-full h-full"></canvas>
+    <div class="w-4/5 h-[60vh]" id="chartContainer">
+        <div id="playerChart"></div>
     </div>
 </div>
 
@@ -51,64 +51,67 @@
 
 {% block scripts %}
 <script>
-    const ctx = document.getElementById('playerChart');
-
-    var labels = {{ labels | safe }};
-    var money = {{ player_money | safe }};
-    var sp500Data = {{ sp500_prices | safe }};
-    const data = {
-        labels: labels,
-        datasets: [
-            {
-                label: 'Portfolio Value',
-                data: money,
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-            },
-            {
-                label: 'S&P 500',
-                data: sp500Data,
-                fill: false,
-                borderColor: 'rgb(192, 75, 75)',
-            }
-        ]
-    };
-    const config = {
-        type: 'line',
-        data: data,
-        options: {
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    display: false, // Hides the x-axis labels
-                },
-            },
-            plugins: {
-                scales: {
-                    display: false // Hides the dataset labels from the legend
-                },
-                zoom: {
-                    zoom: {
-                        wheel: {
-                            enabled: true,
-                        },
-                        pinch: {
-                            enabled: true
-                        },
-                        mode: 'x',
-                    },
-                    pan: {
-                        enabled: true
-                    }
-                },
-
-            }
-        }
+    const chartContainer = document.getElementById('chartContainer');
+    const chartOptions = {
+        width: chartContainer.offsetWidth,
+        height: chartContainer.offsetHeight,
+        layout: {
+            background: { type: 'solid', color: '#ffffff' },
+            textColor: '#333333',
+        },
+        grid: {
+            vertLines: { color: '#f0f0f0' },
+            horzLines: { color: '#f0f0f0' },
+        },
+        timeScale: {
+            timeVisible: true,
+            borderColor: '#d1d4dc',
+        },
+        rightPriceScale: {
+            borderColor: '#d1d4dc',
+        },
     };
 
-    var myLineChart = new Chart(ctx, config);
+    const chart = LightweightCharts.createChart(document.getElementById('playerChart'), chartOptions);
+
+    const portfolioSeries = chart.addAreaSeries({
+        lineColor: 'rgb(75, 192, 192)',
+        topColor: 'rgba(75, 192, 192, 0.4)',
+        bottomColor: 'rgba(75, 192, 192, 0.1)',
+        lineWidth: 2,
+    });
+
+    const sp500Series = chart.addAreaSeries({
+        lineColor: 'rgb(192, 75, 75)',
+        topColor: 'rgba(192, 75, 75, 0.4)',
+        bottomColor: 'rgba(192, 75, 75, 0.1)',
+        lineWidth: 2,
+    });
+
+    const labels = {{ labels | safe }};
+    const money = {{ player_money | safe }};
+    const sp500Data = {{ sp500_prices | safe }};
+
+    const portfolioData = labels.map((time, i) => ({
+        time: time,
+        value: money[i] || 0
+    })).filter(item => item.value !== 0);
+
+    const sp500ChartData = labels.map((time, i) => ({
+        time: time,
+        value: sp500Data[i] || 0
+    })).filter(item => item.value !== 0);
+
+    portfolioSeries.setData(portfolioData);
+    sp500Series.setData(sp500ChartData);
+
+    chart.timeScale().fitContent();
+
     window.addEventListener('resize', () => {
-        myLineChart.resize();
+        chart.applyOptions({
+            width: chartContainer.offsetWidth,
+            height: chartContainer.offsetHeight
+        });
     });
 </script>
 {% endblock %}

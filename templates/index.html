@@ -61,8 +61,8 @@
 <div class="flex flex-wrap justify-center">
     <!-- Chart Container -->
     <div class="w-full md:w-1/2 p-4 h-full md:h-auto flex flex-col"> <!-- Added flex-col -->
-        <div class="flex-grow chart-container">
-            <canvas id="stockChart"></canvas>
+        <div class="flex-grow chart-container" id="chartContainer">
+            <div id="stockChart"></div>
         </div>
         <div class="text-center mt-2">
             <button class="uk-button uk-button-default" id="resetZoom">Reset Zoom</button>
@@ -155,116 +155,94 @@
 
 {% block scripts %}
 <script>
-    const ctx = document.getElementById('stockChart');
+    const chartContainer = document.getElementById('chartContainer');
+    const chartOptions = {
+        width: chartContainer.offsetWidth,
+        height: chartContainer.offsetHeight,
+        layout: {
+            background: { type: 'solid', color: '#ffffff' },
+            textColor: '#333333',
+        },
+        grid: {
+            vertLines: { color: '#f0f0f0' },
+            horzLines: { color: '#f0f0f0' },
+        },
+        timeScale: {
+            timeVisible: true,
+            borderColor: '#d1d4dc',
+        },
+        rightPriceScale: {
+            borderColor: '#d1d4dc',
+        },
+    };
 
-    var labels = {{ labels | safe }};
-    var min_monies = {{ min_monies | safe }};
-    var max_monies = {{ max_monies | safe }};
-    var q1_monies = {{ q1_monies | safe }};
-    var median_monies = {{ median_monies | safe }};
-    var q3_monies = {{ q3_monies | safe }};
-    var sp500_prices = {{ sp500_prices | safe }};
+    const chart = LightweightCharts.createChart(document.getElementById('stockChart'), chartOptions);
+
+    const labels = {{ labels | safe }};
     
-    const data = {
-        labels: labels,
-        datasets: [
-            {
-                label: 'S&P 500 ($100k Initial)',
-                data: sp500_prices,
-                hidden: false,
-                borderColor: '#FF6384',
-                backgroundColor: 'rgba(255, 99, 132, 0.1)',
-                borderWidth: 2
-            },
-            {
-                label: 'Min Money',
-                data: min_monies,
-                hidden: true,
-                borderColor: '#36A2EB',
-                backgroundColor: 'rgba(54, 162, 235, 0.1)',
-                borderWidth: 2
-            },
-            {
-                label: 'Max Money',
-                data: max_monies,
-                hidden: true,
-                borderColor: '#4BC0C0',
-                backgroundColor: 'rgba(75, 192, 192, 0.1)',
-                borderWidth: 2
-            },
-            {
-                label: 'Q1 Money',
-                data: q1_monies,
-                hidden: false,
-                borderColor: '#9966FF',
-                backgroundColor: 'rgba(153, 102, 255, 0.1)',
-                borderWidth: 2
-            },
-            {
-                label: 'Median Money',
-                data: median_monies,
-                hidden: false,
-                borderColor: '#FFCE56',
-                backgroundColor: 'rgba(255, 206, 86, 0.1)',
-                borderWidth: 2
-            },
-            {
-                label: 'Q3 Money',
-                data: q3_monies,
-                hidden: false,
-                borderColor: '#FF9F40',
-                backgroundColor: 'rgba(255, 159, 64, 0.1)',
-                borderWidth: 2
-            }
-        ]
-    };
-    const config = {
-        type: 'line',
-        data: data,
-        options: {
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    display: false, // Hides the x-axis labels
-                },
-            },
-            plugins: {
-                scales: {
-                    display: false // Hides the dataset labels from the legend
-                },
-                zoom: {
-                    zoom: {
-                        wheel: {
-                            enabled: true,
-                        },
-                        pinch: {
-                            enabled: true
-                        },
-                        mode: 'x',
-                    },
-                    pan: {
-                        enabled: true
-                    }
-                },
-
-            }
-        }
-    };
-
-    var myLineChart = new Chart(ctx, config);
-
-    // Add reset zoom functionality
-    document.getElementById('resetZoom').addEventListener('click', () => {
-        myLineChart.resetZoom();
+    const sp500Series = chart.addAreaSeries({
+        lineColor: '#FF6384',
+        topColor: 'rgba(255, 99, 132, 0.4)',
+        bottomColor: 'rgba(255, 99, 132, 0.1)',
+        lineWidth: 2,
     });
+    
+    const q1Series = chart.addAreaSeries({
+        lineColor: '#9966FF',
+        topColor: 'rgba(153, 102, 255, 0.4)',
+        bottomColor: 'rgba(153, 102, 255, 0.1)',
+        lineWidth: 2,
+    });
+
+    const medianSeries = chart.addAreaSeries({
+        lineColor: '#FFCE56',
+        topColor: 'rgba(255, 206, 86, 0.4)',
+        bottomColor: 'rgba(255, 206, 86, 0.1)',
+        lineWidth: 2,
+    });
+
+    const q3Series = chart.addAreaSeries({
+        lineColor: '#FF9F40',
+        topColor: 'rgba(255, 159, 64, 0.4)',
+        bottomColor: 'rgba(255, 159, 64, 0.1)',
+        lineWidth: 2,
+    });
+
+    // Filter out null values from data
+    const sp500Data = labels.map((time, i) => ({
+        time: time,
+        value: {{ sp500_prices | safe }}[i] || 0
+    })).filter(item => item.value !== 0);
+
+    const q1Data = labels.map((time, i) => ({
+        time: time,
+        value: {{ q1_monies | safe }}[i] || 0
+    })).filter(item => item.value !== 0);
+
+    const medianData = labels.map((time, i) => ({
+        time: time,
+        value: {{ median_monies | safe }}[i] || 0
+    })).filter(item => item.value !== 0);
+
+    const q3Data = labels.map((time, i) => ({
+        time: time,
+        value: {{ q3_monies | safe }}[i] || 0
+    })).filter(item => item.value !== 0);
+
+    sp500Series.setData(sp500Data);
+    q1Series.setData(q1Data);
+    medianSeries.setData(medianData);
+    q3Series.setData(q3Data);
+
+    chart.timeScale().fitContent();
 
     window.addEventListener('resize', () => {
-        myLineChart.resize();
+        chart.applyOptions({
+            width: chartContainer.offsetWidth,
+            height: chartContainer.offsetHeight
+        });
     });
-</script>
 
-<!-- Search Functionality -->
-<script>
     // get the input element
     const searchInput = document.getElementById('accountSearch');
 
@@ -299,5 +277,4 @@
         });
     });
 </script>
-
 {% endblock %}

@@ -11,6 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
     <script>
         // Dark mode detection script
         const htmlElement = document.documentElement;
@@ -109,15 +110,15 @@
     
 <h1 class="text-center text-2xl">Imagine if Investopedia was good at making a leaderboard</h1>
 <br>
-<p class="text-center text-xl">Last updated 11:51:19 11-15-2024</p>
+<p class="text-center text-xl">Last updated 12:09:10 11-15-2024</p>
 <br>
 <p class="text-center text-xl">Code can be found at: <a href="https://github.com/lelandstocks/lelandstocks.github.io"
         class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"> LelandStocks</a></p>
 <div class="flex flex-wrap justify-center">
     <!-- Chart Container -->
     <div class="w-full md:w-1/2 p-4 h-full md:h-auto flex flex-col"> <!-- Added flex-col -->
-        <div class="flex-grow chart-container">
-            <canvas id="stockChart"></canvas>
+        <div class="flex-grow chart-container" id="chartContainer">
+            <div id="stockChart"></div>
         </div>
         <div class="text-center mt-2">
             <button class="uk-button uk-button-default" id="resetZoom">Reset Zoom</button>
@@ -134,27 +135,27 @@
             <tbody>
                 <tr>
                     <th>Miller Tracker</th>
-                    <td>#56th place</td>
+                    <td>#57th place</td>
                 </tr>
                 <tr>
                     <th>Average Money</th>
-                    <td>$104,008.82</td>
+                    <td>$104,159.13</td>
                 </tr>
                 <tr>
                     <th>Q1 Money</th>
-                    <td>$100,251.16</td>
+                    <td>$100,306.00</td>
                 </tr>
                 <tr>
                     <th>Median Money</th>
-                    <td>$103,635.04</td>
+                    <td>$103,834.17</td>
                 </tr>
                 <tr>
                     <th>Q3 Money</th>
-                    <td>$108,075.56</td>
+                    <td>$108,304.66</td>
                 </tr>
                 <tr>
                     <th>Standard Deviation Money</th>
-                    <td>$12,967.49</td>
+                    <td>$13,001.97</td>
                 </tr>
             </tbody>
         </table>
@@ -537,12 +538,12 @@
                     </tr>
                     
                     <tr>
-                        <td>SMMT</td>
+                        <td>ADMA</td>
                         <td>2</td>
                     </tr>
                     
                     <tr>
-                        <td>ADMA</td>
+                        <td>SMMT</td>
                         <td>2</td>
                     </tr>
                     
@@ -592,17 +593,17 @@
                     </tr>
                     
                     <tr>
+                        <td>TTWO</td>
+                        <td>2</td>
+                    </tr>
+                    
+                    <tr>
                         <td>LOAR</td>
                         <td>2</td>
                     </tr>
                     
                     <tr>
                         <td>NDAQ</td>
-                        <td>2</td>
-                    </tr>
-                    
-                    <tr>
-                        <td>TTWO</td>
                         <td>2</td>
                     </tr>
                     
@@ -677,17 +678,17 @@
                     </tr>
                     
                     <tr>
-                        <td>VRTX</td>
-                        <td>1</td>
-                    </tr>
-                    
-                    <tr>
                         <td>MANU</td>
                         <td>1</td>
                     </tr>
                     
                     <tr>
                         <td>PZZA</td>
+                        <td>1</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>VRTX</td>
                         <td>1</td>
                     </tr>
                     
@@ -812,11 +813,6 @@
                     </tr>
                     
                     <tr>
-                        <td>BE</td>
-                        <td>1</td>
-                    </tr>
-                    
-                    <tr>
                         <td>AUR</td>
                         <td>1</td>
                     </tr>
@@ -858,6 +854,11 @@
                     
                     <tr>
                         <td>SWK</td>
+                        <td>1</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>BE</td>
                         <td>1</td>
                     </tr>
                     
@@ -967,6 +968,11 @@
                     </tr>
                     
                     <tr>
+                        <td>SPYG</td>
+                        <td>1</td>
+                    </tr>
+                    
+                    <tr>
                         <td>DRS</td>
                         <td>1</td>
                     </tr>
@@ -982,11 +988,6 @@
                     </tr>
                     
                     <tr>
-                        <td>SPYG</td>
-                        <td>1</td>
-                    </tr>
-                    
-                    <tr>
                         <td>KB</td>
                         <td>1</td>
                     </tr>
@@ -998,6 +999,16 @@
                     
                     <tr>
                         <td>WLDN</td>
+                        <td>1</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>DAL</td>
+                        <td>1</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>TXN</td>
                         <td>1</td>
                     </tr>
                     
@@ -1038,16 +1049,6 @@
                     
                     <tr>
                         <td>YXT</td>
-                        <td>1</td>
-                    </tr>
-                    
-                    <tr>
-                        <td>DAL</td>
-                        <td>1</td>
-                    </tr>
-                    
-                    <tr>
-                        <td>TXN</td>
                         <td>1</td>
                     </tr>
                     
@@ -1122,6 +1123,16 @@
                     </tr>
                     
                     <tr>
+                        <td>AMGN</td>
+                        <td>1</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>MRCY</td>
+                        <td>1</td>
+                    </tr>
+                    
+                    <tr>
                         <td>FI</td>
                         <td>1</td>
                     </tr>
@@ -1137,16 +1148,6 @@
                     </tr>
                     
                     <tr>
-                        <td>AMGN</td>
-                        <td>1</td>
-                    </tr>
-                    
-                    <tr>
-                        <td>MRCY</td>
-                        <td>1</td>
-                    </tr>
-                    
-                    <tr>
                         <td>LEVI</td>
                         <td>1</td>
                     </tr>
@@ -1157,17 +1158,17 @@
                     </tr>
                     
                     <tr>
+                        <td>QLD</td>
+                        <td>1</td>
+                    </tr>
+                    
+                    <tr>
                         <td>BMY</td>
                         <td>1</td>
                     </tr>
                     
                     <tr>
                         <td>UNH</td>
-                        <td>1</td>
-                    </tr>
-                    
-                    <tr>
-                        <td>QLD</td>
                         <td>1</td>
                     </tr>
                     
@@ -1262,6 +1263,11 @@
                     </tr>
                     
                     <tr>
+                        <td>NEE</td>
+                        <td>1</td>
+                    </tr>
+                    
+                    <tr>
                         <td>UBS</td>
                         <td>1</td>
                     </tr>
@@ -1277,17 +1283,12 @@
                     </tr>
                     
                     <tr>
-                        <td>NEE</td>
+                        <td>SWBI</td>
                         <td>1</td>
                     </tr>
                     
                     <tr>
                         <td>GIS</td>
-                        <td>1</td>
-                    </tr>
-                    
-                    <tr>
-                        <td>SWBI</td>
                         <td>1</td>
                     </tr>
                     
@@ -1403,11 +1404,11 @@
         
         <td><a href="/players/1enriquezmario.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 1enriquezmario" target="_blank">1enriquezmario</a></td>
         
-        <td>$155,285.16</td>
+        <td>$155,015.18</td>
         
         <td>LUNR</td>
         
-        <td>3.9696400640208993</td>
+        <td>3.9266590769635092</td>
         
     </tr>
     
@@ -1421,7 +1422,7 @@
         
         <td></td>
         
-        <td>3.4485891712512697</td>
+        <td>3.4278358312990482</td>
         
     </tr>
     
@@ -1429,13 +1430,13 @@
         
         <td>3</td>
         
-        <td><a href="/players/unknovus.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 unknovus" target="_blank">unknovus</a></td>
+        <td><a href="/players/miatarabichi.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 miatarabichi" target="_blank">miatarabichi</a></td>
         
-        <td>$132,071.45</td>
+        <td>$133,567.22</td>
         
-        <td>APP, NFLX, NVDA</td>
+        <td>AMZN, AVGO, HOOD, MSTR, MU, NVDA, PLTR</td>
         
-        <td>2.172513511383456</td>
+        <td>2.27063539147763</td>
         
     </tr>
     
@@ -1443,13 +1444,13 @@
         
         <td>4</td>
         
-        <td><a href="/players/miatarabichi.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 miatarabichi" target="_blank">miatarabichi</a></td>
+        <td><a href="/players/unknovus.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 unknovus" target="_blank">unknovus</a></td>
         
-        <td>$131,928.54</td>
+        <td>$132,653.67</td>
         
-        <td>AMZN, AVGO, HOOD, MSTR, MU, NVDA, PLTR</td>
+        <td>APP, NFLX, NVDA</td>
         
-        <td>2.161449904763169</td>
+        <td>2.2000990589837417</td>
         
     </tr>
     
@@ -1459,11 +1460,11 @@
         
         <td><a href="/players/2continichris.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2continichris" target="_blank">2continichris</a></td>
         
-        <td>$123,949.64</td>
+        <td>$123,788.54</td>
         
         <td>LUNR</td>
         
-        <td>1.5437505774760218</td>
+        <td>1.5156113382442649</td>
         
     </tr>
     
@@ -1477,7 +1478,7 @@
         
         <td></td>
         
-        <td>1.4114061218504788</td>
+        <td>1.396056675010877</td>
         
     </tr>
     
@@ -1491,7 +1492,7 @@
         
         <td></td>
         
-        <td>1.2717945697764965</td>
+        <td>1.25681546074474</td>
         
     </tr>
     
@@ -1501,11 +1502,11 @@
         
         <td><a href="/players/1raimondiluke.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 1raimondiluke" target="_blank">1raimondiluke</a></td>
         
-        <td>$119,688.69</td>
+        <td>$119,709.68</td>
         
         <td>ADSK, DUOL, SNOW, TMUS, WMT</td>
         
-        <td>1.2138823063353679</td>
+        <td>1.2006774811417273</td>
         
     </tr>
     
@@ -1519,7 +1520,7 @@
         
         <td></td>
         
-        <td>1.143577193214192</td>
+        <td>1.1289381974571495</td>
         
     </tr>
     
@@ -1527,13 +1528,13 @@
         
         <td>10</td>
         
-        <td><a href="/players/3sudharsanshrivas.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3sudharsanshrivas" target="_blank">3sudharsanshrivas</a></td>
+        <td><a href="/players/5nguyenethan.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5nguyenethan" target="_blank">5nguyenethan</a></td>
         
-        <td>$118,191.78</td>
+        <td>$118,468.61</td>
         
-        <td>AAPL, BRK.B, PLTR, VRTX, VZ</td>
+        <td>MANU, MCD, NVDA, PZZA</td>
         
-        <td>1.0979966203373726</td>
+        <td>1.1048529218201906</td>
         
     </tr>
     
@@ -1541,13 +1542,13 @@
         
         <td>11</td>
         
-        <td><a href="/players/5nguyenethan.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5nguyenethan" target="_blank">5nguyenethan</a></td>
+        <td><a href="/players/3sudharsanshrivas.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3sudharsanshrivas" target="_blank">3sudharsanshrivas</a></td>
         
-        <td>$117,584.16</td>
+        <td>$118,197.70</td>
         
-        <td>MANU, MCD, NVDA, PZZA</td>
+        <td>AAPL, BRK.B, PLTR, VRTX, VZ</td>
         
-        <td>1.0509567445090988</td>
+        <td>1.0839356235487005</td>
         
     </tr>
     
@@ -1561,7 +1562,7 @@
         
         <td></td>
         
-        <td>0.9766414513940047</td>
+        <td>0.9624452744134767</td>
         
     </tr>
     
@@ -1571,11 +1572,11 @@
         
         <td><a href="/players/6xusophie.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 6xusophie" target="_blank">6xusophie</a></td>
         
-        <td>$115,561.45</td>
+        <td>$115,716.23</td>
         
         <td>BA, DB, GOOG, RTX, TGT, UAL</td>
         
-        <td>0.8943654090747674</td>
+        <td>0.8923382364395</td>
         
     </tr>
     
@@ -1585,11 +1586,11 @@
         
         <td><a href="/players/5lucaslloyd.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5lucaslloyd" target="_blank">5lucaslloyd</a></td>
         
-        <td>$114,539.42</td>
+        <td>$115,022.05</td>
         
         <td>CONL, DKNG, MODG, NVDL, PLTR, QQQ, SOXL, SSO, UBER</td>
         
-        <td>0.8152433191291255</td>
+        <td>0.8387397346710066</td>
         
     </tr>
     
@@ -1599,11 +1600,11 @@
         
         <td><a href="/players/3jubertcolin.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3jubertcolin" target="_blank">3jubertcolin</a></td>
         
-        <td>$114,456.80</td>
+        <td>$114,672.74</td>
         
         <td>ABNB, ADBE, AMD, ANF, APDN, ASML, ASTS, BAC, BIDU, CMG, DUOL, GLD, GOOG, LLY, LMT, META, NVDA, QQQ, RDDT, SNY, WDC</td>
         
-        <td>0.8088471594554285</td>
+        <td>0.8117690748237731</td>
         
     </tr>
     
@@ -1613,11 +1614,11 @@
         
         <td><a href="/players/3baradlaydaniel.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3baradlaydaniel" target="_blank">3baradlaydaniel</a></td>
         
-        <td>$113,733.27</td>
+        <td>$113,817.82</td>
         
         <td>AAPL, ARDX, BNO, HCP, SGC, SGMO, SNY</td>
         
-        <td>0.752833925266246</td>
+        <td>0.7457596376001124</td>
         
     </tr>
     
@@ -1627,11 +1628,11 @@
         
         <td><a href="/players/3lustephanie.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3lustephanie" target="_blank">3lustephanie</a></td>
         
-        <td>$113,650.84</td>
+        <td>$113,777.24</td>
         
         <td>AMZN, CAVA, EA, GE, JPM, KVUE, NKE, NVDA, PLTR, TSLA</td>
         
-        <td>0.7464524747469659</td>
+        <td>0.7426264052947081</td>
         
     </tr>
     
@@ -1641,11 +1642,11 @@
         
         <td><a href="/players/6hernandezbrady.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 6hernandezbrady" target="_blank">6hernandezbrady</a></td>
         
-        <td>$113,392.96</td>
+        <td>$113,359.67</td>
         
         <td>GOLD</td>
         
-        <td>0.7264882813718386</td>
+        <td>0.7103853058918581</td>
         
     </tr>
     
@@ -1655,11 +1656,11 @@
         
         <td><a href="/players/3tomaszewskiadrian.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3tomaszewskiadrian" target="_blank">3tomaszewskiadrian</a></td>
         
-        <td>$112,460.03</td>
+        <td>$113,091.25</td>
         
         <td>AMD, ARM, ASML, CCJ, CRWD, RKLB</td>
         
-        <td>0.6542640106821442</td>
+        <td>0.6896602636193941</td>
         
     </tr>
     
@@ -1669,11 +1670,11 @@
         
         <td><a href="/players/brandens.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 brandens" target="_blank">brandens</a></td>
         
-        <td>$111,828.19</td>
+        <td>$112,216.65</td>
         
         <td>AAPL, AMZN, BROS, CMG, FLNC, GE, MSFT, NIO, NVDA, TSLA, WOK</td>
         
-        <td>0.605349104748606</td>
+        <td>0.6221313091022298</td>
         
     </tr>
     
@@ -1683,11 +1684,11 @@
         
         <td><a href="/players/6sophiamovassate.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 6sophiamovassate" target="_blank">6sophiamovassate</a></td>
         
-        <td>$111,487.91</td>
+        <td>$111,659.77</td>
         
         <td>AMZN, BAC, DIS, NVDA, PGR, RBLX, SPOT, YUMC</td>
         
-        <td>0.5790057833522645</td>
+        <td>0.5791339112157473</td>
         
     </tr>
     
@@ -1695,13 +1696,13 @@
         
         <td>22</td>
         
-        <td><a href="/players/2santosshin.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2santosshin" target="_blank">2santosshin</a></td>
+        <td><a href="/players/2dersecamren.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2dersecamren" target="_blank">2dersecamren</a></td>
         
-        <td>$111,359.39</td>
+        <td>$111,427.92</td>
         
-        <td>BE, SMMT</td>
+        <td>AAPL, ADMA, AMZN, APP, AUR, CHDN, CLOV, COST, CYBN, DAVE, DJT, EA, JPM, LULU, NKE, OUT, SKYT, SOFI, SPGI, SWK, WOK</td>
         
-        <td>0.5690562016376238</td>
+        <td>0.5612324841578867</td>
         
     </tr>
     
@@ -1709,13 +1710,13 @@
         
         <td>23</td>
         
-        <td><a href="/players/2dersecamren.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2dersecamren" target="_blank">2dersecamren</a></td>
+        <td><a href="/players/2santosshin.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2santosshin" target="_blank">2santosshin</a></td>
         
-        <td>$111,240.85</td>
+        <td>$111,345.10</td>
         
-        <td>AAPL, ADMA, AMZN, APP, AUR, CHDN, CLOV, COST, CYBN, DAVE, DJT, EA, JPM, LULU, NKE, OUT, SKYT, SOFI, SPGI, SWK, WOK</td>
+        <td>BE, SMMT</td>
         
-        <td>0.5598792376129319</td>
+        <td>0.5548378488810619</td>
         
     </tr>
     
@@ -1725,11 +1726,11 @@
         
         <td><a href="/players/3patilrohi.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3patilrohi" target="_blank">3patilrohi</a></td>
         
-        <td>$109,999.28</td>
+        <td>$110,225.37</td>
         
         <td>AAPL, AMZN, META, NOW, NVDA</td>
         
-        <td>0.46376110682047844</td>
+        <td>0.4683821019779008</td>
         
     </tr>
     
@@ -1739,11 +1740,11 @@
         
         <td><a href="/players/5wangkyan.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5wangkyan" target="_blank">5wangkyan</a></td>
         
-        <td>$109,676.80</td>
+        <td>$109,988.38</td>
         
         <td>CVS, TSLA</td>
         
-        <td>0.43879580094328274</td>
+        <td>0.45008380912285617</td>
         
     </tr>
     
@@ -1753,11 +1754,11 @@
         
         <td><a href="/players/5zhounatalie.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5zhounatalie" target="_blank">5zhounatalie</a></td>
         
-        <td>$109,615.95</td>
+        <td>$109,973.26</td>
         
         <td>AAPL, AMZN, BRK.B, COST, JPM, NVDA, TSLA</td>
         
-        <td>0.4340850006994614</td>
+        <td>0.44891637510467625</td>
         
     </tr>
     
@@ -1767,11 +1768,11 @@
         
         <td><a href="/players/2laumei.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2laumei" target="_blank">2laumei</a></td>
         
-        <td>$109,475.51</td>
+        <td>$109,941.11</td>
         
         <td>DJT, ISRG, LLY, NKE, NVDA, TSLA</td>
         
-        <td>0.42321261308660646</td>
+        <td>0.44643403359115413</td>
         
     </tr>
     
@@ -1781,11 +1782,11 @@
         
         <td><a href="/players/2mirilily.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2mirilily" target="_blank">2mirilily</a></td>
         
-        <td>$109,193.81</td>
+        <td>$109,417.36</td>
         
         <td>ANET, GE, HWKN, ISRG, LLY, META, PANW, RCL, SPOT, SPY, UBER, VGT</td>
         
-        <td>0.4014043562470938</td>
+        <td>0.4059946442378903</td>
         
     </tr>
     
@@ -1795,11 +1796,11 @@
         
         <td><a href="/players/2gibsonjacob.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2gibsonjacob" target="_blank">2gibsonjacob</a></td>
         
-        <td>$108,887.71</td>
+        <td>$109,203.76</td>
         
         <td>AAPL, AMZN, LULU, NVDA, PEP</td>
         
-        <td>0.3777071343139213</td>
+        <td>0.3895023223937711</td>
         
     </tr>
     
@@ -1807,13 +1808,13 @@
         
         <td>30</td>
         
-        <td><a href="/players/5jianglin.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5jianglin" target="_blank">5jianglin</a></td>
+        <td><a href="/players/3bhatiaarnay.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3bhatiaarnay" target="_blank">3bhatiaarnay</a></td>
         
-        <td>$108,308.38</td>
+        <td>$108,453.65</td>
         
-        <td>HYG, ROKU, SHOP, VOO</td>
+        <td>NVDA, QQQ, WMT</td>
         
-        <td>0.3328573741618623</td>
+        <td>0.3315853957154383</td>
         
     </tr>
     
@@ -1821,13 +1822,13 @@
         
         <td>31</td>
         
-        <td><a href="/players/3bhatiaarnay.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3bhatiaarnay" target="_blank">3bhatiaarnay</a></td>
+        <td><a href="/players/5jianglin.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5jianglin" target="_blank">5jianglin</a></td>
         
-        <td>$108,220.59</td>
+        <td>$108,439.25</td>
         
-        <td>NVDA, QQQ, WMT</td>
+        <td>HYG, ROKU, SHOP, VOO</td>
         
-        <td>0.32606097065479445</td>
+        <td>0.33047355379336335</td>
         
     </tr>
     
@@ -1835,13 +1836,13 @@
         
         <td>32</td>
         
-        <td><a href="/players/2phamjinny.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2phamjinny" target="_blank">2phamjinny</a></td>
+        <td><a href="/players/6saishyamrugoobur.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 6saishyamrugoobur" target="_blank">6saishyamrugoobur</a></td>
         
-        <td>$108,146.02</td>
+        <td>$108,423.28</td>
         
-        <td>AAPL, AMZN, COST, MSFT, NVDA, PACS, RDDT, TSLA</td>
+        <td>AAPL, AMZN, GOOGL, HD, MSFT, NVDA, TSLA</td>
         
-        <td>0.3202880146288012</td>
+        <td>0.3292404902172838</td>
         
     </tr>
     
@@ -1849,13 +1850,13 @@
         
         <td>33</td>
         
-        <td><a href="/players/6saishyamrugoobur.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 6saishyamrugoobur" target="_blank">6saishyamrugoobur</a></td>
+        <td><a href="/players/2phamjinny.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2phamjinny" target="_blank">2phamjinny</a></td>
         
-        <td>$108,075.56</td>
+        <td>$108,304.66</td>
         
-        <td>AAPL, AMZN, GOOGL, HD, MSFT, NVDA, TSLA</td>
+        <td>AAPL, AMZN, COST, MSFT, NVDA, PACS, RDDT, TSLA</td>
         
-        <td>0.3148332408378455</td>
+        <td>0.3200816923841879</td>
         
     </tr>
     
@@ -1865,11 +1866,11 @@
         
         <td><a href="/players/2chenkhai.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2chenkhai" target="_blank">2chenkhai</a></td>
         
-        <td>$108,002.45</td>
+        <td>$108,083.38</td>
         
         <td>ABNB, BBWI, COST, CVS, F, INTC, KSS, LULU, MSI, NFLX, NKE, RDDT, TGT, UPS</td>
         
-        <td>0.3091733130510624</td>
+        <td>0.30299638818162905</td>
         
     </tr>
     
@@ -1879,11 +1880,11 @@
         
         <td><a href="/players/5mehtasuhani.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5mehtasuhani" target="_blank">5mehtasuhani</a></td>
         
-        <td>$107,851.04</td>
+        <td>$107,929.56</td>
         
         <td>AAPL, COST, CSCO, LULU, NVDA, ORCL, SBUX, SPOT</td>
         
-        <td>0.2974516653120822</td>
+        <td>0.29111975453901456</td>
         
     </tr>
     
@@ -1893,11 +1894,11 @@
         
         <td><a href="/players/5tingjanele.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5tingjanele" target="_blank">5tingjanele</a></td>
         
-        <td>$107,394.94</td>
+        <td>$107,656.35</td>
         
         <td>ADMA, AMD, AVGO, CRM, CRWD, GOOGL, HD, NVDA, SBUX</td>
         
-        <td>0.26214195304903065</td>
+        <td>0.2700248704049718</td>
         
     </tr>
     
@@ -1905,13 +1906,13 @@
         
         <td>37</td>
         
-        <td><a href="/players/5garciaocran.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5garciaocran" target="_blank">5garciaocran</a></td>
+        <td><a href="/players/5sheaffermalia.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5sheaffermalia" target="_blank">5sheaffermalia</a></td>
         
-        <td>$107,394.02</td>
+        <td>$107,633.99</td>
         
-        <td>AAPL, BAC, DIS, LOAR, NKE, NVDA</td>
+        <td>BND, BRK.B, COST, DJT, NVDA, SO, SPY</td>
         
-        <td>0.2620707297750075</td>
+        <td>0.26829842697597134</td>
         
     </tr>
     
@@ -1919,13 +1920,13 @@
         
         <td>38</td>
         
-        <td><a href="/players/5sheaffermalia.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5sheaffermalia" target="_blank">5sheaffermalia</a></td>
+        <td><a href="/players/2nguyenthien.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2nguyenthien" target="_blank">2nguyenthien</a></td>
         
-        <td>$107,303.30</td>
+        <td>$107,508.41</td>
         
-        <td>BND, BRK.B, COST, DJT, NVDA, SO, SPY</td>
+        <td>NVDA, TT, TTWO</td>
         
-        <td>0.2550474956234966</td>
+        <td>0.2586022388805385</td>
         
     </tr>
     
@@ -1933,13 +1934,13 @@
         
         <td>39</td>
         
-        <td><a href="/players/5polakella.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5polakella" target="_blank">5polakella</a></td>
+        <td><a href="/players/5garciaocran.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5garciaocran" target="_blank">5garciaocran</a></td>
         
-        <td>$107,252.78</td>
+        <td>$107,493.71</td>
         
-        <td>ASML, REGN</td>
+        <td>AAPL, BAC, DIS, LOAR, NKE, NVDA</td>
         
-        <td>0.251136408880393</td>
+        <td>0.2574672335850867</td>
         
     </tr>
     
@@ -1949,11 +1950,11 @@
         
         <td><a href="/players/1nguyenkatie.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 1nguyenkatie" target="_blank">1nguyenkatie</a></td>
         
-        <td>$107,105.28</td>
+        <td>$107,335.49</td>
         
         <td>AAPL, AMZN, CAVA, CMG, COST, INTC, MSFT, NVDA, SHOP, TSLA, V</td>
         
-        <td>0.23971746005601194</td>
+        <td>0.245250870466283</td>
         
     </tr>
     
@@ -1961,13 +1962,13 @@
         
         <td>41</td>
         
-        <td><a href="/players/3liuallen.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3liuallen" target="_blank">3liuallen</a></td>
+        <td><a href="/players/5polakella.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5polakella" target="_blank">5polakella</a></td>
         
-        <td>$107,087.11</td>
+        <td>$107,308.06</td>
         
-        <td>AMZN, CMCSA, GS, JPM, LLY, MCD, MSFT, NDAQ, NVDA, SPGI, TKO, TSLA, WMT</td>
+        <td>ASML, REGN</td>
         
-        <td>0.23831080039405272</td>
+        <td>0.2431329660272179</td>
         
     </tr>
     
@@ -1975,13 +1976,13 @@
         
         <td>42</td>
         
-        <td><a href="/players/2nguyenthien.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2nguyenthien" target="_blank">2nguyenthien</a></td>
+        <td><a href="/players/3liuallen.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3liuallen" target="_blank">3liuallen</a></td>
         
-        <td>$107,050.75</td>
+        <td>$107,285.33</td>
         
-        <td>NVDA, TT, TTWO</td>
+        <td>AMZN, CMCSA, GS, JPM, LLY, MCD, MSFT, NDAQ, NVDA, SPGI, TKO, TSLA, WMT</td>
         
-        <td>0.23549593273809</td>
+        <td>0.24137795443772</td>
         
     </tr>
     
@@ -1991,11 +1992,11 @@
         
         <td><a href="/players/5yoshioka-meonskebradley.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5yoshioka-meonskebradley" target="_blank">5yoshioka-meonskebradley</a></td>
         
-        <td>$107,047.15</td>
+        <td>$107,268.47</td>
         
         <td>AAPL, ASML, CRWD, CSCO, DIS, MCD, MSFT, RSPA, VOOG</td>
         
-        <td>0.23521723297017244</td>
+        <td>0.24007617285395666</td>
         
     </tr>
     
@@ -2005,11 +2006,11 @@
         
         <td><a href="/players/helllloo11.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 helllloo11" target="_blank">helllloo11</a></td>
         
-        <td>$106,539.15</td>
+        <td>$106,614.77</td>
         
         <td>AMD, DOG, DRUG, PDD, TQQQ</td>
         
-        <td>0.19588959905298206</td>
+        <td>0.18960318226640824</td>
         
     </tr>
     
@@ -2019,11 +2020,11 @@
         
         <td><a href="/players/2gaudaanvi.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2gaudaanvi" target="_blank">2gaudaanvi</a></td>
         
-        <td>$106,207.54</td>
+        <td>$106,433.36</td>
         
         <td>AAPL, BLK, CCJ, CLSK, ORCL, QQQ, VOO</td>
         
-        <td>0.17021747959770742</td>
+        <td>0.17559629038559538</td>
         
     </tr>
     
@@ -2033,11 +2034,11 @@
         
         <td><a href="/players/1phamriley.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 1phamriley" target="_blank">1phamriley</a></td>
         
-        <td>$105,970.93</td>
+        <td>$106,065.25</td>
         
         <td>AAPL, AMD, AMZN, ASTS, LB, NFLX, NVDA, PAYC, TSLA</td>
         
-        <td>0.15189993735135615</td>
+        <td>0.14717405914009657</td>
         
     </tr>
     
@@ -2047,11 +2048,11 @@
         
         <td><a href="/players/6nagpurwalafayezah.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 6nagpurwalafayezah" target="_blank">6nagpurwalafayezah</a></td>
         
-        <td>$105,938.51</td>
+        <td>$105,956.37</td>
         
         <td>AAPL, HRB, MSFT, NOW</td>
         
-        <td>0.14939009110805843</td>
+        <td>0.13876729882929265</td>
         
     </tr>
     
@@ -2061,11 +2062,11 @@
         
         <td><a href="/players/5xieanthony.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5xieanthony" target="_blank">5xieanthony</a></td>
         
-        <td>$105,628.03</td>
+        <td>$105,763.87</td>
         
         <td>AAPL, AMZN, NVDA, V</td>
         
-        <td>0.1253537844572531</td>
+        <td>0.12390413424599278</td>
         
     </tr>
     
@@ -2075,11 +2076,11 @@
         
         <td><a href="/players/1elyasiarian.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 1elyasiarian" target="_blank">1elyasiarian</a></td>
         
-        <td>$105,620.65</td>
+        <td>$105,687.04</td>
         
         <td>BRK.B, DIA, MSFT</td>
         
-        <td>0.12478244993302268</td>
+        <td>0.11797199432425277</td>
         
     </tr>
     
@@ -2087,13 +2088,13 @@
         
         <td>50</td>
         
-        <td><a href="/players/3liemma.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3liemma" target="_blank">3liemma</a></td>
+        <td><a href="/players/1anandnikita.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 1anandnikita" target="_blank">1anandnikita</a></td>
         
-        <td>$105,194.73</td>
+        <td>$105,253.34</td>
         
-        <td>DUOL</td>
+        <td>AAPL, MCD, NVDA, ONON, SBUX, SPOT, TMUS</td>
         
-        <td>0.09180917072434225</td>
+        <td>0.08448547754618989</td>
         
     </tr>
     
@@ -2101,13 +2102,13 @@
         
         <td>51</td>
         
-        <td><a href="/players/1anandnikita.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 1anandnikita" target="_blank">1anandnikita</a></td>
+        <td><a href="/players/3liemma.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3liemma" target="_blank">3liemma</a></td>
         
-        <td>$105,189.56</td>
+        <td>$105,212.88</td>
         
-        <td>AAPL, MCD, NVDA, ONON, SBUX, SPOT, TMUS</td>
+        <td>DUOL</td>
         
-        <td>0.09140892689097255</td>
+        <td>0.08136151059013695</td>
         
     </tr>
     
@@ -2115,13 +2116,13 @@
         
         <td>52</td>
         
-        <td><a href="/players/5wangwei.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5wangwei" target="_blank">5wangwei</a></td>
+        <td><a href="/players/2sepelucas.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2sepelucas" target="_blank">2sepelucas</a></td>
         
-        <td>$104,981.48</td>
+        <td>$105,157.03</td>
         
-        <td>AAPL, ADSK, AMD, AMZN, CAT, COST, DIS, DJT, DRS, DUOL, ENVA, GOOG, GOOGL, INTC, JPM, MA, NVDA, PDD, SPOT, TQQQ, TSLA, TSM, UBER, ULTA, XOM</td>
+        <td>LB, LULU, LUNR, NVDA, SPYG</td>
         
-        <td>0.0753000803053642</td>
+        <td>0.07704926257986483</td>
         
     </tr>
     
@@ -2129,13 +2130,13 @@
         
         <td>53</td>
         
-        <td><a href="/players/2sepelucas.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2sepelucas" target="_blank">2sepelucas</a></td>
+        <td><a href="/players/5wangwei.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5wangwei" target="_blank">5wangwei</a></td>
         
-        <td>$104,968.28</td>
+        <td>$105,131.52</td>
         
-        <td>LB, LULU, LUNR, NVDA, SPYG</td>
+        <td>AAPL, ADSK, AMD, AMZN, CAT, COST, DIS, DJT, DRS, DUOL, ENVA, GOOG, GOOGL, INTC, JPM, MA, NVDA, PDD, SPOT, TQQQ, TSLA, TSM, UBER, ULTA, XOM</td>
         
-        <td>0.07427818115633507</td>
+        <td>0.0750796037304108</td>
         
     </tr>
     
@@ -2145,11 +2146,11 @@
         
         <td><a href="/players/kayanshah.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 kayanshah" target="_blank">kayanshah</a></td>
         
-        <td>$104,823.11</td>
+        <td>$105,106.43</td>
         
         <td>ADBE, BRK.B, GOOG, KB, META, NVDA, PLTR, SPY, UCO, WLDN</td>
         
-        <td>0.06303961301507825</td>
+        <td>0.07314237360368271</td>
         
     </tr>
     
@@ -2157,13 +2158,13 @@
         
         <td>55</td>
         
-        <td><a href="/players/p3_horvath_levente.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 p3_horvath_levente" target="_blank">p3_horvath_levente</a></td>
+        <td><a href="/players/5nguyendaphne.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5nguyendaphne" target="_blank">5nguyendaphne</a></td>
         
-        <td>$104,522.57</td>
+        <td>$104,694.06</td>
         
-        <td>AAPL, AMZN, NVDA, TT</td>
+        <td>ADBE, AMZN, DAL, GOOGL, MSFT, NVDA, QQQ, RDDT, SPOT, SPY, TQQQ, TSLA, TXN</td>
         
-        <td>0.03977282739013308</td>
+        <td>0.04130277267269418</td>
         
     </tr>
     
@@ -2171,13 +2172,13 @@
         
         <td>56</td>
         
-        <td><a href="/players/teachermiller.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 teachermiller" target="_blank">teachermiller</a></td>
+        <td><a href="/players/p3_horvath_levente.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 p3_horvath_levente" target="_blank">p3_horvath_levente</a></td>
         
-        <td>$104,509.64</td>
+        <td>$104,685.21</td>
         
-        <td>AHR, AZI, INGM, LB, LOAR, NNE, PACS, RDDT, RYDE, SEPN, ULS, WOK, YXT</td>
+        <td>AAPL, AMZN, NVDA, TT</td>
         
-        <td>0.03877183072369692</td>
+        <td>0.040619453158086</td>
         
     </tr>
     
@@ -2185,13 +2186,13 @@
         
         <td>57</td>
         
-        <td><a href="/players/5nguyendaphne.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5nguyendaphne" target="_blank">5nguyendaphne</a></td>
+        <td><a href="/players/teachermiller.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 teachermiller" target="_blank">teachermiller</a></td>
         
-        <td>$104,469.71</td>
+        <td>$104,574.87</td>
         
-        <td>ADBE, AMZN, DAL, GOOGL, MSFT, NVDA, QQQ, RDDT, SPOT, SPY, TQQQ, TSLA, TXN</td>
+        <td>AHR, AZI, INGM, LB, LOAR, NNE, PACS, RDDT, RYDE, SEPN, ULS, WOK, YXT</td>
         
-        <td>0.03568058579788366</td>
+        <td>0.03209996443018226</td>
         
     </tr>
     
@@ -2201,11 +2202,11 @@
         
         <td><a href="/players/3leesienna.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3leesienna" target="_blank">3leesienna</a></td>
         
-        <td>$104,256.24</td>
+        <td>$104,465.96</td>
         
         <td>APP, AVGO, COST, LLY, META, MSFT, NVDA, SBUX, SHOP, TSLA</td>
         
-        <td>0.019154463726421697</td>
+        <td>0.02369088778204188</td>
         
     </tr>
     
@@ -2215,11 +2216,11 @@
         
         <td><a href="/players/6cardenasdayanara.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 6cardenasdayanara" target="_blank">6cardenasdayanara</a></td>
         
-        <td>$104,169.81</td>
+        <td>$104,314.60</td>
         
         <td>AFRM, BRK.B, CRWD, NVDA, TSLA</td>
         
-        <td>0.012463346798344804</td>
+        <td>0.012004193801115778</td>
         
     </tr>
     
@@ -2229,11 +2230,11 @@
         
         <td><a href="/players/3hinholivia.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3hinholivia" target="_blank">3hinholivia</a></td>
         
-        <td>$104,064.21</td>
+        <td>$104,142.84</td>
         
         <td>INTC, NVDA, SMPL, T, TGT, TSLA</td>
         
-        <td>0.004288153606110628</td>
+        <td>-0.001257609569417839</td>
         
     </tr>
     
@@ -2243,11 +2244,11 @@
         
         <td><a href="/players/6luosicheng.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 6luosicheng" target="_blank">6luosicheng</a></td>
         
-        <td>$104,018.15</td>
+        <td>$104,041.99</td>
         
         <td>AAPL, COST, NVDA, WOK</td>
         
-        <td>0.0007223449088148214</td>
+        <td>-0.009044363586174517</td>
         
     </tr>
     
@@ -2257,11 +2258,11 @@
         
         <td><a href="/players/3koushikpreksha.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3koushikpreksha" target="_blank">3koushikpreksha</a></td>
         
-        <td>$103,890.10</td>
+        <td>$104,025.84</td>
         
         <td>BAC, COST, DASH, EA, ISRG, RDNT, SHW, SMMT, SMR, TMUS</td>
         
-        <td>-0.009190851002791028</td>
+        <td>-0.010291325186280608</td>
         
     </tr>
     
@@ -2271,11 +2272,11 @@
         
         <td><a href="/players/2habibvandarion.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2habibvandarion" target="_blank">2habibvandarion</a></td>
         
-        <td>$103,862.00</td>
+        <td>$104,001.79</td>
         
         <td>AMD, AMZN, GOOG, NVDA, TSM</td>
         
-        <td>-0.01136625752458882</td>
+        <td>-0.012148255618635957</td>
         
     </tr>
     
@@ -2285,11 +2286,11 @@
         
         <td><a href="/players/2tavakoliariana.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2tavakoliariana" target="_blank">2tavakoliariana</a></td>
         
-        <td>$103,710.69</td>
+        <td>$103,857.44</td>
         
         <td>AAPL, COST, LUNR, NFLX, NVDA, QQQ, SMH, TSLA, VOO, WOK</td>
         
-        <td>-0.023080163603348632</td>
+        <td>-0.02329369877499546</td>
         
     </tr>
     
@@ -2299,11 +2300,11 @@
         
         <td><a href="/players/5gollamudinikhil.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5gollamudinikhil" target="_blank">5gollamudinikhil</a></td>
         
-        <td>$103,635.04</td>
+        <td>$103,834.17</td>
         
         <td>AAPL, AVGO, BCS, NDAQ, NFLX, NKE, NVDL, PEP, RACE, TM</td>
         
-        <td>-0.02893672955971831</td>
+        <td>-0.025090404436571814</td>
         
     </tr>
     
@@ -2313,11 +2314,11 @@
         
         <td><a href="/players/3knightizabella.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3knightizabella" target="_blank">3knightizabella</a></td>
         
-        <td>$103,625.09</td>
+        <td>$103,644.99</td>
         
         <td>BA</td>
         
-        <td>-0.029707024751600062</td>
+        <td>-0.039697227687837074</td>
         
     </tr>
     
@@ -2327,11 +2328,11 @@
         
         <td><a href="/players/1ngohailey.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 1ngohailey" target="_blank">1ngohailey</a></td>
         
-        <td>$103,542.75</td>
+        <td>$103,638.34</td>
         
         <td>AAPL, AMZN, CSCO, NFLX, NVDA, SBUX</td>
         
-        <td>-0.0360815077766814</td>
+        <td>-0.04021068246435174</td>
         
     </tr>
     
@@ -2341,11 +2342,11 @@
         
         <td><a href="/players/1parkcaleb.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 1parkcaleb" target="_blank">1parkcaleb</a></td>
         
-        <td>$103,447.29</td>
+        <td>$103,571.49</td>
         
         <td>ADBE, AMD, INTC, JPM, KO, NVDA</td>
         
-        <td>-0.04347169662261692</td>
+        <td>-0.04537225416509702</td>
         
     </tr>
     
@@ -2355,11 +2356,11 @@
         
         <td><a href="/players/1mungaiayanna.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 1mungaiayanna" target="_blank">1mungaiayanna</a></td>
         
-        <td>$103,258.25</td>
+        <td>$103,296.00</td>
         
         <td>BA, BBWI, MSFT, SG</td>
         
-        <td>-0.058106531102352</td>
+        <td>-0.06664317993680276</td>
         
     </tr>
     
@@ -2369,11 +2370,11 @@
         
         <td><a href="/players/1buijason.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 1buijason" target="_blank">1buijason</a></td>
         
-        <td>$103,104.50</td>
+        <td>$103,184.30</td>
         
         <td>ADSK, COST, DELL, DUOL, EA, ELF, HD, INTC, NET, NU, NVDA, PLTR, SPOT, UBER, WMT</td>
         
-        <td>-0.07000933369047803</td>
+        <td>-0.07526767595734588</td>
         
     </tr>
     
@@ -2383,11 +2384,11 @@
         
         <td><a href="/players/2daosean.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2daosean" target="_blank">2daosean</a></td>
         
-        <td>$103,026.84</td>
+        <td>$103,142.68</td>
         
         <td>AAPL, JPM, NKE, NVDA, SPGI</td>
         
-        <td>-0.07602150701726768</td>
+        <td>-0.07848120795712295</td>
         
     </tr>
     
@@ -2397,11 +2398,11 @@
         
         <td><a href="/players/5vajirkararnav.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5vajirkararnav" target="_blank">5vajirkararnav</a></td>
         
-        <td>$102,985.11</td>
+        <td>$103,084.20</td>
         
         <td>AAPL, MSFT, QQQ, RACE</td>
         
-        <td>-0.07925210182703972</td>
+        <td>-0.08299652154066225</td>
         
     </tr>
     
@@ -2411,11 +2412,11 @@
         
         <td><a href="/players/2chobanianbella.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2chobanianbella" target="_blank">2chobanianbella</a></td>
         
-        <td>$102,920.83</td>
+        <td>$103,015.56</td>
         
         <td>AAPL, AMZN, COST, GOOG, LULU, NVDA, TSLA</td>
         
-        <td>-0.0842284410164038</td>
+        <td>-0.0882963013692217</td>
         
     </tr>
     
@@ -2425,11 +2426,11 @@
         
         <td><a href="/players/2ambrizcaden.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2ambrizcaden" target="_blank">2ambrizcaden</a></td>
         
-        <td>$102,920.28</td>
+        <td>$102,977.94</td>
         
         <td>AAPL, AMZN, ANF, BRK.B, COST, CSCO, LULU, SPGI, TGT, ULTA</td>
         
-        <td>-0.08427102014761358</td>
+        <td>-0.09120098839064336</td>
         
     </tr>
     
@@ -2437,13 +2438,13 @@
         
         <td>75</td>
         
-        <td><a href="/players/3cookmeghan.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3cookmeghan" target="_blank">3cookmeghan</a></td>
+        <td><a href="/players/2akramzaara.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2akramzaara" target="_blank">2akramzaara</a></td>
         
-        <td>$102,619.55</td>
+        <td>$102,841.50</td>
         
-        <td>FI, GILD, HCA, LB, ORCL, VGT</td>
+        <td>AAPL, AMGN, AMZN, AXP, COST, CSCO, LLY, LULU, MRCY, NFLX, NVDA, PANW</td>
         
-        <td>-0.10755251492697677</td>
+        <td>-0.10173569060230812</td>
         
     </tr>
     
@@ -2451,13 +2452,13 @@
         
         <td>76</td>
         
-        <td><a href="/players/2akramzaara.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2akramzaara" target="_blank">2akramzaara</a></td>
+        <td><a href="/players/2hajizadehyasmin.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2hajizadehyasmin" target="_blank">2hajizadehyasmin</a></td>
         
-        <td>$102,616.09</td>
+        <td>$102,714.23</td>
         
-        <td>AAPL, AMGN, AMZN, AXP, COST, CSCO, LLY, LULU, MRCY, NFLX, NVDA, PANW</td>
+        <td>AAPL, AMZN, DIS, NVDA, RBLX</td>
         
-        <td>-0.10782037637058647</td>
+        <td>-0.11156236570109583</td>
         
     </tr>
     
@@ -2465,13 +2466,13 @@
         
         <td>77</td>
         
-        <td><a href="/players/2hajizadehyasmin.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2hajizadehyasmin" target="_blank">2hajizadehyasmin</a></td>
+        <td><a href="/players/3cookmeghan.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3cookmeghan" target="_blank">3cookmeghan</a></td>
         
-        <td>$102,600.00</td>
+        <td>$102,687.87</td>
         
-        <td>AAPL, AMZN, DIS, NVDA, RBLX</td>
+        <td>FI, GILD, HCA, LB, ORCL, VGT</td>
         
-        <td>-0.10906600949997124</td>
+        <td>-0.1135976541084506</td>
         
     </tr>
     
@@ -2479,13 +2480,13 @@
         
         <td>78</td>
         
-        <td><a href="/players/seyeong.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 seyeong" target="_blank">seyeong</a></td>
+        <td><a href="/players/2andersonrhys.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2andersonrhys" target="_blank">2andersonrhys</a></td>
         
-        <td>$102,495.82</td>
+        <td>$102,591.56</td>
         
-        <td>AAPL, ADBE, AMZN, MSFT, TSLA, V</td>
+        <td>AAPL, CRWD, LEVI, NVDA, SPAI</td>
         
-        <td>-0.11713127111708269</td>
+        <td>-0.12103386907477566</td>
         
     </tr>
     
@@ -2493,13 +2494,13 @@
         
         <td>79</td>
         
-        <td><a href="/players/2andersonrhys.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2andersonrhys" target="_blank">2andersonrhys</a></td>
+        <td><a href="/players/seyeong.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 seyeong" target="_blank">seyeong</a></td>
         
-        <td>$102,408.88</td>
+        <td>$102,557.99</td>
         
-        <td>AAPL, CRWD, LEVI, NVDA, SPAI</td>
+        <td>AAPL, ADBE, AMZN, MSFT, TSLA, V</td>
         
-        <td>-0.12386187051228077</td>
+        <td>-0.1236258505556134</td>
         
     </tr>
     
@@ -2509,11 +2510,11 @@
         
         <td><a href="/players/1valerozadela.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 1valerozadela" target="_blank">1valerozadela</a></td>
         
-        <td>$102,276.22</td>
+        <td>$102,380.48</td>
         
         <td>AAPL, APP, AVGO, LULU, NFLX, NVDA, SBUX, SPOT, TSLA, V, WMT</td>
         
-        <td>-0.13413195696002608</td>
+        <td>-0.1373316185825313</td>
         
     </tr>
     
@@ -2521,13 +2522,13 @@
         
         <td>81</td>
         
-        <td><a href="/players/5kanglyn.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5kanglyn" target="_blank">5kanglyn</a></td>
+        <td><a href="/players/6claypillora.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 6claypillora" target="_blank">6claypillora</a></td>
         
-        <td>$102,229.59</td>
+        <td>$102,353.32</td>
         
-        <td>ADBE, MSFT</td>
+        <td>AAPL, AMZN, COST, MCD, MSFT, NVDA, SBUX, TGT</td>
         
-        <td>-0.13774189312057483</td>
+        <td>-0.13942867598555603</td>
         
     </tr>
     
@@ -2535,13 +2536,13 @@
         
         <td>82</td>
         
-        <td><a href="/players/6claypillora.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 6claypillora" target="_blank">6claypillora</a></td>
+        <td><a href="/players/5kanglyn.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5kanglyn" target="_blank">5kanglyn</a></td>
         
-        <td>$102,188.36</td>
+        <td>$102,251.24</td>
         
-        <td>AAPL, AMZN, COST, MCD, MSFT, NVDA, SBUX, TGT</td>
+        <td>ADBE, MSFT</td>
         
-        <td>-0.14093377962924727</td>
+        <td>-0.14731039983315744</td>
         
     </tr>
     
@@ -2549,13 +2550,13 @@
         
         <td>83</td>
         
-        <td><a href="/players/6mamarianrubyna.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 6mamarianrubyna" target="_blank">6mamarianrubyna</a></td>
+        <td><a href="/players/5geselina.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5geselina" target="_blank">5geselina</a></td>
         
-        <td>$102,169.61</td>
+        <td>$102,198.65</td>
         
-        <td></td>
+        <td>NVDA, QLD, QQQ, SPY</td>
         
-        <td>-0.14238534092048216</td>
+        <td>-0.15137093918607122</td>
         
     </tr>
     
@@ -2565,11 +2566,11 @@
         
         <td><a href="/players/5afzalzadehlaily.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5afzalzadehlaily" target="_blank">5afzalzadehlaily</a></td>
         
-        <td>$102,056.26</td>
+        <td>$102,182.36</td>
         
         <td>AMD, BAC, BMY, INTC, NVDA, UNH, VOO</td>
         
-        <td>-0.1511605127797612</td>
+        <td>-0.15262871036041856</td>
         
     </tr>
     
@@ -2577,13 +2578,13 @@
         
         <td>85</td>
         
-        <td><a href="/players/5geselina.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5geselina" target="_blank">5geselina</a></td>
+        <td><a href="/players/6mamarianrubyna.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 6mamarianrubyna" target="_blank">6mamarianrubyna</a></td>
         
-        <td>$102,025.16</td>
+        <td>$102,169.61</td>
         
-        <td>NVDA, QLD, QQQ, SPY</td>
+        <td></td>
         
-        <td>-0.15356816910815546</td>
+        <td>-0.15361315372892284</td>
         
     </tr>
     
@@ -2593,11 +2594,11 @@
         
         <td><a href="/players/2baradlayannie.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2baradlayannie" target="_blank">2baradlayannie</a></td>
         
-        <td>$101,884.75</td>
+        <td>$101,985.90</td>
         
         <td>AAPL, CART, CAT, COST, DUOL, HD, JNJ, NCLH, RBLX, ROKU, WMT</td>
         
-        <td>-0.1644382342229445</td>
+        <td>-0.16779763147228965</td>
         
     </tr>
     
@@ -2607,11 +2608,11 @@
         
         <td><a href="/players/1prasadanika.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 1prasadanika" target="_blank">1prasadanika</a></td>
         
-        <td>$101,843.30</td>
+        <td>$101,938.38</td>
         
         <td>CDNS, COST, GOOGL, LUV, MSFT, RIOT</td>
         
-        <td>-0.16764715238410086</td>
+        <td>-0.1714667098151377</td>
         
     </tr>
     
@@ -2621,11 +2622,11 @@
         
         <td><a href="/players/1mostafavidaniel.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 1mostafavidaniel" target="_blank">1mostafavidaniel</a></td>
         
-        <td>$101,836.53</td>
+        <td>$101,873.56</td>
         
         <td>AAPL, ABT, CAVA, CMG, FTNT, GE, LMT, LWAY, NICE, NOC, NVDA, TRGP, TSM, ULTA, VSTS</td>
         
-        <td>-0.1681712627809897</td>
+        <td>-0.1764715426893694</td>
         
     </tr>
     
@@ -2635,11 +2636,11 @@
         
         <td><a href="/players/2symmonsnatalie.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2symmonsnatalie" target="_blank">2symmonsnatalie</a></td>
         
-        <td>$101,539.87</td>
+        <td>$101,570.12</td>
         
         <td>AAPL, F, LULU, NKE</td>
         
-        <td>-0.1911376719894028</td>
+        <td>-0.19990052274732548</td>
         
     </tr>
     
@@ -2649,11 +2650,11 @@
         
         <td><a href="/players/5ahujaalisha.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5ahujaalisha" target="_blank">5ahujaalisha</a></td>
         
-        <td>$101,108.37</td>
+        <td>$101,215.16</td>
         
         <td>APD, COIN, HSY, KALU</td>
         
-        <td>-0.22454293583835486</td>
+        <td>-0.22730742612648389</td>
         
     </tr>
     
@@ -2663,11 +2664,11 @@
         
         <td><a href="/players/3liuemily.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3liuemily" target="_blank">3liuemily</a></td>
         
-        <td>$100,928.03</td>
+        <td>$100,951.59</td>
         
         <td>DIA, QQQ, QQQM</td>
         
-        <td>-0.23850424587895716</td>
+        <td>-0.247657993862694</td>
         
     </tr>
     
@@ -2675,13 +2676,13 @@
         
         <td>92</td>
         
-        <td><a href="/players/5smithmarco.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5smithmarco" target="_blank">5smithmarco</a></td>
+        <td><a href="/players/1byakodvedika.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 1byakodvedika" target="_blank">1byakodvedika</a></td>
         
-        <td>$100,796.66</td>
+        <td>$100,918.18</td>
         
-        <td>NVDA, ORCL, UBER, UNP, XOM</td>
+        <td>NVDA, SPY, TQQQ</td>
         
-        <td>-0.2486744649098649</td>
+        <td>-0.25023762154439844</td>
         
     </tr>
     
@@ -2689,13 +2690,13 @@
         
         <td>93</td>
         
-        <td><a href="/players/1byakodvedika.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 1byakodvedika" target="_blank">1byakodvedika</a></td>
+        <td><a href="/players/5smithmarco.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5smithmarco" target="_blank">5smithmarco</a></td>
         
-        <td>$100,684.71</td>
+        <td>$100,831.22</td>
         
-        <td>NVDA, SPY, TQQQ</td>
+        <td>NVDA, ORCL, UBER, UNP, XOM</td>
         
-        <td>-0.2573412535260644</td>
+        <td>-0.2569519113738199</td>
         
     </tr>
     
@@ -2705,11 +2706,11 @@
         
         <td><a href="/players/3shitomichihiro.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3shitomichihiro" target="_blank">3shitomichihiro</a></td>
         
-        <td>$100,485.01</td>
+        <td>$100,550.05</td>
         
         <td>AAPL, AFB, AVGO, DELL, META, MSFT, NVDA, VZ</td>
         
-        <td>-0.2728013489852443</td>
+        <td>-0.27866139701478815</td>
         
     </tr>
     
@@ -2723,7 +2724,7 @@
         
         <td></td>
         
-        <td>-0.2740485304466733</td>
+        <td>-0.2849270895131514</td>
         
     </tr>
     
@@ -2733,11 +2734,11 @@
         
         <td><a href="/players/2neubertsophia.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2neubertsophia" target="_blank">2neubertsophia</a></td>
         
-        <td>$100,410.91</td>
+        <td>$100,435.19</td>
         
         <td>AAPL, ANET, GE, LULU, PGR</td>
         
-        <td>-0.2785379192082038</td>
+        <td>-0.2875298805682314</td>
         
     </tr>
     
@@ -2747,11 +2748,11 @@
         
         <td><a href="/players/2quachisis.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2quachisis" target="_blank">2quachisis</a></td>
         
-        <td>$100,251.16</td>
+        <td>$100,306.00</td>
         
         <td>AAPL, AMD, COST, HD, RBLX, TSLA</td>
         
-        <td>-0.290905221409525</td>
+        <td>-0.2975048012566291</td>
         
     </tr>
     
@@ -2759,13 +2760,13 @@
         
         <td>98</td>
         
-        <td><a href="/players/6lopesdebritorayane.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 6lopesdebritorayane" target="_blank">6lopesdebritorayane</a></td>
+        <td><a href="/players/3shihmercury.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3shihmercury" target="_blank">3shihmercury</a></td>
         
-        <td>$100,171.51</td>
+        <td>$100,255.60</td>
         
-        <td>AAPL, AMZN, DIS, MSFT</td>
+        <td>AMD, AVGO, CRWD, MSFT, NVDA, PLTR, QQQ</td>
         
-        <td>-0.29707145377469146</td>
+        <td>-0.3013962479838926</td>
         
     </tr>
     
@@ -2773,13 +2774,13 @@
         
         <td>99</td>
         
-        <td><a href="/players/3windsorlyla.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3windsorlyla" target="_blank">3windsorlyla</a></td>
+        <td><a href="/players/6valsalon.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 6valsalon" target="_blank">6valsalon</a></td>
         
-        <td>$100,170.02</td>
+        <td>$100,197.88</td>
         
-        <td>ASTS, CMG, GOOG, UBS, VSCO</td>
+        <td>BA, NEE, NFLX, NVDA, TSLA, ULTA, WMT</td>
         
-        <td>-0.29718680451196755</td>
+        <td>-0.30585288102154495</td>
         
     </tr>
     
@@ -2787,13 +2788,13 @@
         
         <td>100</td>
         
-        <td><a href="/players/5vincentchung.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5vincentchung" target="_blank">5vincentchung</a></td>
+        <td><a href="/players/6lopesdebritorayane.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 6lopesdebritorayane" target="_blank">6lopesdebritorayane</a></td>
         
-        <td>$100,091.54</td>
+        <td>$100,196.65</td>
         
-        <td>AMD, BLK, BX, JPM, META, MSFT</td>
+        <td>AAPL, AMZN, DIS, MSFT</td>
         
-        <td>-0.3032624594525611</td>
+        <td>-0.30594785085238974</td>
         
     </tr>
     
@@ -2801,13 +2802,13 @@
         
         <td>101</td>
         
-        <td><a href="/players/3shihmercury.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3shihmercury" target="_blank">3shihmercury</a></td>
+        <td><a href="/players/3windsorlyla.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3windsorlyla" target="_blank">3windsorlyla</a></td>
         
-        <td>$100,087.48</td>
+        <td>$100,158.79</td>
         
-        <td>AMD, AVGO, CRWD, MSFT, NVDA, PLTR, QQQ</td>
+        <td>ASTS, CMG, GOOG, UBS, VSCO</td>
         
-        <td>-0.30357677085748963</td>
+        <td>-0.30887106857251306</td>
         
     </tr>
     
@@ -2817,11 +2818,11 @@
         
         <td><a href="/players/5qinsophia.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5qinsophia" target="_blank">5qinsophia</a></td>
         
-        <td>$100,067.54</td>
+        <td>$100,144.48</td>
         
         <td>AMD, ASML, CRWD, GOOG, MSFT, NVDA</td>
         
-        <td>-0.30512045790534176</td>
+        <td>-0.30997596148257534</td>
         
     </tr>
     
@@ -2829,13 +2830,13 @@
         
         <td>103</td>
         
-        <td><a href="/players/6choierica.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 6choierica" target="_blank">6choierica</a></td>
+        <td><a href="/players/5vincentchung.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5vincentchung" target="_blank">5vincentchung</a></td>
         
-        <td>$100,046.19</td>
+        <td>$100,133.76</td>
         
-        <td>AMZN, JNJ, MCD, MSFT, NVDA</td>
+        <td>AMD, BLK, BX, JPM, META, MSFT</td>
         
-        <td>-0.30677330236229383</td>
+        <td>-0.3108036660245649</td>
         
     </tr>
     
@@ -2843,13 +2844,13 @@
         
         <td>104</td>
         
-        <td><a href="/players/6valsalon.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 6valsalon" target="_blank">6valsalon</a></td>
+        <td><a href="/players/6choierica.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 6choierica" target="_blank">6choierica</a></td>
         
-        <td>$99,997.52</td>
+        <td>$100,056.61</td>
         
-        <td>BA, NEE, NFLX, NVDA, TSLA, ULTA, WMT</td>
+        <td>AMZN, JNJ, MCD, MSFT, NVDA</td>
         
-        <td>-0.31054116839132845</td>
+        <td>-0.3167605135445727</td>
         
     </tr>
     
@@ -2857,13 +2858,13 @@
         
         <td>105</td>
         
-        <td><a href="/players/3yueleanor.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3yueleanor" target="_blank">3yueleanor</a></td>
+        <td><a href="/players/2wuchristopher.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2wuchristopher" target="_blank">2wuchristopher</a></td>
         
-        <td>$99,929.64</td>
+        <td>$99,985.23</td>
         
-        <td>ABNB, GIS, GOOG, NVDA, UBER</td>
+        <td>AAPL, AMD, DJT, GOOGL, NVDA, SWBI, TSM, TTWO</td>
         
-        <td>-0.3157962073486101</td>
+        <td>-0.3222718521833052</td>
         
     </tr>
     
@@ -2871,13 +2872,13 @@
         
         <td>106</td>
         
-        <td><a href="/players/2eberhartsavannah.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2eberhartsavannah" target="_blank">2eberhartsavannah</a></td>
+        <td><a href="/players/3yueleanor.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3yueleanor" target="_blank">3yueleanor</a></td>
         
-        <td>$99,918.94</td>
+        <td>$99,983.92</td>
         
-        <td>MSFT, WMT</td>
+        <td>ABNB, GIS, GOOG, NVDA, UBER</td>
         
-        <td>-0.31662456499214126</td>
+        <td>-0.32237299891371607</td>
         
     </tr>
     
@@ -2885,13 +2886,13 @@
         
         <td>107</td>
         
-        <td><a href="/players/5davoudibrandon.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5davoudibrandon" target="_blank">5davoudibrandon</a></td>
+        <td><a href="/players/2eberhartsavannah.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2eberhartsavannah" target="_blank">2eberhartsavannah</a></td>
         
-        <td>$99,863.65</td>
+        <td>$99,920.31</td>
         
-        <td></td>
+        <td>MSFT, WMT</td>
         
-        <td>-0.3209049289277353</td>
+        <td>-0.32728440618199506</td>
         
     </tr>
     
@@ -2899,13 +2900,13 @@
         
         <td>108</td>
         
-        <td><a href="/players/2wuchristopher.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2wuchristopher" target="_blank">2wuchristopher</a></td>
+        <td><a href="/players/5davoudibrandon.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5davoudibrandon" target="_blank">5davoudibrandon</a></td>
         
-        <td>$99,682.40</td>
+        <td>$99,863.65</td>
         
-        <td>AAPL, AMD, DJT, GOOGL, NVDA, SWBI, TSM, TTWO</td>
+        <td></td>
         
-        <td>-0.33493668807633914</td>
+        <td>-0.33165919530038374</td>
         
     </tr>
     
@@ -2915,11 +2916,11 @@
         
         <td><a href="/players/2whitecaden.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2whitecaden" target="_blank">2whitecaden</a></td>
         
-        <td>$99,245.84</td>
+        <td>$99,580.87</td>
         
         <td>ADBE, DKS, IREN, LLY, NBIX</td>
         
-        <td>-0.36873367993241896</td>
+        <td>-0.35349299104513965</td>
         
     </tr>
     
@@ -2933,7 +2934,7 @@
         
         <td></td>
         
-        <td>-0.4591926571041109</td>
+        <td>-0.4695800972840557</td>
         
     </tr>
     
@@ -2943,11 +2944,11 @@
         
         <td><a href="/players/3awyonglinus.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3awyonglinus" target="_blank">3awyonglinus</a></td>
         
-        <td>$98,057.27</td>
+        <td>$98,055.73</td>
         
         <td>BABA, QQQ</td>
         
-        <td>-0.46074873080831397</td>
+        <td>-0.4712509486169523</td>
         
     </tr>
     
@@ -2957,11 +2958,11 @@
         
         <td><a href="/players/6faureian.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 6faureian" target="_blank">6faureian</a></td>
         
-        <td>$97,333.41</td>
+        <td>$97,547.71</td>
         
         <td>AAPL, AMZN, AVGO, DIS, F, LMT, NFLX, NOC, NVDA, SHEL</td>
         
-        <td>-0.5167875124762223</td>
+        <td>-0.5104758050928372</td>
         
     </tr>
     
@@ -2969,13 +2970,13 @@
         
         <td>113</td>
         
-        <td><a href="/players/2greenesal.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2greenesal" target="_blank">2greenesal</a></td>
+        <td><a href="/players/all_in_tqqq.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 all_in_tqqq" target="_blank">all_in_tqqq</a></td>
         
-        <td>$96,312.62</td>
+        <td>$96,790.67</td>
         
-        <td>AAPL, AVGO, AXP, COST, DUOL, HD, NVDA, PLTR, RDDT, WMT</td>
+        <td>TQQQ</td>
         
-        <td>-0.5958136058351379</td>
+        <td>-0.5689278056961693</td>
         
     </tr>
     
@@ -2983,13 +2984,13 @@
         
         <td>114</td>
         
-        <td><a href="/players/ufatalo.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 ufatalo" target="_blank">ufatalo</a></td>
+        <td><a href="/players/2greenesal.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2greenesal" target="_blank">2greenesal</a></td>
         
-        <td>$96,103.04</td>
+        <td>$96,596.37</td>
         
-        <td>AAPL, AMZN, GOOG, NVDA, OSTX</td>
+        <td>AAPL, AVGO, AXP, COST, DUOL, HD, NVDA, PLTR, RDDT, WMT</td>
         
-        <td>-0.6120385773240451</td>
+        <td>-0.5839299505197288</td>
         
     </tr>
     
@@ -2999,11 +3000,11 @@
         
         <td><a href="/players/6chaocaleb.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 6chaocaleb" target="_blank">6chaocaleb</a></td>
         
-        <td>$96,084.93</td>
+        <td>$96,376.77</td>
         
         <td>DUOL</td>
         
-        <td>-0.6134405919898724</td>
+        <td>-0.6008855398313783</td>
         
     </tr>
     
@@ -3011,13 +3012,13 @@
         
         <td>116</td>
         
-        <td><a href="/players/all_in_tqqq.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 all_in_tqqq" target="_blank">all_in_tqqq</a></td>
+        <td><a href="/players/ufatalo.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 ufatalo" target="_blank">ufatalo</a></td>
         
-        <td>$96,030.97</td>
+        <td>$96,188.57</td>
         
-        <td>TQQQ</td>
+        <td>AAPL, AMZN, GOOG, NVDA, OSTX</td>
         
-        <td>-0.6176179918445404</td>
+        <td>-0.615416696062947</td>
         
     </tr>
     
@@ -3027,11 +3028,11 @@
         
         <td><a href="/players/5hsutitus.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5hsutitus" target="_blank">5hsutitus</a></td>
         
-        <td>$95,551.66</td>
+        <td>$95,630.39</td>
         
         <td>AMZN, COST, DUOL, GOOGL, KR, RDDT, SPOT</td>
         
-        <td>-0.6547245434446357</td>
+        <td>-0.658514468567396</td>
         
     </tr>
     
@@ -3041,11 +3042,11 @@
         
         <td><a href="/players/6ishiguronobuhisa.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 6ishiguronobuhisa" target="_blank">6ishiguronobuhisa</a></td>
         
-        <td>$93,590.11</td>
+        <td>$93,749.59</td>
         
         <td>AAPL, SPGI</td>
         
-        <td>-0.8065810794884642</td>
+        <td>-0.80373337738958</td>
         
     </tr>
     
@@ -3055,11 +3056,11 @@
         
         <td><a href="/players/2bumanlagjacob.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2bumanlagjacob" target="_blank">2bumanlagjacob</a></td>
         
-        <td>$92,999.20</td>
+        <td>$93,113.59</td>
         
         <td>IRM, TT, WAB</td>
         
-        <td>-0.85232732389399</td>
+        <td>-0.8528397289479109</td>
         
     </tr>
     
@@ -3069,11 +3070,11 @@
         
         <td><a href="/players/3vobryant.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3vobryant" target="_blank">3vobryant</a></td>
         
-        <td>$91,847.17</td>
+        <td>$91,614.49</td>
         
         <td>FNGD, SERV</td>
         
-        <td>-0.941513572125527</td>
+        <td>-0.9685871057106366</td>
         
     </tr>
     
@@ -3083,11 +3084,11 @@
         
         <td><a href="/players/2freyolivia.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2freyolivia" target="_blank">2freyolivia</a></td>
         
-        <td>$91,219.57</td>
+        <td>$91,586.71</td>
         
         <td>AAPL, AMAT, LLY, LULU, NVDA, RKLB, SG, VOO</td>
         
-        <td>-0.9901002316657403</td>
+        <td>-0.970732034085307</td>
         
     </tr>
     
@@ -3097,11 +3098,11 @@
         
         <td><a href="/players/2urvizoefrain.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 2urvizoefrain" target="_blank">2urvizoefrain</a></td>
         
-        <td>$88,277.81</td>
+        <td>$88,238.83</td>
         
         <td>SG</td>
         
-        <td>-1.217841295351241</td>
+        <td>-1.2292260156184913</td>
         
     </tr>
     
@@ -3111,11 +3112,11 @@
         
         <td><a href="/players/5telikepallisharvil.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5telikepallisharvil" target="_blank">5telikepallisharvil</a></td>
         
-        <td>$86,690.46</td>
+        <td>$86,905.76</td>
         
         <td>AMD, DJT, MSFT, NOC, NVDA, WMT</td>
         
-        <td>-1.3407285388521304</td>
+        <td>-1.3321540094421778</td>
         
     </tr>
     
@@ -3125,11 +3126,11 @@
         
         <td><a href="/players/shankmoitra.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 shankmoitra" target="_blank">shankmoitra</a></td>
         
-        <td>$85,296.31</td>
+        <td>$85,372.07</td>
         
         <td>ADBE, AMD, LRCX, MSFT, SMCI</td>
         
-        <td>-1.448658894808137</td>
+        <td>-1.4505721231552218</td>
         
     </tr>
     
@@ -3139,11 +3140,11 @@
         
         <td><a href="/players/6slacklucas.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 6slacklucas" target="_blank">6slacklucas</a></td>
         
-        <td>$77,022.67</td>
+        <td>$77,228.69</td>
         
         <td>AMZN, DJT, NVDA, WMT</td>
         
-        <td>-2.0891759914274735</td>
+        <td>-2.0793326281128968</td>
         
     </tr>
     
@@ -3153,11 +3154,11 @@
         
         <td><a href="/players/3goldsmithsusannah.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3goldsmithsusannah" target="_blank">3goldsmithsusannah</a></td>
         
-        <td>$69,706.31</td>
+        <td>$69,786.06</td>
         
         <td>ASML, NCNA, SMCI</td>
         
-        <td>-2.6555837230935664</td>
+        <td>-2.653987353425131</td>
         
     </tr>
     
@@ -3167,11 +3168,11 @@
         
         <td><a href="/players/3yanjoshua.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3yanjoshua" target="_blank">3yanjoshua</a></td>
         
-        <td>$67,656.87</td>
+        <td>$67,581.89</td>
         
         <td>AMDL, BABA</td>
         
-        <td>-2.814244404304682</td>
+        <td>-2.8241740624099205</td>
         
     </tr>
     
@@ -3181,11 +3182,11 @@
         
         <td><a href="/players/3linandrew.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 3linandrew" target="_blank">3linandrew</a></td>
         
-        <td>$56,879.81</td>
+        <td>$56,744.33</td>
         
         <td>ABIO, AMZN</td>
         
-        <td>-3.648567771201524</td>
+        <td>-3.6609555583132303</td>
         
     </tr>
     
@@ -3195,11 +3196,11 @@
         
         <td><a href="/players/5shihcalista.html" class= "underline text-blue-600 hover:text-blue-800 visited:text-purple-600 5shihcalista" target="_blank">5shihcalista</a></td>
         
-        <td>$38,067.77</td>
+        <td>$38,298.77</td>
         
         <td>SMCI</td>
         
-        <td>-5.104931988436843</td>
+        <td>-5.085160203046386</td>
         
     </tr>
     
@@ -3208,116 +3209,94 @@
 
     
 <script>
-    const ctx = document.getElementById('stockChart');
+    const chartContainer = document.getElementById('chartContainer');
+    const chartOptions = {
+        width: chartContainer.offsetWidth,
+        height: chartContainer.offsetHeight,
+        layout: {
+            background: { type: 'solid', color: '#ffffff' },
+            textColor: '#333333',
+        },
+        grid: {
+            vertLines: { color: '#f0f0f0' },
+            horzLines: { color: '#f0f0f0' },
+        },
+        timeScale: {
+            timeVisible: true,
+            borderColor: '#d1d4dc',
+        },
+        rightPriceScale: {
+            borderColor: '#d1d4dc',
+        },
+    };
 
-    var labels = ['06:39:00 10-28-2024', '06:49:00 10-28-2024', '06:59:00 10-28-2024', '07:08:00 10-28-2024', '07:18:00 10-28-2024', '07:28:00 10-28-2024', '07:38:00 10-28-2024', '07:47:00 10-28-2024', '07:57:00 10-28-2024', '08:07:00 10-28-2024', '08:17:00 10-28-2024', '08:27:00 10-28-2024', '08:37:00 10-28-2024', '08:47:00 10-28-2024', '08:57:00 10-28-2024', '09:07:00 10-28-2024', '09:18:00 10-28-2024', '09:28:00 10-28-2024', '09:38:00 10-28-2024', '09:48:00 10-28-2024', '09:57:00 10-28-2024', '10:07:00 10-28-2024', '10:17:00 10-28-2024', '10:27:00 10-28-2024', '10:36:00 10-28-2024', '10:46:00 10-28-2024', '10:56:00 10-28-2024', '11:06:00 10-28-2024', '11:16:00 10-28-2024', '11:26:00 10-28-2024', '11:36:00 10-28-2024', '11:46:00 10-28-2024', '11:56:00 10-28-2024', '12:07:00 10-28-2024', '12:17:00 10-28-2024', '12:27:00 10-28-2024', '12:37:00 10-28-2024', '12:47:00 10-28-2024', '12:57:00 10-28-2024', '06:31:00 10-29-2024', '06:38:00 10-29-2024', '06:45:00 10-29-2024', '06:53:00 10-29-2024', '07:00:00 10-29-2024', '07:08:00 10-29-2024', '07:15:00 10-29-2024', '07:22:00 10-29-2024', '07:30:00 10-29-2024', '07:37:00 10-29-2024', '07:45:00 10-29-2024', '07:52:00 10-29-2024', '07:59:00 10-29-2024', '08:07:00 10-29-2024', '08:14:00 10-29-2024', '08:22:00 10-29-2024', '08:29:00 10-29-2024', '08:43:00 10-29-2024', '08:50:00 10-29-2024', '09:03:00 10-29-2024', '09:09:00 10-29-2024', '09:16:00 10-29-2024', '09:22:00 10-29-2024', '09:28:00 10-29-2024', '09:35:00 10-29-2024', '09:41:00 10-29-2024', '09:47:00 10-29-2024', '09:53:00 10-29-2024', '09:59:00 10-29-2024', '10:05:00 10-29-2024', '10:12:00 10-29-2024', '10:18:00 10-29-2024', '10:24:00 10-29-2024', '10:30:00 10-29-2024', '10:36:00 10-29-2024', '10:42:00 10-29-2024', '10:49:00 10-29-2024', '10:55:00 10-29-2024', '11:01:00 10-29-2024', '11:08:00 10-29-2024', '11:14:00 10-29-2024', '11:20:00 10-29-2024', '11:26:00 10-29-2024', '11:32:00 10-29-2024', '11:38:00 10-29-2024', '11:44:00 10-29-2024', '11:50:00 10-29-2024', '11:56:00 10-29-2024', '12:02:00 10-29-2024', '12:08:00 10-29-2024', '12:14:00 10-29-2024', '12:20:00 10-29-2024', '12:26:00 10-29-2024', '12:33:00 10-29-2024', '12:39:00 10-29-2024', '12:45:00 10-29-2024', '12:51:00 10-29-2024', '12:58:00 10-29-2024', '06:35:00 10-30-2024', '06:42:00 10-30-2024', '06:48:00 10-30-2024', '06:54:00 10-30-2024', '07:00:00 10-30-2024', '07:06:00 10-30-2024', '07:12:00 10-30-2024', '07:18:00 10-30-2024', '07:24:00 10-30-2024', '07:30:00 10-30-2024', '07:36:00 10-30-2024', '07:42:00 10-30-2024', '07:49:00 10-30-2024', '07:55:00 10-30-2024', '08:01:00 10-30-2024', '08:07:00 10-30-2024', '08:14:00 10-30-2024', '08:20:00 10-30-2024', '08:26:00 10-30-2024', '08:32:00 10-30-2024', '08:38:00 10-30-2024', '08:44:00 10-30-2024', '08:50:00 10-30-2024', '08:57:00 10-30-2024', '09:03:00 10-30-2024', '09:09:00 10-30-2024', '09:15:00 10-30-2024', '09:21:00 10-30-2024', '09:27:00 10-30-2024', '09:33:00 10-30-2024', '09:39:00 10-30-2024', '09:45:00 10-30-2024', '10:51:00 10-30-2024', '11:08:00 10-30-2024', '11:27:00 10-30-2024', '11:37:00 10-30-2024', '11:43:00 10-30-2024', '11:54:00 10-30-2024', '12:03:00 10-30-2024', '12:11:00 10-30-2024', '12:17:00 10-30-2024', '12:24:00 10-30-2024', '12:33:00 10-30-2024', '12:42:00 10-30-2024', '12:57:00 10-30-2024', '06:31:00 10-31-2024', '06:39:00 10-31-2024', '06:47:00 10-31-2024', '06:54:00 10-31-2024', '07:02:00 10-31-2024', '07:10:00 10-31-2024', '07:17:00 10-31-2024', '07:25:00 10-31-2024', '07:33:00 10-31-2024', '07:42:00 10-31-2024', '07:50:00 10-31-2024', '07:57:00 10-31-2024', '08:05:00 10-31-2024', '08:12:00 10-31-2024', '08:20:00 10-31-2024', '08:27:00 10-31-2024', '08:34:00 10-31-2024', '08:42:00 10-31-2024', '08:49:00 10-31-2024', '08:56:00 10-31-2024', '09:04:00 10-31-2024', '09:11:00 10-31-2024', '09:19:00 10-31-2024', '09:26:00 10-31-2024', '09:34:00 10-31-2024', '09:41:00 10-31-2024', '09:48:00 10-31-2024', '09:55:00 10-31-2024', '10:03:00 10-31-2024', '10:10:00 10-31-2024', '10:17:00 10-31-2024', '10:25:00 10-31-2024', '10:32:00 10-31-2024', '10:39:00 10-31-2024', '10:47:00 10-31-2024', '11:00:00 10-31-2024', '11:07:00 10-31-2024', '11:21:00 10-31-2024', '11:38:00 10-31-2024', '11:45:00 10-31-2024', '11:53:00 10-31-2024', '12:00:00 10-31-2024', '12:08:00 10-31-2024', '12:15:00 10-31-2024', '06:33:00 11-01-2024', '06:55:00 11-01-2024', '07:09:00 11-01-2024', '07:22:00 11-01-2024', '19:11:00 11-02-2024', '06:30:00 11-04-2024', '06:43:00 11-04-2024', '06:56:00 11-04-2024', '07:08:00 11-04-2024', '07:21:00 11-04-2024', '07:46:00 11-04-2024', '07:58:00 11-04-2024', '08:11:00 11-04-2024', '08:44:00 11-04-2024', '08:57:00 11-04-2024', '09:10:00 11-04-2024', '09:22:00 11-04-2024', '09:35:00 11-04-2024', '09:48:00 11-04-2024', '10:01:00 11-04-2024', '10:14:00 11-04-2024', '10:27:00 11-04-2024', '10:39:00 11-04-2024', '10:52:00 11-04-2024', '11:05:00 11-04-2024', '11:18:00 11-04-2024', '11:31:00 11-04-2024', '11:43:00 11-04-2024', '11:56:00 11-04-2024', '12:09:00 11-04-2024', '06:30:00 11-05-2024', '06:53:00 11-05-2024', '07:05:00 11-05-2024', '07:25:00 11-05-2024', '07:38:00 11-05-2024', '07:51:00 11-05-2024', '08:04:00 11-05-2024', '08:16:00 11-05-2024', '08:29:00 11-05-2024', '08:54:00 11-05-2024', '09:06:00 11-05-2024', '09:19:00 11-05-2024', '09:31:00 11-05-2024', '09:44:00 11-05-2024', '10:30:00 11-05-2024', '10:43:00 11-05-2024', '10:55:00 11-05-2024', '11:08:00 11-05-2024', '11:20:00 11-05-2024', '11:33:00 11-05-2024', '11:46:00 11-05-2024', '11:58:00 11-05-2024', '12:11:00 11-05-2024', '12:23:00 11-05-2024', '12:36:00 11-05-2024', '12:49:00 11-05-2024', '06:52:00 11-06-2024', '07:19:00 11-06-2024', '08:22:00 11-06-2024', '08:57:00 11-06-2024', '10:21:00 11-06-2024', '10:59:00 11-06-2024', '08:44:00 11-07-2024', '09:15:00 11-07-2024', '09:53:00 11-07-2024', '10:32:00 11-07-2024', '11:11:00 11-07-2024', '11:50:00 11-07-2024', '12:30:00 11-11-2024', '16:02:00 11-11-2024', '16:16:00 11-11-2024', '06:33:00 11-12-2024', '06:40:00 11-12-2024', '06:48:00 11-12-2024', '06:56:00 11-12-2024', '07:03:00 11-12-2024', '07:11:00 11-12-2024', '07:19:00 11-12-2024', '07:26:00 11-12-2024', '07:34:00 11-12-2024', '07:42:00 11-12-2024', '07:49:00 11-12-2024', '07:57:00 11-12-2024', '08:04:00 11-12-2024', '08:12:00 11-12-2024', '08:19:00 11-12-2024', '08:27:00 11-12-2024', '08:34:00 11-12-2024', '08:42:00 11-12-2024', '08:49:00 11-12-2024', '09:06:00 11-12-2024', '09:13:00 11-12-2024', '09:21:00 11-12-2024', '09:29:00 11-12-2024', '09:37:00 11-12-2024', '09:45:00 11-12-2024', '09:53:00 11-12-2024', '10:01:00 11-12-2024', '10:09:00 11-12-2024', '10:26:00 11-12-2024', '10:33:00 11-12-2024', '10:41:00 11-12-2024', '10:48:00 11-12-2024', '10:57:00 11-12-2024', '11:04:00 11-12-2024', '11:12:00 11-12-2024', '11:19:00 11-12-2024', '11:27:00 11-12-2024', '11:35:00 11-12-2024', '11:43:00 11-12-2024', '11:51:00 11-12-2024', '12:00:00 11-12-2024', '12:08:00 11-12-2024', '12:16:00 11-12-2024', '12:24:00 11-12-2024', '12:32:00 11-12-2024', '12:39:00 11-12-2024', '12:47:00 11-12-2024', '12:54:00 11-12-2024', '13:02:00 11-12-2024', '13:10:00 11-12-2024', '13:17:00 11-12-2024', '13:25:00 11-12-2024', '13:33:00 11-12-2024', '13:40:00 11-12-2024', '13:48:00 11-12-2024', '13:55:00 11-12-2024', '06:30:00 11-13-2024', '06:38:00 11-13-2024', '06:46:00 11-13-2024', '06:54:00 11-13-2024', '07:02:00 11-13-2024', '07:10:00 11-13-2024', '07:18:00 11-13-2024', '07:26:00 11-13-2024', '07:33:00 11-13-2024', '07:41:00 11-13-2024', '07:50:00 11-13-2024', '08:02:00 11-13-2024', '08:10:00 11-13-2024', '08:17:00 11-13-2024', '08:25:00 11-13-2024', '08:33:00 11-13-2024', '08:41:00 11-13-2024', '08:49:00 11-13-2024', '08:58:00 11-13-2024', '09:06:00 11-13-2024', '09:15:00 11-13-2024', '09:23:00 11-13-2024', '09:31:00 11-13-2024', '09:40:00 11-13-2024', '09:48:00 11-13-2024', '09:56:00 11-13-2024', '10:05:00 11-13-2024', '10:13:00 11-13-2024', '10:21:00 11-13-2024', '10:36:00 11-13-2024', '10:44:00 11-13-2024', '11:24:00 11-13-2024', '11:32:00 11-13-2024', '11:40:00 11-13-2024', '11:47:00 11-13-2024', '11:55:00 11-13-2024', '12:03:00 11-13-2024', '12:31:00 11-13-2024', '12:40:00 11-13-2024', '12:52:00 11-13-2024', '13:00:00 11-13-2024', '13:08:00 11-13-2024', '13:15:00 11-13-2024', '13:22:00 11-13-2024', '13:30:00 11-13-2024', '13:38:00 11-13-2024', '13:45:00 11-13-2024', '13:53:00 11-13-2024', '06:31:00 11-14-2024', '06:39:00 11-14-2024', '06:48:00 11-14-2024', '06:55:00 11-14-2024', '07:08:00 11-14-2024', '07:18:00 11-14-2024', '07:26:00 11-14-2024', '07:34:00 11-14-2024', '07:41:00 11-14-2024', '07:49:00 11-14-2024', '07:56:00 11-14-2024', '08:04:00 11-14-2024', '08:12:00 11-14-2024', '08:20:00 11-14-2024', '08:28:00 11-14-2024', '08:35:00 11-14-2024', '08:43:00 11-14-2024', '08:51:00 11-14-2024', '08:59:00 11-14-2024', '09:08:00 11-14-2024', '09:16:00 11-14-2024', '09:24:00 11-14-2024', '09:33:00 11-14-2024', '09:42:00 11-14-2024', '09:50:00 11-14-2024', '09:58:00 11-14-2024', '10:07:00 11-14-2024', '10:16:00 11-14-2024', '10:25:00 11-14-2024', '10:37:00 11-14-2024', '10:48:00 11-14-2024', '10:57:00 11-14-2024', '11:05:00 11-14-2024', '11:13:00 11-14-2024', '11:21:00 11-14-2024', '11:29:00 11-14-2024', '11:39:00 11-14-2024', '11:47:00 11-14-2024', '11:55:00 11-14-2024', '12:02:00 11-14-2024', '12:10:00 11-14-2024', '12:18:00 11-14-2024', '12:26:00 11-14-2024', '12:33:00 11-14-2024', '12:40:00 11-14-2024', '12:48:00 11-14-2024', '12:55:00 11-14-2024', '13:04:00 11-14-2024', '13:11:00 11-14-2024', '13:19:00 11-14-2024', '13:27:00 11-14-2024', '13:34:00 11-14-2024', '13:41:00 11-14-2024', '13:49:00 11-14-2024', '06:32:00 11-15-2024', '06:39:00 11-15-2024', '06:47:00 11-15-2024', '06:55:00 11-15-2024', '07:02:00 11-15-2024', '07:13:00 11-15-2024', '07:25:00 11-15-2024', '07:32:00 11-15-2024', '07:40:00 11-15-2024', '07:47:00 11-15-2024', '07:55:00 11-15-2024', '08:03:00 11-15-2024', '08:13:00 11-15-2024', '08:21:00 11-15-2024', '08:30:00 11-15-2024', '08:41:00 11-15-2024', '08:49:00 11-15-2024', '08:57:00 11-15-2024', '09:05:00 11-15-2024', '09:14:00 11-15-2024', '09:21:00 11-15-2024', '09:29:00 11-15-2024', '09:37:00 11-15-2024', '09:44:00 11-15-2024', '09:52:00 11-15-2024', '09:59:00 11-15-2024', '10:10:00 11-15-2024', '10:17:00 11-15-2024', '10:25:00 11-15-2024', '10:33:00 11-15-2024', '10:41:00 11-15-2024', '10:49:00 11-15-2024', '11:00:00 11-15-2024', '11:08:00 11-15-2024', '11:15:00 11-15-2024', '11:24:00 11-15-2024', '11:31:00 11-15-2024', '11:39:00 11-15-2024', '11:46:00 11-15-2024'];
-    var min_monies = [52170, 52170, 52170, 52170, 52170, 52170, 52170, 52170, 52170, 52170, 52170, 52170, 52170, 52170, 52170, 52170, 52170, 52170, 52170, 52170, 52170, 52170, 52170, 52170, 52170, 52666, 53286, 53286, 53162, 53038, 53038, 53286, 53162, 53286, 53286, 54030, 54030, 54030, 53906, 53782, 53782, 54277, 54650, 54774, 54898, 55146, 55146, 55146, 55146, 55146, 55143, 55767, 55891, 55891, 55891, 55891, 55767, 55643, 55643, 55270, 55270, 55396, 55768, 56077, 56387, 56635, 56635, 56635, 56635, 56325, 56263, 56263, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 55644, 55644, 51885, 56190, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56043, 56106, 56085, 55592, 55760, 55833, 56043, 55624, 55436, 55602, 55836, 55959, 54868, 54216, 53964, 54974, 55602, 56253, 56253, 56127, 55959, 56148, 55770, 56253, 56253, 56253, 56253, 56253, 56253, 56253, 56243, 56135, 56177, 56159, 56177, 45207, 44682, 45418, 45638, 45354, 45879, 52757, 53933, 53691, 53439, 54195, 54668, 49659, 49722, 49722, 49722, 49722, 47695, 48819, 48074, 48273, 48483, 48641, 48924, 48338, 48231, 48104, 47486, 47370, 47869, 47710, 47748, 47748, 47811, 47433, 47444, 47412, 47622, 47097, 46959, 46614, 46761, 46788, 46803, 46898, 47013, 46961, 46814, 46761, 46761, 46679, 46740, 46824, 46656, 46849, 46982, 46940, 47181, 47139, 46919, 46751, 46604, 46614, 46426, 46341, 46341, 46425, 46425, 46509, 46509, 46509, 46509, 46509, 45386, 45208, 44850, 46142, 46530, 46385, 45417, 45165, 44994, 44651, 44336, 44577, 45018, 44871, 45554, 45417, 45176, 44756, 44744, 44997, 45204, 45018, 45029, 45018, 45123, 45186, 44997, 44861, 44640, 44378, 44241, 44399, 44346, 44367, 44556, 44420, 44262, 44157, 43926, 43758, 43632, 43632, 43632, 43632, 43632, 43632, 43632, 43632, 38873, 38592, 38781, 38868, 40818, 40797, 41123, 41232, 40440, 40314, 40230, 40440, 40369, 39863, 39936, 39632, 39474, 39338, 39306, 39233, 39000, 39155, 38929, 39074, 39881, 39646, 40073, 39789, 40125, 39915, 39475, 39159, 39275, 39107, 38823, 38897, 38865, 38865, 38764, 38571, 38298, 38445, 39043, 38918, 38813, 38897, 38540, 38760, 38760, 38760, 38760, 38760, 38760, 38760, 39096, 39758, 39327, 38697, 38603, 38382, 38403, 37826, 37784, 38046, 37752, 37311, 37574, 37899, 37710, 37710, 37658, 37658, 37952, 37931, 37868, 37675, 37826, 38006, 38057, 38036, 38070, 38099, 38067, 38403, 38486, 38561, 38561, 38697, 38519, 38204, 38067];
-    var max_monies = [118949, 118949, 118949, 118949, 118949, 118949, 118949, 118949, 118949, 118949, 118949, 118949, 118949, 118949, 118949, 118949, 118949, 118949, 118949, 118949, 118949, 118949, 118949, 118949, 118949, 118949, 118949, 127257, 127487, 129223, 128979, 133370, 132567, 126396, 129926, 129744, 131246, 131930, 132079, 136269, 136269, 136269, 136269, 146027, 148151, 149959, 149959, 147573, 146171, 141550, 132452, 136039, 138441, 138597, 139024, 146711, 151293, 151293, 150131, 149020, 151278, 151651, 155039, 155326, 153317, 152484, 154206, 152599, 151250, 151853, 151853, 151939, 150811, 150676, 149282, 149428, 151738, 153776, 152312, 152398, 151365, 153231, 153719, 153202, 152786, 153622, 154809, 154809, 154321, 154321, 155010, 155435, 153489, 150303, 151394, 150820, 149615, 148180, 148180, 148180, 148180, 140316, 140000, 136857, 134088, 134088, 132739, 126827, 134949, 136094, 135552, 133221, 132653, 133445, 133025, 132395, 129881, 130787, 131247, 129754, 129754, 127803, 127449, 125851, 121948, 120385, 120800, 120385, 120385, 121282, 120848, 120906, 121009, 120887, 121028, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120659, 120646, 120690, 120658, 120685, 120668, 120704, 120755, 120701, 120724, 120734, 120617, 120592, 120305, 120189, 120367, 120357, 123306, 121131, 122323, 122967, 124094, 124210, 131459, 131530, 132606, 131796, 133686, 135576, 149075, 149548, 149548, 149548, 149548, 149548, 147928, 148198, 146780, 148198, 146713, 145902, 147033, 147421, 147523, 145330, 144553, 143713, 143203, 143203, 143337, 143743, 144148, 143743, 142461, 142123, 141516, 141583, 142258, 141786, 141718, 141246, 141178, 141026, 141718, 140908, 141516, 141266, 141313, 141448, 141178, 141178, 138472, 140166, 140973, 141246, 140370, 140031, 140654, 141178, 138764, 141313, 141381, 141448, 141448, 141448, 141448, 141448, 141448, 141448, 141448, 141448, 148333, 152669, 152382, 154675, 152517, 156432, 157782, 163114, 165745, 165679, 165274, 164531, 164599, 160482, 164396, 160482, 162304, 166961, 166286, 173149, 173103, 170169, 168514, 168311, 168446, 167974, 168041, 171551, 167079, 166961, 168784, 166691, 166691, 164183, 160009, 161560, 164869, 163452, 160887, 159807, 159807, 159807, 159807, 159807, 159807, 159807, 159807, 192372, 170336, 145903, 152247, 148198, 148874, 141313, 149480, 148333, 140773, 143716, 145765, 146447, 153192, 151572, 154947, 151842, 149210, 151302, 148198, 146983, 145498, 145903, 144824, 145700, 146714, 146038, 145565, 145623, 147929, 148873, 147725, 149815, 150048, 149303, 149278, 149143, 148064, 148738, 145835, 144554, 145025, 142933, 141043, 142191, 139570, 139692, 139153, 139153, 139153, 139153, 139153, 139153, 139153, 138207, 147691, 155015, 157512, 154677, 157241, 154677, 154841, 153192, 153734, 152246, 150223, 151140, 150088, 153869, 150695, 150020, 149278, 148554, 148554, 148554, 148554, 150695, 152924, 154812, 152922, 154271, 153260, 153025, 151437, 150830, 149750, 152033, 152585, 153462, 154274, 155285];
-    var q1_monies = [100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100684, 100782, 100776, 100772, 100812, 100849, 100805, 100780, 100787, 100766, 100767, 100724, 100689, 100674, 100674, 100674, 100655, 100468, 100468, 100656, 100746, 100738, 100742, 100468, 100468, 100588, 100830, 100834, 100850, 100843, 100844, 100842, 100756, 100850, 100845, 100856, 100856, 100857, 100861, 100858, 100848, 100844, 100847, 100869, 100869, 100882, 100880, 100886, 100879, 100876, 100877, 100876, 100873, 100878, 100876, 100878, 100877, 100875, 100881, 100882, 100890, 100892, 100892, 100888, 100887, 100886, 100893, 100893, 100903, 100907, 100905, 100830, 100830, 100870, 100576, 100468, 100448, 100590, 100676, 100707, 100764, 100707, 100736, 100794, 100793, 100822, 100801, 100696, 100699, 100690, 100619, 100661, 100791, 100779, 100790, 100872, 100830, 100809, 100775, 100740, 100721, 100662, 100631, 100564, 100468, 100478, 100502, 100504, 100532, 100531, 100529, 100564, 100472, 100518, 100520, 100456, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100000, 99993, 99863, 99820, 99865, 99821, 99793, 99804, 99776, 99669, 99669, 99669, 99669, 99945, 99945, 99931, 99889, 99906, 99863, 99863, 99868, 99930, 99863, 99863, 99803, 99773, 99863, 99931, 99913, 99908, 99909, 99912, 99911, 99910, 99910, 99908, 99911, 99911, 99912, 99863, 100026, 100075, 100169, 100190, 100223, 100217, 100182, 100202, 100258, 100292, 100330, 100392, 100411, 100357, 100292, 100301, 100298, 100319, 100336, 100298, 100279, 100137, 100244, 100231, 100258, 100884, 100815, 100813, 100852, 100871, 100890, 100992, 100822, 101086, 100885, 100929, 101096, 101432, 101448, 101448, 101445, 101425, 101460, 101580, 101744, 101432, 101419, 101473, 101395, 101419, 101717, 101424, 101435, 101413, 101402, 101336, 101358, 101374, 101382, 101380, 101350, 101337, 101298, 101336, 101260, 101340, 101327, 101306, 101279, 101274, 101291, 101326, 101342, 101367, 101391, 101378, 101431, 101406, 101471, 101394, 101462, 101453, 101455, 101466, 101457, 101456, 101365, 101444, 101388, 101370, 101443, 101345, 101356, 101356, 101498, 101444, 101414, 101356, 101506, 102003, 101943, 101979, 101750, 101540, 101625, 101621, 101707, 101781, 101723, 101745, 101769, 101882, 101641, 101625, 101588, 101662, 101671, 101751, 101871, 101845, 101833, 101783, 101921, 101769, 101807, 101827, 101974, 101817, 101696, 101676, 101630, 101553, 101669, 101587, 101573, 101642, 101647, 101505, 101422, 101420, 101420, 101421, 101421, 101421, 101412, 101412, 101833, 101413, 101356, 101338, 101385, 101288, 101273, 101319, 101458, 101472, 101392, 101387, 101338, 101388, 101478, 101446, 101476, 101417, 101365, 101301, 101285, 101267, 101254, 101275, 101262, 101277, 101283, 101285, 101287, 101274, 101275, 101246, 101271, 101263, 101261, 101270, 101275, 101266, 101276, 101274, 101216, 101228, 101236, 101177, 101157, 101163, 101125, 101129, 101129, 101129, 101129, 101129, 101129, 101129, 100922, 100756, 100763, 100727, 100638, 100645, 100617, 100627, 100566, 100575, 100529, 100516, 100490, 100485, 100494, 100491, 100484, 100468, 100461, 100453, 100451, 100460, 100424, 100465, 100455, 100440, 100468, 100453, 100424, 100465, 100394, 100270, 100266, 100326, 100272, 100259, 100251];
-    var median_monies = [102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102700, 102788, 102731, 102768, 102784, 102787, 102778, 102812, 102818, 102744, 102748, 102695, 102681, 102567, 102567, 102567, 102553, 102498, 102469, 102573, 102553, 102591, 102579, 102624, 102644, 102711, 102757, 102684, 102648, 102697, 102746, 102735, 102731, 102756, 102752, 102834, 102818, 102785, 102813, 102789, 102782, 102734, 102751, 102795, 102821, 102850, 102885, 102910, 102906, 102880, 102871, 102940, 102887, 102900, 102926, 102926, 102909, 102923, 102874, 102912, 102964, 102999, 102998, 102978, 102956, 102981, 102991, 102992, 103023, 103073, 103050, 102872, 102872, 102822, 102771, 102559, 102331, 102490, 102537, 102551, 102504, 102698, 102668, 102678, 102691, 102671, 102658, 102621, 102624, 102646, 102631, 102586, 102650, 102717, 102713, 102712, 102732, 102741, 102755, 102764, 102749, 102722, 102692, 102673, 102571, 102592, 102645, 102655, 102643, 102648, 102658, 102654, 102552, 102532, 102468, 102413, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102422, 101848, 101853, 101423, 101491, 101514, 101409, 101398, 101388, 101308, 101248, 101248, 101248, 101248, 101744, 101744, 101744, 101601, 101798, 101785, 101847, 101821, 101839, 101847, 101778, 101632, 101646, 101732, 101798, 101809, 101831, 101814, 101849, 101855, 101869, 101869, 101870, 101844, 101844, 101842, 101545, 101925, 102003, 102075, 102058, 102075, 102107, 102056, 102108, 102133, 102133, 102133, 102133, 102226, 102133, 102133, 102133, 102133, 102156, 102106, 102133, 102133, 102075, 102085, 102088, 102115, 103438, 103026, 102975, 103146, 103372, 103345, 103938, 103948, 104050, 103905, 103954, 103963, 104811, 104766, 104766, 104846, 104700, 104725, 105153, 104848, 104752, 104865, 104857, 104829, 104971, 105027, 104949, 105010, 104983, 104880, 104848, 104855, 104843, 104897, 104729, 104681, 104666, 104713, 104699, 104630, 104671, 104663, 104514, 104456, 104532, 104432, 104469, 104549, 104597, 104651, 104771, 104791, 104781, 104837, 104756, 104905, 104830, 104933, 104940, 104872, 104862, 104868, 104671, 104803, 104837, 104897, 104792, 104846, 104842, 104877, 104877, 104842, 104842, 105005, 105158, 105617, 105432, 105327, 105184, 104900, 104820, 104662, 104973, 104915, 104757, 104786, 105056, 104786, 104985, 105116, 105167, 105081, 105165, 105283, 105299, 105225, 105279, 105306, 105229, 105225, 105314, 105367, 105097, 105095, 105027, 104990, 104916, 105023, 104884, 104947, 105013, 105095, 105015, 104905, 104975, 104975, 104976, 104976, 104976, 104976, 104976, 105228, 104878, 104858, 104771, 104807, 104820, 104661, 104769, 104814, 104819, 104800, 104789, 104811, 104829, 104859, 104869, 104894, 104867, 104897, 104862, 104905, 104732, 104709, 104726, 104740, 104789, 104773, 104873, 104875, 104816, 104841, 104717, 104749, 104881, 104910, 104936, 104976, 104972, 104951, 104950, 104563, 104614, 104756, 104615, 104569, 104542, 104565, 104621, 104633, 104633, 104633, 104633, 104611, 104611, 104464, 104099, 104131, 104176, 104129, 104000, 103929, 103999, 103980, 104013, 103961, 103968, 103971, 103937, 104018, 103872, 103903, 103859, 103788, 103722, 103770, 103731, 103741, 103755, 103719, 103820, 103832, 103814, 103795, 103798, 103777, 103708, 103663, 103713, 103668, 103664, 103635];
-    var q3_monies = [105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105473, 105588, 105481, 105540, 105601, 105571, 105636, 105642, 105710, 105630, 105544, 105556, 105534, 105255, 105255, 105255, 105403, 105017, 105085, 105083, 105162, 105172, 105154, 105215, 105278, 105313, 105314, 105230, 105214, 105215, 105323, 105330, 105343, 105393, 105366, 105397, 105388, 105386, 105363, 105407, 105365, 105320, 105350, 105356, 105397, 105425, 105493, 105491, 105464, 105447, 105451, 105481, 105467, 105425, 105441, 105437, 105457, 105409, 105419, 105453, 105526, 105465, 105484, 105479, 105471, 105484, 105490, 105499, 105523, 105547, 105505, 105379, 105379, 105379, 106001, 105378, 105091, 105198, 105575, 105621, 105904, 105757, 105778, 105827, 105894, 105861, 106027, 105760, 105582, 105615, 105558, 105339, 105371, 105611, 105599, 105533, 105587, 105635, 105614, 105575, 105583, 105481, 105436, 105336, 105178, 105206, 105251, 105231, 105211, 105238, 105253, 105253, 105183, 105176, 105170, 105155, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105150, 104436, 104435, 103977, 103834, 103920, 103846, 103728, 103746, 103681, 103613, 103613, 103613, 103613, 103948, 103948, 103948, 103649, 103962, 103907, 104137, 104186, 104472, 104074, 103928, 103799, 103691, 103734, 103865, 103882, 103923, 103868, 103758, 103742, 103774, 103725, 103790, 103740, 103907, 103805, 103631, 104708, 104823, 104999, 105005, 104992, 105021, 104909, 105000, 105251, 105260, 105338, 105365, 105476, 105070, 105067, 105058, 105061, 105068, 105068, 105066, 105068, 105042, 105039, 105051, 105114, 107061, 106871, 106925, 107318, 107464, 107531, 108667, 108755, 108774, 108587, 108650, 108628, 110014, 110174, 110174, 110198, 109584, 109707, 110301, 109773, 110035, 109697, 109560, 109834, 109946, 110062, 110021, 110028, 109993, 109888, 109421, 109864, 109824, 109947, 109774, 108937, 109636, 109723, 109656, 108840, 109767, 109377, 109316, 109230, 109337, 108996, 109037, 108896, 108927, 109156, 109363, 109274, 109161, 109402, 109287, 109532, 109319, 109650, 109491, 109363, 109598, 109606, 109546, 109535, 109455, 109496, 109449, 109458, 109443, 109548, 109478, 109440, 109443, 109657, 110462, 110814, 110813, 110618, 110139, 110494, 110326, 110341, 110552, 110487, 110542, 110610, 110726, 110725, 110739, 110663, 110899, 111097, 110629, 111319, 111177, 111122, 111292, 111164, 111431, 111454, 111326, 111472, 111391, 111281, 111278, 111094, 110992, 110857, 110547, 110668, 110726, 110804, 110654, 110660, 110679, 110679, 110680, 110680, 110680, 110686, 110686, 111152, 110552, 110351, 110470, 110408, 110234, 110221, 110235, 110579, 110581, 110878, 110364, 110404, 110365, 110459, 110512, 110718, 110659, 110672, 110531, 110440, 110333, 110295, 110207, 110081, 110223, 110258, 110435, 110494, 110250, 110241, 110075, 110290, 110160, 110134, 110208, 110228, 110184, 110251, 110095, 109943, 110013, 109992, 109976, 109943, 109943, 109943, 109942, 109935, 109935, 109935, 109935, 109909, 109909, 109220, 108727, 109029, 108847, 109016, 108679, 108549, 108549, 108758, 108629, 108625, 108620, 108711, 108864, 108846, 108738, 108666, 108594, 108540, 108441, 108573, 108534, 108500, 108548, 108366, 108361, 108290, 108290, 108250, 108137, 108072, 108101, 108110, 108186, 108123, 108112, 108075];
-    var sp500_prices = [99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 98044.34090443456, 98044.34090443456, 98044.34090443456, 98044.34090443456, 98044.34090443456, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 101481.77491470787, 101481.77491470787, 101481.77491470787, 101481.77491470787, 101481.77491470787, 101481.77491470787, 102256.14519914423, 102256.14519914423, 102256.14519914423, 102256.14519914423, 102256.14519914423, 102256.14519914423, 102800.43239481859, 102800.43239481859, 102800.43239481859, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783, 100476.12684908783];
+    const chart = LightweightCharts.createChart(document.getElementById('stockChart'), chartOptions);
+
+    const labels = ['2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-28', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-29', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-30', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-10-31', '2024-11-01', '2024-11-01', '2024-11-01', '2024-11-01', '2024-11-02', '2024-11-04', '2024-11-04', '2024-11-04', '2024-11-04', '2024-11-04', '2024-11-04', '2024-11-04', '2024-11-04', '2024-11-04', '2024-11-04', '2024-11-04', '2024-11-04', '2024-11-04', '2024-11-04', '2024-11-04', '2024-11-04', '2024-11-04', '2024-11-04', '2024-11-04', '2024-11-04', '2024-11-04', '2024-11-04', '2024-11-04', '2024-11-04', '2024-11-04', '2024-11-05', '2024-11-05', '2024-11-05', '2024-11-05', '2024-11-05', '2024-11-05', '2024-11-05', '2024-11-05', '2024-11-05', '2024-11-05', '2024-11-05', '2024-11-05', '2024-11-05', '2024-11-05', '2024-11-05', '2024-11-05', '2024-11-05', '2024-11-05', '2024-11-05', '2024-11-05', '2024-11-05', '2024-11-05', '2024-11-05', '2024-11-05', '2024-11-05', '2024-11-05', '2024-11-06', '2024-11-06', '2024-11-06', '2024-11-06', '2024-11-06', '2024-11-06', '2024-11-07', '2024-11-07', '2024-11-07', '2024-11-07', '2024-11-07', '2024-11-07', '2024-11-11', '2024-11-11', '2024-11-11', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-12', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-13', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-14', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15', '2024-11-15'];
     
-    const data = {
-        labels: labels,
-        datasets: [
-            {
-                label: 'S&P 500 ($100k Initial)',
-                data: sp500_prices,
-                hidden: false,
-                borderColor: '#FF6384',
-                backgroundColor: 'rgba(255, 99, 132, 0.1)',
-                borderWidth: 2
-            },
-            {
-                label: 'Min Money',
-                data: min_monies,
-                hidden: true,
-                borderColor: '#36A2EB',
-                backgroundColor: 'rgba(54, 162, 235, 0.1)',
-                borderWidth: 2
-            },
-            {
-                label: 'Max Money',
-                data: max_monies,
-                hidden: true,
-                borderColor: '#4BC0C0',
-                backgroundColor: 'rgba(75, 192, 192, 0.1)',
-                borderWidth: 2
-            },
-            {
-                label: 'Q1 Money',
-                data: q1_monies,
-                hidden: false,
-                borderColor: '#9966FF',
-                backgroundColor: 'rgba(153, 102, 255, 0.1)',
-                borderWidth: 2
-            },
-            {
-                label: 'Median Money',
-                data: median_monies,
-                hidden: false,
-                borderColor: '#FFCE56',
-                backgroundColor: 'rgba(255, 206, 86, 0.1)',
-                borderWidth: 2
-            },
-            {
-                label: 'Q3 Money',
-                data: q3_monies,
-                hidden: false,
-                borderColor: '#FF9F40',
-                backgroundColor: 'rgba(255, 159, 64, 0.1)',
-                borderWidth: 2
-            }
-        ]
-    };
-    const config = {
-        type: 'line',
-        data: data,
-        options: {
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    display: false, // Hides the x-axis labels
-                },
-            },
-            plugins: {
-                scales: {
-                    display: false // Hides the dataset labels from the legend
-                },
-                zoom: {
-                    zoom: {
-                        wheel: {
-                            enabled: true,
-                        },
-                        pinch: {
-                            enabled: true
-                        },
-                        mode: 'x',
-                    },
-                    pan: {
-                        enabled: true
-                    }
-                },
-
-            }
-        }
-    };
-
-    var myLineChart = new Chart(ctx, config);
-
-    // Add reset zoom functionality
-    document.getElementById('resetZoom').addEventListener('click', () => {
-        myLineChart.resetZoom();
+    const sp500Series = chart.addAreaSeries({
+        lineColor: '#FF6384',
+        topColor: 'rgba(255, 99, 132, 0.4)',
+        bottomColor: 'rgba(255, 99, 132, 0.1)',
+        lineWidth: 2,
     });
+    
+    const q1Series = chart.addAreaSeries({
+        lineColor: '#9966FF',
+        topColor: 'rgba(153, 102, 255, 0.4)',
+        bottomColor: 'rgba(153, 102, 255, 0.1)',
+        lineWidth: 2,
+    });
+
+    const medianSeries = chart.addAreaSeries({
+        lineColor: '#FFCE56',
+        topColor: 'rgba(255, 206, 86, 0.4)',
+        bottomColor: 'rgba(255, 206, 86, 0.1)',
+        lineWidth: 2,
+    });
+
+    const q3Series = chart.addAreaSeries({
+        lineColor: '#FF9F40',
+        topColor: 'rgba(255, 159, 64, 0.4)',
+        bottomColor: 'rgba(255, 159, 64, 0.1)',
+        lineWidth: 2,
+    });
+
+    // Filter out null values from data
+    const sp500Data = labels.map((time, i) => ({
+        time: time,
+        value: [99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99718.41938000704, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99878.9587941152, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 99579.34251045749, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 97623.67293513396, 98044.34090443456, 98044.34090443456, 98044.34090443456, 98044.34090443456, 98044.34090443456, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 97831.43413917434, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 99016.16031095538, 101481.77491470787, 101481.77491470787, 101481.77491470787, 101481.77491470787, 101481.77491470787, 101481.77491470787, 102256.14519914423, 102256.14519914423, 102256.14519914423, 102256.14519914423, 102256.14519914423, 102256.14519914423, 102800.43239481859, 102800.43239481859, 102800.43239481859, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102486.22828790621, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 102534.2989382433, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 101881.83967961284, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741, 100491.07098411741][i] || 0
+    })).filter(item => item.value !== 0);
+
+    const q1Data = labels.map((time, i) => ({
+        time: time,
+        value: [100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100570, 100684, 100782, 100776, 100772, 100812, 100849, 100805, 100780, 100787, 100766, 100767, 100724, 100689, 100674, 100674, 100674, 100655, 100468, 100468, 100656, 100746, 100738, 100742, 100468, 100468, 100588, 100830, 100834, 100850, 100843, 100844, 100842, 100756, 100850, 100845, 100856, 100856, 100857, 100861, 100858, 100848, 100844, 100847, 100869, 100869, 100882, 100880, 100886, 100879, 100876, 100877, 100876, 100873, 100878, 100876, 100878, 100877, 100875, 100881, 100882, 100890, 100892, 100892, 100888, 100887, 100886, 100893, 100893, 100903, 100907, 100905, 100830, 100830, 100870, 100576, 100468, 100448, 100590, 100676, 100707, 100764, 100707, 100736, 100794, 100793, 100822, 100801, 100696, 100699, 100690, 100619, 100661, 100791, 100779, 100790, 100872, 100830, 100809, 100775, 100740, 100721, 100662, 100631, 100564, 100468, 100478, 100502, 100504, 100532, 100531, 100529, 100564, 100472, 100518, 100520, 100456, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100358, 100000, 99993, 99863, 99820, 99865, 99821, 99793, 99804, 99776, 99669, 99669, 99669, 99669, 99945, 99945, 99931, 99889, 99906, 99863, 99863, 99868, 99930, 99863, 99863, 99803, 99773, 99863, 99931, 99913, 99908, 99909, 99912, 99911, 99910, 99910, 99908, 99911, 99911, 99912, 99863, 100026, 100075, 100169, 100190, 100223, 100217, 100182, 100202, 100258, 100292, 100330, 100392, 100411, 100357, 100292, 100301, 100298, 100319, 100336, 100298, 100279, 100137, 100244, 100231, 100258, 100884, 100815, 100813, 100852, 100871, 100890, 100992, 100822, 101086, 100885, 100929, 101096, 101432, 101448, 101448, 101445, 101425, 101460, 101580, 101744, 101432, 101419, 101473, 101395, 101419, 101717, 101424, 101435, 101413, 101402, 101336, 101358, 101374, 101382, 101380, 101350, 101337, 101298, 101336, 101260, 101340, 101327, 101306, 101279, 101274, 101291, 101326, 101342, 101367, 101391, 101378, 101431, 101406, 101471, 101394, 101462, 101453, 101455, 101466, 101457, 101456, 101365, 101444, 101388, 101370, 101443, 101345, 101356, 101356, 101498, 101444, 101414, 101356, 101506, 102003, 101943, 101979, 101750, 101540, 101625, 101621, 101707, 101781, 101723, 101745, 101769, 101882, 101641, 101625, 101588, 101662, 101671, 101751, 101871, 101845, 101833, 101783, 101921, 101769, 101807, 101827, 101974, 101817, 101696, 101676, 101630, 101553, 101669, 101587, 101573, 101642, 101647, 101505, 101422, 101420, 101420, 101421, 101421, 101421, 101412, 101412, 101833, 101413, 101356, 101338, 101385, 101288, 101273, 101319, 101458, 101472, 101392, 101387, 101338, 101388, 101478, 101446, 101476, 101417, 101365, 101301, 101285, 101267, 101254, 101275, 101262, 101277, 101283, 101285, 101287, 101274, 101275, 101246, 101271, 101263, 101261, 101270, 101275, 101266, 101276, 101274, 101216, 101228, 101236, 101177, 101157, 101163, 101125, 101129, 101129, 101129, 101129, 101129, 101129, 101129, 100922, 100756, 100763, 100727, 100638, 100645, 100617, 100627, 100566, 100575, 100529, 100516, 100490, 100485, 100494, 100491, 100484, 100468, 100461, 100453, 100451, 100460, 100424, 100465, 100455, 100440, 100468, 100453, 100424, 100465, 100394, 100270, 100266, 100326, 100272, 100259, 100251, 100255, 100306][i] || 0
+    })).filter(item => item.value !== 0);
+
+    const medianData = labels.map((time, i) => ({
+        time: time,
+        value: [102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102587, 102700, 102788, 102731, 102768, 102784, 102787, 102778, 102812, 102818, 102744, 102748, 102695, 102681, 102567, 102567, 102567, 102553, 102498, 102469, 102573, 102553, 102591, 102579, 102624, 102644, 102711, 102757, 102684, 102648, 102697, 102746, 102735, 102731, 102756, 102752, 102834, 102818, 102785, 102813, 102789, 102782, 102734, 102751, 102795, 102821, 102850, 102885, 102910, 102906, 102880, 102871, 102940, 102887, 102900, 102926, 102926, 102909, 102923, 102874, 102912, 102964, 102999, 102998, 102978, 102956, 102981, 102991, 102992, 103023, 103073, 103050, 102872, 102872, 102822, 102771, 102559, 102331, 102490, 102537, 102551, 102504, 102698, 102668, 102678, 102691, 102671, 102658, 102621, 102624, 102646, 102631, 102586, 102650, 102717, 102713, 102712, 102732, 102741, 102755, 102764, 102749, 102722, 102692, 102673, 102571, 102592, 102645, 102655, 102643, 102648, 102658, 102654, 102552, 102532, 102468, 102413, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102297, 102422, 101848, 101853, 101423, 101491, 101514, 101409, 101398, 101388, 101308, 101248, 101248, 101248, 101248, 101744, 101744, 101744, 101601, 101798, 101785, 101847, 101821, 101839, 101847, 101778, 101632, 101646, 101732, 101798, 101809, 101831, 101814, 101849, 101855, 101869, 101869, 101870, 101844, 101844, 101842, 101545, 101925, 102003, 102075, 102058, 102075, 102107, 102056, 102108, 102133, 102133, 102133, 102133, 102226, 102133, 102133, 102133, 102133, 102156, 102106, 102133, 102133, 102075, 102085, 102088, 102115, 103438, 103026, 102975, 103146, 103372, 103345, 103938, 103948, 104050, 103905, 103954, 103963, 104811, 104766, 104766, 104846, 104700, 104725, 105153, 104848, 104752, 104865, 104857, 104829, 104971, 105027, 104949, 105010, 104983, 104880, 104848, 104855, 104843, 104897, 104729, 104681, 104666, 104713, 104699, 104630, 104671, 104663, 104514, 104456, 104532, 104432, 104469, 104549, 104597, 104651, 104771, 104791, 104781, 104837, 104756, 104905, 104830, 104933, 104940, 104872, 104862, 104868, 104671, 104803, 104837, 104897, 104792, 104846, 104842, 104877, 104877, 104842, 104842, 105005, 105158, 105617, 105432, 105327, 105184, 104900, 104820, 104662, 104973, 104915, 104757, 104786, 105056, 104786, 104985, 105116, 105167, 105081, 105165, 105283, 105299, 105225, 105279, 105306, 105229, 105225, 105314, 105367, 105097, 105095, 105027, 104990, 104916, 105023, 104884, 104947, 105013, 105095, 105015, 104905, 104975, 104975, 104976, 104976, 104976, 104976, 104976, 105228, 104878, 104858, 104771, 104807, 104820, 104661, 104769, 104814, 104819, 104800, 104789, 104811, 104829, 104859, 104869, 104894, 104867, 104897, 104862, 104905, 104732, 104709, 104726, 104740, 104789, 104773, 104873, 104875, 104816, 104841, 104717, 104749, 104881, 104910, 104936, 104976, 104972, 104951, 104950, 104563, 104614, 104756, 104615, 104569, 104542, 104565, 104621, 104633, 104633, 104633, 104633, 104611, 104611, 104464, 104099, 104131, 104176, 104129, 104000, 103929, 103999, 103980, 104013, 103961, 103968, 103971, 103937, 104018, 103872, 103903, 103859, 103788, 103722, 103770, 103731, 103741, 103755, 103719, 103820, 103832, 103814, 103795, 103798, 103777, 103708, 103663, 103713, 103668, 103664, 103635, 103665, 103834][i] || 0
+    })).filter(item => item.value !== 0);
+
+    const q3Data = labels.map((time, i) => ({
+        time: time,
+        value: [105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105122, 105473, 105588, 105481, 105540, 105601, 105571, 105636, 105642, 105710, 105630, 105544, 105556, 105534, 105255, 105255, 105255, 105403, 105017, 105085, 105083, 105162, 105172, 105154, 105215, 105278, 105313, 105314, 105230, 105214, 105215, 105323, 105330, 105343, 105393, 105366, 105397, 105388, 105386, 105363, 105407, 105365, 105320, 105350, 105356, 105397, 105425, 105493, 105491, 105464, 105447, 105451, 105481, 105467, 105425, 105441, 105437, 105457, 105409, 105419, 105453, 105526, 105465, 105484, 105479, 105471, 105484, 105490, 105499, 105523, 105547, 105505, 105379, 105379, 105379, 106001, 105378, 105091, 105198, 105575, 105621, 105904, 105757, 105778, 105827, 105894, 105861, 106027, 105760, 105582, 105615, 105558, 105339, 105371, 105611, 105599, 105533, 105587, 105635, 105614, 105575, 105583, 105481, 105436, 105336, 105178, 105206, 105251, 105231, 105211, 105238, 105253, 105253, 105183, 105176, 105170, 105155, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105089, 105150, 104436, 104435, 103977, 103834, 103920, 103846, 103728, 103746, 103681, 103613, 103613, 103613, 103613, 103948, 103948, 103948, 103649, 103962, 103907, 104137, 104186, 104472, 104074, 103928, 103799, 103691, 103734, 103865, 103882, 103923, 103868, 103758, 103742, 103774, 103725, 103790, 103740, 103907, 103805, 103631, 104708, 104823, 104999, 105005, 104992, 105021, 104909, 105000, 105251, 105260, 105338, 105365, 105476, 105070, 105067, 105058, 105061, 105068, 105068, 105066, 105068, 105042, 105039, 105051, 105114, 107061, 106871, 106925, 107318, 107464, 107531, 108667, 108755, 108774, 108587, 108650, 108628, 110014, 110174, 110174, 110198, 109584, 109707, 110301, 109773, 110035, 109697, 109560, 109834, 109946, 110062, 110021, 110028, 109993, 109888, 109421, 109864, 109824, 109947, 109774, 108937, 109636, 109723, 109656, 108840, 109767, 109377, 109316, 109230, 109337, 108996, 109037, 108896, 108927, 109156, 109363, 109274, 109161, 109402, 109287, 109532, 109319, 109650, 109491, 109363, 109598, 109606, 109546, 109535, 109455, 109496, 109449, 109458, 109443, 109548, 109478, 109440, 109443, 109657, 110462, 110814, 110813, 110618, 110139, 110494, 110326, 110341, 110552, 110487, 110542, 110610, 110726, 110725, 110739, 110663, 110899, 111097, 110629, 111319, 111177, 111122, 111292, 111164, 111431, 111454, 111326, 111472, 111391, 111281, 111278, 111094, 110992, 110857, 110547, 110668, 110726, 110804, 110654, 110660, 110679, 110679, 110680, 110680, 110680, 110686, 110686, 111152, 110552, 110351, 110470, 110408, 110234, 110221, 110235, 110579, 110581, 110878, 110364, 110404, 110365, 110459, 110512, 110718, 110659, 110672, 110531, 110440, 110333, 110295, 110207, 110081, 110223, 110258, 110435, 110494, 110250, 110241, 110075, 110290, 110160, 110134, 110208, 110228, 110184, 110251, 110095, 109943, 110013, 109992, 109976, 109943, 109943, 109943, 109942, 109935, 109935, 109935, 109935, 109909, 109909, 109220, 108727, 109029, 108847, 109016, 108679, 108549, 108549, 108758, 108629, 108625, 108620, 108711, 108864, 108846, 108738, 108666, 108594, 108540, 108441, 108573, 108534, 108500, 108548, 108366, 108361, 108290, 108290, 108250, 108137, 108072, 108101, 108110, 108186, 108123, 108112, 108075, 108213, 108304][i] || 0
+    })).filter(item => item.value !== 0);
+
+    sp500Series.setData(sp500Data);
+    q1Series.setData(q1Data);
+    medianSeries.setData(medianData);
+    q3Series.setData(q3Data);
+
+    chart.timeScale().fitContent();
 
     window.addEventListener('resize', () => {
-        myLineChart.resize();
+        chart.applyOptions({
+            width: chartContainer.offsetWidth,
+            height: chartContainer.offsetHeight
+        });
     });
-</script>
 
-<!-- Search Functionality -->
-<script>
     // get the input element
     const searchInput = document.getElementById('accountSearch');
 
@@ -3352,7 +3331,6 @@
         });
     });
 </script>
-
 
 </body>
 

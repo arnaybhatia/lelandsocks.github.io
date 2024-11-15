@@ -70,7 +70,7 @@ def make_index_page():
 
             # Format timestamp for label
             date_time_str = (timestamp - timedelta(hours=3)).strftime(
-                "%H:%M:%S %m-%d-%Y"
+                "%Y-%m-%d"  # Changed format to yyyy-mm-dd
             )
             labels.append(date_time_str)
 
@@ -206,7 +206,7 @@ def make_index_page():
             sp500_prices=sp500_prices,  # Add S&P 500 prices
             zip=zip,
         )
-        print("all done with the index page")
+        # print("all done with the index page")
         return rendered
 
 
@@ -251,7 +251,7 @@ def make_user_page(player_name):
 
             # Format timestamp
             date_time_str = (timestamp - timedelta(hours=3)).strftime(
-                "%H:%M:%S %m-%d-%Y"
+                "%Y-%m-%d"  # Changed format to yyyy-mm-dd
             )
             labels.append(date_time_str)
 
@@ -370,7 +370,7 @@ def make_user_pages(usernames):
         for file, timestamp in zip(leaderboard_files, timestamps):
             # Process datetime for label
             date_time_str = (timestamp - timedelta(hours=3)).strftime(
-                "%H:%M:%S %m-%d-%Y"
+                "%Y-%m-%d"  # Changed format to yyyy-mm-dd
             )
             labels.append(date_time_str)
 
