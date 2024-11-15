@@ -130,7 +130,7 @@
     const portfolioData = labels.map((timeStr, i) => {
         const date = new Date(timeStr);
         // Convert to PST
-        const pstDate = new Date(date.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+        const pstDate = convertTZ(date, 'America/Los_Angeles');
         return {
             time: Math.floor(pstDate.getTime() / 1000),
             value: money[i] || 0
@@ -140,7 +140,7 @@
     const sp500ChartData = labels.map((timeStr, i) => {
         const date = new Date(timeStr);
         // Convert to PST
-        const pstDate = new Date(date.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+        const pstDate = convertTZ(date, 'America/Los_Angeles');
         return {
             time: Math.floor(pstDate.getTime() / 1000),
             value: sp500Data[i] || 0
