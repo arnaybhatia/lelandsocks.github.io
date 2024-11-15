@@ -109,7 +109,7 @@ def make_index_page():
         if raw_timestamps:
             start_date = min(raw_timestamps).date()
             end_date = max(raw_timestamps).date() + timedelta(days=1)
-            sp500 = yf.download("SPY", start=start_date, end=end_date, interval="1h")
+            sp500 = yf.download("SPY", start=start_date, end=end_date, interval="30m")
 
             # Get initial S&P 500 price
             initial_date = start_date
