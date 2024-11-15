@@ -3,14 +3,11 @@
 {% block title %}Player Statistics{% endblock %}
 
 {% block content %}
-<h1 class="text-center text-4xl"><a href="{{ investopedia_link }}"
-        class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
-        target="_blank">{{ player_name }}</a>'s Statistics</h1>
+<h1 class="text-center text-4xl"><a href="{{ investopedia_link }}" class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600" target="_blank">{{ player_name }}</a>'s Statistics</h1>
 
 {% if player_name == 'teachermiller' %}
 <div class="flex justify-center mt-4">
-    <img src="/static/miller.jpg" alt="Mr. Miller"
-        class="w-48 h-48 rounded-full object-cover">
+    <img src="/static/miller.jpg" alt="Mr. Miller" class="w-48 h-48 rounded-full object-cover">
 </div>
 {% endif %}
 
@@ -23,16 +20,11 @@
     </div>
 </div>
 <div class="text-center mt-2 space-x-2">
-    <button class="uk-button uk-button-default" id="resetZoom">Reset
-        Zoom</button>
-    <button class="uk-button uk-button-default time-range"
-        data-days="1">1D</button>
-    <button class="uk-button uk-button-default time-range"
-        data-days="7">1W</button>
-    <button class="uk-button uk-button-default time-range"
-        data-days="30">1M</button>
-    <button class="uk-button uk-button-default time-range"
-        data-days="365">1Y</button>
+    <button class="uk-button uk-button-default" id="resetZoom">Reset Zoom</button>
+    <button class="uk-button uk-button-default time-range" data-days="1">1D</button>
+    <button class="uk-button uk-button-default time-range" data-days="7">1W</button>
+    <button class="uk-button uk-button-default time-range" data-days="30">1M</button>
+    <button class="uk-button uk-button-default time-range" data-days="365">1Y</button>
 </div>
 
 <!-- Add stocks table -->
@@ -51,8 +43,7 @@
                 {% for stock in player_stocks %}
                 <tr class="hover:bg-gray-50">
                     <td class="border px-4 py-2 text-center">{{ stock[0] }}</td>
-                    <td class="border px-4 py-2 text-center">${{
-                        '{:,.2f}'.format(stock[1]) }}</td>
+                    <td class="border px-4 py-2 text-center">${{ '{:,.2f}'.format(stock[1]) }}</td>
                     <td class="border px-4 py-2 text-center
                         {% if stock[2] >= 0 %}text-green-600{% else %}text-red-600{% endif %}">
                         {{ '{:+.2f}'.format(stock[2]) }}%
@@ -67,9 +58,6 @@
 
 {% block scripts %}
 <script>
-    function convertTZ(date, tzString) {
-        return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
-    }
     const chartContainer = document.getElementById('chartContainer');
     const chartOptions = {
         width: chartContainer.offsetWidth,
