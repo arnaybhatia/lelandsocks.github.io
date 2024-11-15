@@ -207,6 +207,21 @@
 
     const labels = {{ labels | safe }};
     
+    // Helper function to convert UTC to PST
+    function convertToPST(timeStr) {
+        const date = new Date(timeStr);
+        return date.toLocaleString('en-US', {
+            timeZone: 'America/Los_Angeles',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        }).replace(/(\d+)\/(\d+)\/(\d+)/, '$3-$1-$2');
+    }
+
     // Define all series first
     const sp500Series = chart.addAreaSeries({
         lineColor: '#FF6384',
@@ -236,38 +251,26 @@
         lineWidth: 2,
     });
 
-    // Create and process data with proper timestamps
-    const sp500Data = labels.map((timeStr, i) => {
-        const date = new Date(timeStr);
-        return {
-            time: Math.floor(date.getTime() / 1000),
-            value: {{ sp500_prices | safe }}[i] || 0
-        };
-    }).filter(item => item.value !== 0);
+    // Create and process data with proper PST timestamps
+    const sp500Data = labels.map((timeStr, i) => ({
+        time: convertToPST(timeStr),
+        value: {{ sp500_prices | safe }}[i] || 0
+    })).filter(item => item.value !== 0);
 
-    const q1Data = labels.map((timeStr, i) => {
-        const date = new Date(timeStr);
-        return {
-            time: Math.floor(date.getTime() / 1000),
-            value: {{ q1_monies | safe }}[i] || 0
-        };
-    }).filter(item => item.value !== 0);
+    const q1Data = labels.map((timeStr, i) => ({
+        time: convertToPST(timeStr),
+        value: {{ q1_monies | safe }}[i] || 0
+    })).filter(item => item.value !== 0);
 
-    const medianData = labels.map((timeStr, i) => {
-        const date = new Date(timeStr);
-        return {
-            time: Math.floor(date.getTime() / 1000),
-            value: {{ median_monies | safe }}[i] || 0
-        };
-    }).filter(item => item.value !== 0);
+    const medianData = labels.map((timeStr, i) => ({
+        time: convertToPST(timeStr),
+        value: {{ median_monies | safe }}[i] || 0
+    })).filter(item => item.value !== 0);
 
-    const q3Data = labels.map((timeStr, i) => {
-        const date = new Date(timeStr);
-        return {
-            time: Math.floor(date.getTime() / 1000),
-            value: {{ q3_monies | safe }}[i] || 0
-        };
-    }).filter(item => item.value !== 0);
+    const q3Data = labels.map((timeStr, i) => ({
+        time: convertToPST(timeStr),
+        value: {{ q3_monies | safe }}[i] || 0
+    })).filter(item => item.value !== 0);
 
     // Sort all data arrays
     sp500Data.sort((a, b) => a.time - b.time);
