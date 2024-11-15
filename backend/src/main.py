@@ -274,17 +274,16 @@ async def main():
             with open(file_name, "w") as file:
                 json.dump(account_values, file)
 
-        elif os.environ.get("DONT_UPDATE") == "True":
+            # Update index.html
+            with open("index.html", "w") as file:
+                file.write(make_index_page())
+
+            # Read usernames and generate all pages at once
+            with open("./backend/portfolios/usernames.txt", "r") as file:
+                usernames = [user.strip() for user in file.readlines()]
+                make_user_pages(usernames)
+        else:
             print("Update disabled")
-
-        # Update index.html
-        with open("index.html", "w") as file:
-            file.write(make_index_page())
-
-        # Read usernames and generate all pages at once
-        with open("./backend/portfolios/usernames.txt", "r") as file:
-            usernames = [user.strip() for user in file.readlines()]
-            make_user_pages(usernames)
 
 
 if __name__ == "__main__":
