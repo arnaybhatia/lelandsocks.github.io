@@ -77,8 +77,6 @@ async def compare_stock_changes(channel):
             previous_data = json.load(f)
         with open("./backend/leaderboards/leaderboard-latest.json", "r") as f:
             current_data = json.load(f)
-
-        any_changes = False
         # Compare holdings for each user
         for username in current_data:
             if username not in previous_data:
@@ -93,7 +91,6 @@ async def compare_stock_changes(channel):
             removed_stocks = previous_stocks - current_stocks
 
             if new_stocks or removed_stocks:
-                any_changes = True
                 description = ""
                 for stock in new_stocks:
                     description += f"+ Bought {stock}\n"
@@ -107,9 +104,6 @@ async def compare_stock_changes(channel):
                     timestamp=get_pst_time(),
                 )
                 await channel.send(embed=embed)
-
-        if not any_changes:
-            print("no stock changes", datetime.datetime.now())
 
         # Update the snapshot with current data after comparison
         with open(snapshot_path, "w") as f:
