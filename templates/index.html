@@ -243,9 +243,9 @@
     const sp500Data = labels.map((timeStr, i) => {
         const date = new Date(timeStr);
         // Convert to PST
-        const pstDate = convertTZ(date, 'America/Los_Angeles');
+        //const pstDate = convertTZ(date, 'America/Los_Angeles');
         return {
-            time: Math.floor(pstDate.getTime() / 1000),
+            time: Math.floor(date.getTime() / 1000),
             value: {{ sp500_prices | safe }}[i] || 0
         };
     }).filter(item => item.value !== 0);
@@ -253,9 +253,9 @@
     const q1Data = labels.map((timeStr, i) => {
         const date = new Date(timeStr);
         // Convert to PST
-        const pstDate = convertTZ(date, 'America/Los_Angeles');
+        //const pstDate = convertTZ(date, 'America/Los_Angeles');
         return {
-            time: Math.floor(pstDate.getTime() / 1000),
+            time: Math.floor(date.getTime() / 1000),
             value: {{ q1_monies | safe }}[i] || 0
         };
     }).filter(item => item.value !== 0);
@@ -263,9 +263,9 @@
     const medianData = labels.map((timeStr, i) => {
         const date = new Date(timeStr);
         // Convert to PST
-        const pstDate = convertTZ(date, 'America/Los_Angeles');
+        // const pstDate = convertTZ(date, 'America/Los_Angeles');
         return {
-            time: Math.floor(pstDate.getTime() / 1000),
+            time: Math.floor(date.getTime() / 1000),
             value: {{ median_monies | safe }}[i] || 0
         };
     }).filter(item => item.value !== 0);
@@ -273,9 +273,9 @@
     const q3Data = labels.map((timeStr, i) => {
         const date = new Date(timeStr);
         // Convert to PST
-        const pstDate = convertTZ(date, 'America/Los_Angeles');
+        // const pstDate = convertTZ(date, 'America/Los_Angeles');
         return {
-            time: Math.floor(pstDate.getTime() / 1000),
+            time: Math.floor(date.getTime() / 1000),
             value: {{ q3_monies | safe }}[i] || 0
         };
     }).filter(item => item.value !== 0);
