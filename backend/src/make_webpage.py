@@ -68,10 +68,8 @@ def make_index_page():
             with open(file, "r") as f:
                 dict_leaderboard = json.load(f)
 
-            # Format timestamp for label
-            date_time_str = (timestamp - timedelta(hours=3)).strftime(
-                "%Y-%m-%d"  # Changed format to yyyy-mm-dd
-            )
+            # Format timestamp for label (with full UTC date-time info)
+            date_time_str = timestamp.strftime("%Y-%m-%dT%H:%M:%S")
             labels.append(date_time_str)
 
             # Get S&P 500 price for this date and convert to relative value from 100k investment

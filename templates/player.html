@@ -70,6 +70,9 @@
         rightPriceScale: {
             borderColor: '#d1d4dc',
         },
+        watermark: {
+            color: 'rgba(0, 0, 0, 0)',
+        },
     };
 
     const chart = LightweightCharts.createChart(document.getElementById('playerChart'), chartOptions);
@@ -92,15 +95,25 @@
     const money = {{ player_money | safe }};
     const sp500Data = {{ sp500_prices | safe }};
 
-    const portfolioData = labels.map((time, i) => ({
-        time: time,
-        value: money[i] || 0
-    })).filter(item => item.value !== 0);
+    const portfolioData = labels.map((timeStr, i) => {
+        const date = new Date(timeStr);
+        return {
+            time: Math.floor(date.getTime() / 1000),
+            value: money[i] || 0
+        };
+    }).filter(item => item.value !== 0);
 
-    const sp500ChartData = labels.map((time, i) => ({
-        time: time,
-        value: sp500Data[i] || 0
-    })).filter(item => item.value !== 0);
+    const sp500ChartData = labels.map((timeStr, i) => {
+        const date = new Date(timeStr);
+        return {
+            time: Math.floor(date.getTime() / 1000),
+            value: sp500Data[i] || 0
+        };
+    }).filter(item => item.value !== 0);
+
+    // Sort data by timestamp
+    portfolioData.sort((a, b) => a.time - b.time);
+    sp500ChartData.sort((a, b) => a.time - b.time);
 
     portfolioSeries.setData(portfolioData);
     sp500Series.setData(sp500ChartData);
