@@ -19,6 +19,9 @@
         <div id="playerChart"></div>
     </div>
 </div>
+<div class="text-center mt-2">
+    <button class="uk-button uk-button-default" id="resetZoom">Reset Zoom</button>
+</div>
 
 <!-- Add stocks table -->
 <div class="flex justify-center mt-8">
@@ -66,12 +69,24 @@
         timeScale: {
             timeVisible: true,
             borderColor: '#d1d4dc',
+            rightOffset: 5,
+            barSpacing: 10,
         },
         rightPriceScale: {
             borderColor: '#d1d4dc',
+            autoScale: true,
         },
         watermark: {
             color: 'rgba(0, 0, 0, 0)',
+        },
+        handleScale: {
+            mouseWheel: true,
+            pinch: true,
+        },
+        handleScroll: {
+            mouseWheel: true,
+            pressedMouseMove: true,
+            horzTouchDrag: true,
         },
     };
 
@@ -125,6 +140,12 @@
             width: chartContainer.offsetWidth,
             height: chartContainer.offsetHeight
         });
+    });
+
+    // Add reset zoom button functionality
+    document.getElementById('resetZoom').addEventListener('click', () => {
+        chart.timeScale().resetTimeScale();
+        chart.priceScale('right').resetPriceScale();
     });
 </script>
 {% endblock %}

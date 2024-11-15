@@ -170,12 +170,24 @@
         timeScale: {
             timeVisible: true,
             borderColor: '#d1d4dc',
+            rightOffset: 5,
+            barSpacing: 10,
         },
         rightPriceScale: {
             borderColor: '#d1d4dc',
+            autoScale: true,
         },
         watermark: {
             color: 'rgba(0, 0, 0, 0)',
+        },
+        handleScale: {
+            mouseWheel: true,
+            pinch: true,
+        },
+        handleScroll: {
+            mouseWheel: true,
+            pressedMouseMove: true,
+            horzTouchDrag: true,
         },
     };
 
@@ -251,20 +263,6 @@
     medianData.sort((a, b) => a.time - b.time);
     q3Data.sort((a, b) => a.time - b.time);
 
-    // Debug logging of raw and processed data
-    console.log('Raw data:');
-    console.log('Labels:', labels);
-    console.log('SP500:', {{ sp500_prices | safe }});
-    console.log('Q1:', {{ q1_monies | safe }});
-    console.log('Median:', {{ median_monies | safe }});
-    console.log('Q3:', {{ q3_monies | safe }});
-
-    console.log('\nProcessed data:');
-    console.log('SP500 Data:', sp500Data);
-    console.log('Q1 Data:', q1Data);
-    console.log('Median Data:', medianData);
-    console.log('Q3 Data:', q3Data);
-
     sp500Series.setData(sp500Data);
     q1Series.setData(q1Data);
     medianSeries.setData(medianData);
@@ -277,6 +275,12 @@
             width: chartContainer.offsetWidth,
             height: chartContainer.offsetHeight
         });
+    });
+
+    // Update reset zoom handler
+    document.getElementById('resetZoom').addEventListener('click', () => {
+        chart.timeScale().resetTimeScale();
+        chart.priceScale('right').resetPriceScale();
     });
 
     // get the input element
