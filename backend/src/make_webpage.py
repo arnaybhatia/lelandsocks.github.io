@@ -84,7 +84,9 @@ def make_index_page():
                 # If exact date not found, get the most recent previous date
                 previous_dates = sp500.index[sp500.index.date <= date_for_sp500]
                 if len(previous_dates) > 0:
-                    current_sp500_price = float(sp500.loc[previous_dates[-1], "Close"])
+                    current_sp500_price = float(
+                        sp500.loc[previous_dates[-1], "Close"].iloc[0]
+                    )
                     relative_return = current_sp500_price / initial_sp500_price
                     sp500_price = 100000 * relative_return
                 else:
