@@ -71,6 +71,9 @@
             borderColor: '#d1d4dc',
             rightOffset: 5,
             barSpacing: 10,
+            fixLeftEdge: true,
+            fixRightEdge: true,
+            secondsVisible: false,
         },
         rightPriceScale: {
             borderColor: '#d1d4dc',
@@ -82,11 +85,13 @@
         handleScale: {
             mouseWheel: true,
             pinch: true,
+            axisPressedMouseMove: true,
         },
         handleScroll: {
             mouseWheel: true,
             pressedMouseMove: true,
             horzTouchDrag: true,
+            vertTouchDrag: true,
         },
     };
 
@@ -144,8 +149,13 @@
 
     // Add reset zoom button functionality
     document.getElementById('resetZoom').addEventListener('click', () => {
-        chart.timeScale().resetTimeScale();
-        chart.priceScale('right').resetPriceScale();
+        chart.timeScale().fitContent();
+        chart.priceScale('right').applyOptions({
+            autoScale: true
+        });
     });
+
+    // Initial fit content
+    chart.timeScale().fitContent();
 </script>
 {% endblock %}
