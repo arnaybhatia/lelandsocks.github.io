@@ -79,7 +79,7 @@
 
 
 <br>
-<p class="text-center text-xl">Last updated 14:06:58 11-15-2024</p>
+<p class="text-center text-xl">Last updated 14:09:11 11-15-2024</p>
 <br>
 <div class="flex justify-center">
     <div class="w-4/5 h-[60vh]" id="chartContainer">
@@ -225,14 +225,10 @@
     // Helper function to convert UTC to PST with proper formatting
     function convertToPST(timeStr) {
         const date = new Date(timeStr);
-        const pstDate = date.toLocaleString('en-US', {
-            timeZone: 'America/Los_Angeles',
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit'
-        });
-        // Convert MM/DD/YYYY to YYYY-MM-DD
-        return pstDate.split('/').reverse().join('-');
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
     }
 
     const portfolioData = labels.map((timeStr, i) => ({
