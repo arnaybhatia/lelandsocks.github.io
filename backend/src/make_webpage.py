@@ -103,21 +103,30 @@ def make_index_page():
             date_time_str = file_name[len("leaderboard-") : -len(".json")]
             date_time = datetime.strptime(
                 date_time_str.replace("_", ":"), "%Y-%m-%d-%H:%M"
-            )
+            ).replace(tzinfo=ZoneInfo("America/Los_Angeles"))  # Add timezone info
             raw_timestamps.append(date_time)
 
         if raw_timestamps:
-            start_date = min(raw_timestamps).date()
-            end_date = max(raw_timestamps).date() + timedelta(days=1)
-            sp500 = yf.download("SPY", start=start_date, end=end_date, interval="2m")
+            start_date = min(raw_timestamps)
+            end_date = max(raw_timestamps)
+            # Add timezone info to yfinance download
+            sp500 = yf.download(
+                "SPY",
+                start=start_date.astimezone(
+                    ZoneInfo("America/New_York")
+                ),  # Convert to NY time for market hours
+                end=end_date.astimezone(ZoneInfo("America/New_York")),
+                interval="5m",
+            )
+            # Convert SP500 index to Pacific time
+            sp500.index = sp500.index.tz_convert("America/Los_Angeles")
 
-            # Get initial S&P 500 price
-            initial_date = start_date
-            while initial_sp500_price is None and initial_date <= end_date:
-                try:
-                    initial_sp500_price = float(sp500.loc[initial_date, "Close"])
-                except KeyError:
-                    initial_date += timedelta(days=1)
+            # Get initial S&P 500 price, looking at exact timestamps
+            initial_sp500_price = None
+            for timestamp in sorted(sp500.index):
+                if timestamp >= start_date:
+                    initial_sp500_price = float(sp500.loc[timestamp, "Close"])
+                    break
 
             if initial_sp500_price is None:
                 initial_sp500_price = float(sp500["Close"].iloc[0])
@@ -151,22 +160,15 @@ def make_index_page():
             raw_data["q3"].append(int(q3_money))
 
             # Get S&P 500 price for this timestamp
-            date_for_sp500 = timestamp.date()
-            print(date_for_sp500)
             try:
-                current_sp500_price = float(sp500.loc[date_for_sp500, "Close"])
+                # Find closest timestamp
+                closest_idx = sp500.index.get_indexer([timestamp], method="nearest")[0]
+                closest_time = sp500.index[closest_idx]
+                current_sp500_price = float(sp500.loc[closest_time, "Close"].iloc[0])
                 relative_return = current_sp500_price / initial_sp500_price
                 sp500_price = 100000 * relative_return
-            except KeyError:
-                previous_dates = sp500.index[sp500.index.date <= date_for_sp500]
-                if len(previous_dates) > 0:
-                    current_sp500_price = float(
-                        sp500.loc[previous_dates[-1], "Close"].iloc[0]
-                    )
-                    relative_return = current_sp500_price / initial_sp500_price
-                    sp500_price = 100000 * relative_return
-                else:
-                    sp500_price = None
+            except (KeyError, IndexError):
+                sp500_price = None
             raw_data["sp500"].append(sp500_price)
 
         # Generate complete set of 5-minute interval timestamps
@@ -338,25 +340,32 @@ def make_user_page(player_name):
             date_time_str = file_name[len("leaderboard-") : -len(".json")]
             date_time = datetime.strptime(
                 date_time_str.replace("_", ":"), "%Y-%m-%d-%H:%M"
-            )
+            ).replace(tzinfo=ZoneInfo("America/Los_Angeles"))  # Add timezone info
             timestamps.append(date_time)
 
         # Fetch S&P 500 data
-        start_date = min(timestamps).date()
-        end_date = max(timestamps).date() + timedelta(days=1)
-        sp500 = yf.download("SPY", start=start_date, end=end_date, interval="1h")
+        if timestamps:
+            start_date = min(timestamps)
+            end_date = max(timestamps)
+            # Add timezone info to yfinance download
+            sp500 = yf.download(
+                "SPY",
+                start=start_date.astimezone(ZoneInfo("America/New_York")),
+                end=end_date.astimezone(ZoneInfo("America/New_York")),
+                interval="5m",
+            )
+            # Convert SP500 index to Pacific time
+            sp500.index = sp500.index.tz_convert("America/Los_Angeles")
 
-        # Get initial S&P 500 price
-        initial_sp500_price = None
-        initial_date = start_date
-        while initial_sp500_price is None and initial_date <= end_date:
-            try:
-                initial_sp500_price = float(sp500.loc[initial_date, "Close"])
-            except KeyError:
-                initial_date += timedelta(days=1)
+            # Get initial S&P 500 price, looking at exact timestamps
+            initial_sp500_price = None
+            for timestamp in sorted(sp500.index):
+                if timestamp >= start_date:
+                    initial_sp500_price = float(sp500.loc[timestamp, "Close"])
+                    break
 
-        if initial_sp500_price is None:
-            initial_sp500_price = float(sp500["Close"].iloc[0])
+            if initial_sp500_price is None:
+                initial_sp500_price = float(sp500["Close"].iloc[0])
 
         # Process each file
         for file, timestamp in zip(leaderboard_files, timestamps):
@@ -368,21 +377,15 @@ def make_user_page(player_name):
             labels.append(date_time_str)
 
             # Get S&P 500 price
-            date_for_sp500 = timestamp.date()
             try:
-                current_sp500_price = float(sp500.loc[date_for_sp500, "Close"])
+                # Find closest timestamp
+                closest_idx = sp500.index.get_indexer([timestamp], method="nearest")[0]
+                closest_time = sp500.index[closest_idx]
+                current_sp500_price = float(sp500.loc[closest_time, "Close"])
                 relative_return = current_sp500_price / initial_sp500_price
                 sp500_price = 100000 * relative_return
-            except KeyError:
-                previous_dates = sp500.index[sp500.index.date <= date_for_sp500]
-                if len(previous_dates) > 0:
-                    current_sp500_price = float(
-                        sp500.loc[previous_dates[-1], "Close"].iloc[0]
-                    )
-                    relative_return = current_sp500_price / initial_sp500_price
-                    sp500_price = 100000 * relative_return
-                else:
-                    sp500_price = None
+            except (KeyError, IndexError):
+                sp500_price = None
             sp500_prices.append(sp500_price)
 
             # Process player data
