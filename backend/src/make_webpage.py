@@ -467,7 +467,7 @@ def make_user_pages(usernames):
         # Fetch S&P 500 data
         start_date = min(timestamps).date()
         end_date = max(timestamps).date() + timedelta(days=1)
-        sp500 = yf.download("SPY", start=start_date, end=end_date, interval="1h")
+        sp500 = yf.download("SPY", start=start_date, end=end_date, interval="5m")
 
         # Get initial S&P 500 price
         initial_sp500_price = None
