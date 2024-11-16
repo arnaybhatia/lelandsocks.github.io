@@ -71,6 +71,15 @@
             <button class="uk-button uk-button-default time-range" data-days="30">1M</button>
             <button class="uk-button uk-button-default time-range" data-days="365">1Y</button>
         </div>
+        <!-- Add legend container below the chart -->
+        <div id="legend" class="text-center mt-2 space-x-2">
+            <span class="legend-item" data-series="sp500Series" style="color: #FF6384; cursor: pointer;">S&P 500</span>
+            <span class="legend-item" data-series="q1Series" style="color: #9966FF; cursor: pointer;">Q1 Money</span>
+            <span class="legend-item" data-series="medianSeries" style="color: #FFCE56; cursor: pointer;">Median Money</span>
+            <span class="legend-item" data-series="q3Series" style="color: #FF9F40; cursor: pointer;">Q3 Money</span>
+            <span class="legend-item" data-series="lowSeries" style="color: #36A2EB; cursor: pointer; opacity: 0.5;">Low Money</span>
+            <span class="legend-item" data-series="highSeries" style="color: #FF6384; cursor: pointer; opacity: 0.5;">High Money</span>
+        </div>
     </div>
     <!-- Vertical Summary Statistics Table -->
     <div class="w-full md:w-1/4 p-4 md:h-3/4">
@@ -240,6 +249,23 @@
         lineWidth: 2,
     });
 
+    // Define Low and High series with initial visibility set to false
+    const lowSeries = chart.addAreaSeries({
+        lineColor: '#36A2EB',
+        topColor: 'rgba(54, 162, 235, 0.4)',
+        bottomColor: 'rgba(54, 162, 235, 0.1)',
+        lineWidth: 2,
+        visible: false
+    });
+
+    const highSeries = chart.addAreaSeries({
+        lineColor: '#FF6384',
+        topColor: 'rgba(255, 99, 132, 0.4)',
+        bottomColor: 'rgba(255, 99, 132, 0.1)',
+        lineWidth: 2,
+        visible: false
+    });
+
     // Create and process data with proper timestamps
     const sp500Data = labels.map((timeStr, i) => {
         const date = new Date(timeStr);
@@ -281,16 +307,41 @@
         };
     }).filter(item => item.value !== 0);
 
+    // Create and process data for Low and High series
+    const lowData = labels.map((timeStr, i) => {
+        const date = new Date(timeStr);
+        // Convert to PST
+        const pstDate = convertTZ(date, 'America/Los_Angeles');
+        return {
+            time: Math.floor(pstDate.getTime() / 1000),
+            value: {{ low_monies | safe }}[i] || 0
+        };
+    }).filter(item => item.value !== 0);
+
+    const highData = labels.map((timeStr, i) => {
+        const date = new Date(timeStr);
+        // Convert to PST
+        const pstDate = convertTZ(date, 'America/Los_Angeles');
+        return {
+            time: Math.floor(pstDate.getTime() / 1000),
+            value: {{ high_monies | safe }}[i] || 0
+        };
+    }).filter(item => item.value !== 0);
+
     // Sort all data arrays
     sp500Data.sort((a, b) => a.time - b.time);
     q1Data.sort((a, b) => a.time - b.time);
     medianData.sort((a, b) => a.time - b.time);
     q3Data.sort((a, b) => a.time - b.time);
+    lowData.sort((a, b) => a.time - b.time);
+    highData.sort((a, b) => a.time - b.time);
 
     sp500Series.setData(sp500Data);
     q1Series.setData(q1Data);
     medianSeries.setData(medianData);
     q3Series.setData(q3Data);
+    lowSeries.setData(lowData);
+    highSeries.setData(highData);
 
     chart.timeScale().fitContent();
 
@@ -322,6 +373,43 @@
             });
         });
     });
+
+    // Store series visibility status
+    const seriesVisibility = {
+        sp500Series: true,
+        q1Series: true,
+        medianSeries: true,
+        q3Series: true,
+        lowSeries: false,
+        highSeries: false
+    };
+
+    // Add event listeners to legend items
+    document.querySelectorAll('.legend-item').forEach(item => {
+        const seriesName = item.getAttribute('data-series');
+        if (!seriesVisibility[seriesName]) {
+            item.style.opacity = 0.5;
+        }
+        item.addEventListener('click', () => {
+            seriesVisibility[seriesName] = !seriesVisibility[seriesName];
+            const series = window[seriesName];
+            if (seriesVisibility[seriesName]) {
+                series.applyOptions({ visible: true });
+                item.style.opacity = 1;
+            } else {
+                series.applyOptions({ visible: false });
+                item.style.opacity = 0.5;
+            }
+        });
+    });
+
+    // Expose series to global scope for toggling
+    window.sp500Series = sp500Series;
+    window.q1Series = q1Series;
+    window.medianSeries = medianSeries;
+    window.q3Series = q3Series;
+    window.lowSeries = lowSeries;
+    window.highSeries = highSeries;
 
     // get the input element
     const searchInput = document.getElementById('accountSearch');

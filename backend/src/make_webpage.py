@@ -220,6 +220,7 @@ def make_index_page():
                         raw_timestamps, raw_timestamps, raw_data["sp500"], timestamp
                     )
                 )
+
         else:
             # If no data, initialize empty lists
             labels = []
@@ -320,6 +321,8 @@ def make_index_page():
             q3_monies=q3_monies,
             stock_cnt=stock_cnt,
             sp500_prices=sp500_prices,  # Add S&P 500 prices
+            low_monies=min_monies,
+            high_monies=max_monies,
             zip=zip,
         )
         # print("all done with the index page")
